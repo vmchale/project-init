@@ -1,0 +1,5 @@
+# vim-example
+
+## Installation
+
+## Configuration
