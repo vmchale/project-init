@@ -80,7 +80,10 @@ fn main() {
             subdir.push_str(&dir) ; 
             fs::create_dir(subdir) } ).count();
 
-    let project_hash = HashBuilder::new().insert("project",project);
+    //get year
+    let year = now().tm_year;
+
+    let project_hash = HashBuilder::new().insert("project",project).insert("year", year + 1900);
     let substitutions: Vec<String> = parsed_template.files.expect("need some files").into_iter()
                                .map(|file| { let mut o = Cursor::new(Vec::new());
                                    project_hash.render(&file, &mut o).unwrap();
@@ -92,12 +95,42 @@ fn main() {
             full_path.push_str(&path) ; 
             File::create(full_path) } ).count();
 
-    //Command::new("git init "
+    let templates: Vec<String> = parsed_template.templates.clone().expect("need some templates").into_iter()
+        .map(|file| { let mut p = project.to_string() ;
+            p.push('/') ;
+            p.push_str(&file) ;
+            p } ).collect();
+
+    let templates_new: Vec<String> = parsed_template.templates.expect("need some templates").into_iter()
+        .map(|file| { let mut p = project.to_string() ;
+            p.push('/') ;
+            p.push_str(&name) ;
+            p } ).collect();
+
+    let template_files: Vec<String> = templates.into_iter()
+        .map(|p| { 
+            let template_f = File::open(p) ;
+            let mut t = String::new();
+            template_f.expect("Failed to open file")
+                .read_to_string(&mut t)
+                .expect("File read failed.");
+            t }).collect();
+
+    let s: Vec<String> = template_files.clone().into_iter()
+                               .map(|file| { let mut o = Cursor::new(Vec::new());
+                                   project_hash.render(&file, &mut o).unwrap();
+                                   String::from_utf8(o.into_inner()).unwrap()}).collect();
+
+    let files_to_write = templates_new.iter().zip(s.iter());
+    let _ = files_to_write.into_iter()
+        .map(|(path, contents)| { 
+            println!("{}",path) ;
+            let mut c = File::create(path).expect("File create failed.") ;
+            c.write(contents.as_bytes()) } ).count();
+
+    //Command::new("git init ".push_str(project))
     //        .spawn()
     //        .expect("git failed to initialize.");
-
-    //get year
-    let year = now().tm_year;
 
     // Renders the license string
     let data = HashBuilder::new().insert("name", decoded.author.expect("no author").name).insert("year", year + 1900);

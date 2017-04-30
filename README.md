@@ -26,6 +26,6 @@ on that later), and it will initialize a git repository
 ## Templates
 
 `pi` uses [mustache](https://mustache.github.io/) for templating, via the
-[rustache](https://github.com/rustache/rustache) crate. 
+[rustache](https://github.com/rustache/rustache) crate.
 
 You can find examples and help on the [mustache page](https://mustache.github.io/).
