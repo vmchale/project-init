@@ -3,26 +3,36 @@
 
 #[macro_use] extern crate serde_derive;
 extern crate toml;
+extern crate time;
+extern crate core;
 
 use std::fs::File;
 use std::io::prelude::*;
 use std::fs;
-use std::process::Command;
+use core::fmt;
+use time::now;
 
 pub mod types;
+pub mod repo;
+pub mod render;
 
-pub fn git_init(name: &str) -> () {
-    Command::new("sh")
-            .args(&["git init", name])
-            //.stderr(std::process::Stdio::null())
-            .spawn()
-            .expect("git failed to initialize.");
-    ()
+// Formatter for our date struct.
+impl fmt::Display for types::Date {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}-{}-{}", self.date.tm_mon, self.date.tm_mday, self.date.tm_year)
+    }
 }
 
-// Trait allowing us to create dirs/templates/files
+// Trait allowing us to create dirs/templates/files.
 pub trait Create {
     fn create_dirs(&self, name: &str) -> ();
+}
+
+// Get current date.
+pub fn get_date() -> types::Date {
+    let mut t = now();
+    t.tm_year = t.tm_year + 1900;
+    types::Date { date: t } 
 }
 
 // Create directories given a Vec<String> of directory names
