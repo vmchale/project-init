@@ -26,9 +26,9 @@ struct Config {
 
 #[derive(Debug, Deserialize)]
 struct Directory {
-    files: Vec<String>,
-    directories: Vec<String>,
-    templates: Vec<String>,
+    files: Option<Vec<String>>,
+    directories: Option<Vec<String>>,
+    templates: Option<Vec<String>>,
 }
 
 fn main() {
@@ -48,6 +48,20 @@ fn main() {
         .expect("File read failed");
     let decoded: Config = toml::from_str(&toml_str).unwrap();
     println!("{:#?}", decoded);
+
+    // read template.toml
+    let mut template_path = matches
+        .value_of("directory")
+        .expect("Failed to supply a required argument").to_string();
+    template_path.push_str("/template.toml");
+    println!("{}",template_path);
+    let template_file = File::open(template_path);
+    let mut template = String::new();
+    template_file.expect("Failed to open file")
+        .read_to_string(&mut template)
+        .expect("File read failed");
+    let parsed_template: Directory = toml::from_str(&template).unwrap();
+    println!("{:#?}", parsed_template);
     
     // get directory
     if let Some(command) = matches.subcommand_matches("send") {
