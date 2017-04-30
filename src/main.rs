@@ -102,9 +102,9 @@ fn main() {
             p } ).collect();
 
     let templates_new: Vec<String> = parsed_template.templates.expect("need some templates").into_iter()
-        .map(|file| { let mut p = project.to_string() ;
+        .map(|file| { let mut p = name.to_string() ;
             p.push('/') ;
-            p.push_str(&name) ;
+            p.push_str(&file) ;
             p } ).collect();
 
     let template_files: Vec<String> = templates.into_iter()
