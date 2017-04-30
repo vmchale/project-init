@@ -26,7 +26,7 @@ fn main() {
     path.push(".pi.toml");
 
     // read config file
-    let decoded: Config = read_toml_config(path); //toml::from_str(&toml_str).unwrap();
+    let decoded: Config = read_toml_config(path);
 
     // get project directory
     let project = matches
@@ -44,7 +44,9 @@ fn main() {
     // Make a hash for inserting stuff into templates.
     let hash = HashBuilder::new().insert("project",project)
         .insert("year", year + 1900)
-        .insert("name", decoded.author.expect("no author").name);
+        .insert("name", decoded.author.expect("no author").name)
+        .insert("version", decoded.version.expect("no author").version)
+        .insert("email", decoded.author.expect("no author").email);
    
     // read template.toml
     let mut template_path = project.to_string();
@@ -53,11 +55,10 @@ fn main() {
     
     // create directories
     let _ = fs::create_dir(name);
-    let _ = parsed_template.directories.expect("need some directories").into_iter()
-        .map(|dir| { let mut subdir = name.to_string() ; 
-            subdir.push('/') ;
-            subdir.push_str(&dir) ; 
-            fs::create_dir(subdir) } ).count();
+    let _ = 
+        if let Some(dirs) = parsed_template.directories {
+            dirs.create_dirs(name);
+        };
 
     let substitutions: Vec<String> = parsed_template.files.expect("need some files").into_iter()
                                .map(|file| { let mut o = Cursor::new(Vec::new());
@@ -80,7 +81,7 @@ fn main() {
         .map(|file| { let mut p = name.to_string() ;
             p.push('/') ;
             p.push_str(&file) ;
-            p } ).collect();
+            p }).collect();
 
     let template_files: Vec<String> = templates.into_iter()
         .map(|p| { 
@@ -102,9 +103,11 @@ fn main() {
             let mut c = File::create(path).expect("File create failed.") ;
             c.write(contents.as_bytes()) } ).count();
 
-    //Command::new("git init ".push_str(project))
-    //        .spawn()
-    //        .expect("git failed to initialize.");
+    Command::new("sh")
+            .args(&["git init", name])
+            .stderr(std::process::Stdio::null())
+            .spawn()
+            .expect("git failed to initialize.");
 
     // Renders the license string
     let mut out = Cursor::new(Vec::new());

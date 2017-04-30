@@ -1,3 +1,4 @@
-- [ ] define config syntax
-- [ ] use interpolations for actual templates
-- [ ] be faster than python
+- [x] define config syntax
+- [x] use interpolations for actual templates
+- [x] be faster than python
+- [ ] benchmarks
