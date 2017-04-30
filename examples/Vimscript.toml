@@ -1,0 +1,8 @@
+[files]
+files = ["file1","file2"]
+
+[directories]
+directories = ["doc/","syntax/"]
+
+[templates]
+files = ["LICENSE"]

@@ -1,0 +1,21 @@
+[package]
+name = "project_init"
+version = "0.1.0"
+authors = ["Vanessa McHale <tmchale@wisc.edu>"]
+license-file = "LICENSE"
+exclude = [ ".gitignore" ]
+readme = "README.md"
+repository = "https://github.com/vmchale/project-init"
+documentation = "https://github.com/vmchale/project-init#README"
+homepage = "https://github.com/vmchale/project-init"
+
+[dependencies]
+toml = "0.3"
+clap = "2.23"
+rustache = "0.1"
+serde_derive = "0.9"
+serde = "0.9"
+
+[[bin]]
+name = "tw"
+path = "src/main.rs"
