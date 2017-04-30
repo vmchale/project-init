@@ -1,11 +1,12 @@
 #[macro_use] extern crate serde_derive;
 #[macro_use] extern crate clap;
 
+extern crate time;
 extern crate toml;
 extern crate rustache;
 
 use rustache::{HashBuilder, Render};
-use toml::Value;
+use time::now;
 use std::io::Cursor;
 use std::io::prelude::*;
 use std::fs::File;
@@ -47,7 +48,6 @@ fn main() {
     file.read_to_string(&mut toml_str)
         .expect("File read failed");
     let decoded: Config = toml::from_str(&toml_str).unwrap();
-    println!("{:#?}", decoded);
 
     // read template.toml
     let mut template_path = matches
@@ -61,17 +61,25 @@ fn main() {
         .read_to_string(&mut template)
         .expect("File read failed");
     let parsed_template: Directory = toml::from_str(&template).unwrap();
-    println!("{:#?}", parsed_template);
-    
-    // get directory
-    if let Some(command) = matches.subcommand_matches("send") {
-        let send_str = command.value_of("words")
-            .expect("Could not parse user input. Please check the string is correctly formatted");
-    }
+   
+    // get project name
+    let project = matches
+        .value_of("directory")
+        .expect("Failed to supply a required argument");
+
+    let project_hash = HashBuilder::new().insert("project",project);
+    let substitutions: Vec<String> = parsed_template.files.expect("need some files").into_iter()
+                               .map(|file| { let mut o = Cursor::new(Vec::new());
+                                   project_hash.render(&file, &mut o).unwrap();
+                                   String::from_utf8(o.into_inner()).unwrap()}).collect();
+    println!("{:?}",substitutions);
+
+    //get year
+    let year = now().tm_year;
 
     // Renders the given template string
-    let data = HashBuilder::new().insert("name", "Vanessa McHale");
+    let data = HashBuilder::new().insert("name", "Vanessa McHale").insert("year", year + 1900);
     let mut out = Cursor::new(Vec::new());
-    data.render("Hello {{ name }}", &mut out).unwrap();
+    data.render("Copyright {{ name }} (c) {{ year }}", &mut out).unwrap();
     println!("{}", String::from_utf8(out.into_inner()).unwrap());
 }
