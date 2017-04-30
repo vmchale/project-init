@@ -1,3 +1,8 @@
+[files]
 files = ["syntax/{{ project }}.vim","plugin/{{ project }}.vim","doc/{{ project }}.txt"]
 directories = ["doc","syntax","plugin"]
 templates = ["LICENSE","README.md"]
+
+[config]
+name_github_repo = true
+version_control = "git"

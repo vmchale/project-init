@@ -7,8 +7,18 @@ extern crate toml;
 use std::fs::File;
 use std::io::prelude::*;
 use std::fs;
+use std::process::Command;
 
 pub mod types;
+
+pub fn git_init(name: &str) -> () {
+    Command::new("sh")
+            .args(&["git init", name])
+            //.stderr(std::process::Stdio::null())
+            .spawn()
+            .expect("git failed to initialize.");
+    ()
+}
 
 // Trait allowing us to create dirs/templates/files
 pub trait Create {
@@ -27,7 +37,7 @@ impl <T:ToString>Create for Vec<T> {
 }
 
 // Given a filepath, read the .toml file there as containing the directories/templates.
-pub fn read_toml_dir(template_path: &str) -> types::Directory {
+pub fn read_toml_dir(template_path: &str) -> types::Project {
     let mut template_file = File::open(template_path)
         .expect("File could not be opened");
     let mut template = String::new();

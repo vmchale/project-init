@@ -19,3 +19,15 @@ pub struct Directory {
     pub directories: Option<Vec<String>>,
     pub templates: Option<Vec<String>>,
 }
+
+#[derive(Debug, Deserialize)]
+pub struct ProjectConfig {
+    pub name_github_repo: bool,
+    pub version_control: Option<String>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Project {
+    pub files: Directory,
+    pub config: Option<ProjectConfig>,
+}
