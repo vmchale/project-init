@@ -1,0 +1,8 @@
+[directories]
+directories = ["doc","syntax","plugin"]
+
+[files]
+files = ["syntax/{{ project }}.vim","plugin/{{ project }}.vim"]
+
+[templates]
+files = ["LICENSE","README.md"]
