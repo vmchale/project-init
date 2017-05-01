@@ -2,3 +2,4 @@
 - [x] use interpolations for actual templates
 - [x] be faster than python
 - [ ] benchmarks
+- [ ] use try!() for unwraps?

@@ -1,5 +1,6 @@
 license = "BSD3"
 version_control = "git"
+version = "0.1.0"
 
 [author]
 name = "Vanessa McHale"

@@ -75,7 +75,7 @@ fn main() {
         };
 
     // Make a hash for inserting stuff into templates.
-    let hash = HashBuilder::new().insert("project",project)
+    let hash = HashBuilder::new().insert("project",name)
         .insert("year", year)
         .insert("name", author.name.clone())
         .insert("version", version.clone())
@@ -98,26 +98,26 @@ fn main() {
 
     let files =
         if let Some(files_pre) = parsed_dirs.files {
-            // substitute into file names using templates
+            println!("pre: {:?}", files_pre);
             let substitutions: Vec<String> = files_pre.into_iter()
                                        .map(|file| { let mut o = Cursor::new(Vec::new());
                                            hash.render(&file, &mut o).unwrap();
-                                           String::from_utf8(o.into_inner()).unwrap() })
-                                       .collect();
+                                           String::from_utf8(o.into_inner()).unwrap()}).collect();
 
-            // create files
+            println!("substitutions: {:?}", substitutions);
             let _ = substitutions.clone().into_iter()
-                .map(|path| { let mut full_path = name.to_string(); 
-                    full_path.push('/');
-                    full_path.push_str(&path); 
-                    File::create(full_path) })
-                .count();
+                .map(|path| { let mut full_path = name.to_string() ; 
+                    full_path.push('/') ;
+                    full_path.push_str(&path) ; 
+                    File::create(full_path) } ).count();
 
             let s: Vec<Data> = substitutions.into_iter()
-                .map(|string| Data::from(string)).collect();
-            // return substitutions since we can't create vectors in a hash builder??
-            //substitutions
-            VecBuilder::new().push(Data::from(s))
+                .map(|string| Data::from(HashBuilder::new()
+                                         .insert("filename",Data::from(string))))
+                .collect();
+
+            VecBuilder::new()
+            //VecBuilder { data: s }
         }
         else {
             VecBuilder::new()
