@@ -1,5 +1,7 @@
 # project init (pi)
 
+[![Build Status](https://travis-ci.org/vmchale/project-init.svg?branch=master)](https://travis-ci.org/vmchale/project-init)
+
 This is intended to provide something similar to
 [cookiecutter](https://github.com/audreyr/cookiecutter), albeit faster. It is
 somewhat more limited that cookiecutter, but for most users the difference will

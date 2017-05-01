@@ -98,13 +98,11 @@ fn main() {
 
     let files =
         if let Some(files_pre) = parsed_dirs.files {
-            println!("pre: {:?}", files_pre);
             let substitutions: Vec<String> = files_pre.into_iter()
                                        .map(|file| { let mut o = Cursor::new(Vec::new());
                                            hash.render(&file, &mut o).unwrap();
                                            String::from_utf8(o.into_inner()).unwrap()}).collect();
 
-            println!("substitutions: {:?}", substitutions);
             let _ = substitutions.clone().into_iter()
                 .map(|path| { let mut full_path = name.to_string() ; 
                     full_path.push('/') ;
