@@ -39,7 +39,8 @@ pub fn render_templates(project: &str, name: &str, hash: HashBuilder, templates_
             .map(|p| { 
                 let template_f = File::open(p) ;
                 let mut t = String::new();
-                template_f.expect("Failed to open file")
+                let s = "Failed to open file".to_string();
+                template_f.expect(&s)
                     .read_to_string(&mut t)
                     .expect("File read failed.");
                 t }).collect();

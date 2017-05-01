@@ -4,15 +4,15 @@
 
 This is intended to provide something similar to
 [cookiecutter](https://github.com/audreyr/cookiecutter), albeit faster. It is
-somewhat more limited that cookiecutter, but for most users the difference will
-be imperceptible (though it *will* be noticeably faster!).
+somewhat more limited that cookiecutter, but for most users the differences will
+be imperceptible (aside speed, of course).
 
 Cool benchmarks (with Haskell's [bench](https://github.com/Gabriel439/bench)):
 
-| Tool | Language | Time (vim example plugin) |
-| ---- | -------- | ------------------------- |
-| pi | Rust | 10.10 ms |
-| cookiecutter | Python | 317.1 ms |
+| Tool | Language | Time (vim example plugin) | Time (rust library) |
+| ---- | -------- | ------------------------- | ------------------- |
+| pi | Rust | 10.10 ms | 8.809 ms
+| cookiecutter | Python | 317.1 ms | 316.9 ms |
 
 You can find a bash script to benchmark them in `bash/bench`
 

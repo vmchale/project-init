@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform}:
+{ stdenv, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   name = "pi-${version}";

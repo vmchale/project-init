@@ -110,8 +110,7 @@ fn main() {
                     File::create(full_path) } ).count();
 
             let s: Vec<Data> = substitutions.into_iter()
-                .map(|string| Data::from(string))//Data::from(HashBuilder::new()
-                              //           .insert("filename",Data::from(string))))
+                .map(|string| Data::from(string))
                 .collect();
 
             VecBuilder { data: s }

@@ -1,5 +1,6 @@
 - [x] define config syntax
 - [x] use interpolations for actual templates
 - [x] be faster than python
-- [ ] benchmarks
+- [x] benchmarks
+  - [ ] more besides the vim one
 - [ ] use try!() for unwraps?
