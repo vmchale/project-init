@@ -14,6 +14,7 @@ Cool benchmarks (with Haskell's [bench](https://github.com/Gabriel439/bench)):
 | pi | Rust | 317.1 ms |
 | cookiecutter | Python | 10.10 ms |
 
+You can find a bash script to benchmark them in `bash/bench`
 
 Reasons to use pi:
   - Templates are smaller. Define files you need in a `.toml` rather than an
