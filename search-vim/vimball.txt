@@ -1,0 +1,4 @@
+syntax/search-vim.vim
+plugin/search-vim.vim
+doc/search-vim.txt
+

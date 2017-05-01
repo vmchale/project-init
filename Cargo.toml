@@ -13,12 +13,10 @@ homepage = "https://github.com/vmchale/project-init"
 toml = "0.4"
 clap = {version = "2.23", features = ["yaml"]}
 time = "0.1"
+rustache-lists = "0.1.0"
 serde_derive = "1.0"
 serde = "1.0"
 text_io = "0.1"
-
-[dependencies.rustache]
-git = "https://github.com/vmchale/rustache.git"
 
 [[bin]]
 name = "pi"
