@@ -19,7 +19,7 @@ You can find a bash script to benchmark them in `bash/bench`
 Reasons to use pi:
   - Templates are smaller. Define files you need in a `.toml` rather than an
     entire directory tree.
-  - *Fast*. pi _30x faster_ than cookiecutter when rendering the sample vim
+  - *Fast*. pi **30x faster** than cookiecutter when rendering the sample vim
     plugin template.
   - pi uses mustache, a logic-less language that has libraries for *many* other
     languages. That means that you can manipulate your pi templates in other
