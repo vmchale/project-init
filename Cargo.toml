@@ -2,6 +2,7 @@
 name = "project_init"
 version = "0.1.0"
 authors = ["Vanessa McHale <tmchale@wisc.edu>"]
+description = "Initialize projects from a template. Fast"
 license-file = "LICENSE"
 exclude = [ ".gitignore" ]
 readme = "README.md"
