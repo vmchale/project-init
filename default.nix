@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   name = "pi-${version}";
-  version = "0.1.1";
+  version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "vmchale";
     repo = "project-init";
     rev = "${version}";
-    sha256 = "1hwn6xkhayld23zjr11cv5rwa0a3rfxq2lri1bfkkw1q8h6dis9d";
+    sha256 = "0nvdba0z5h0digpyjiq25s9gynl32wfbw1kfzbga6qq5bf9h3b6m";
     };
 
   depsSha256 = "1lg1jh6f9w28i94vaj62r859g6raalxmxabvw7av6sqr0hr56p05";

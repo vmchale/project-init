@@ -1,5 +1,0 @@
-# plugin-vim
-
-## Installation
-
-## Configuration

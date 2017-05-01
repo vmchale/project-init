@@ -1,0 +1,3 @@
+#!/bin/bash
+bench "cookiecutter examples/cookiecutter-vim/ --no-input -f" -o cookiecutter.html
+bench "pi examples/vim-plugin plugin-vim" -o pi.html
