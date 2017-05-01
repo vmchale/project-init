@@ -25,7 +25,8 @@ Reasons to use pi:
     languages. That means that you can manipulate your pi templates in other
     languages.
   - pi can initialize a git or mercurial repository inside your new project
-Reasons not to use pi:
+
+Reasons to not use pi:
   - pi does not (currently) fetch templates remotely.
   - pi uses logic-less templates, which are not as sophisticated as the
     [jinja](http://jinja.pocoo.org/) templates that cookiecutter uses.
