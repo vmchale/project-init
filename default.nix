@@ -6,9 +6,9 @@ rustPlatform.buildRustPackage rec {
 
   src = fetchFromGitHub {
     owner = "vmchale";
-    repo = "project_init";
+    repo = "project-init";
     rev = "${version}";
-    sha256 = "1s1gk2wcs3792gdzrngksczz3gma5kv02ni2jqrhib8l6z8mg9ia";
+    sha256 = "1msm6pfxqrcwfhz71q1zdh7krm0s4pagsaqwr91h5vas9cff6h09";
     };
 
   depsSha256 = "1lg1jh6f9w28i94vaj62r859g6raalxmxabvw7av6sqr0hr56p05";

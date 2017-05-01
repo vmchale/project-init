@@ -1,4 +1,4 @@
-# {{ project }}
+# vim-plugin/
 
 ## Installation
 

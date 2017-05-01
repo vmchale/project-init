@@ -7,38 +7,49 @@ This is intended to provide something similar to
 somewhat more limited that cookiecutter, but for most users the difference will
 be imperceptible (though it *will* be noticeably faster!).
 
+Cool benchmarks (with Haskell's [bench](https://github.com/Gabriel439/bench)):
+
+| Tool | Language | Time (vim example plugin) |
+| ---- | -------- | ------------------------- |
+| pi | Rust | 317.1 ms |
+| cookiecutter | Python | 10.10 ms |
+
+
 Reasons to use pi:
   - Templates are smaller. Define files you need in a `.toml` rather than an
     entire directory tree.
-  - *Fast*. pi is much faster than cookiecutter, even when used locally.
+  - *Fast*. pi _30x faster_ than cookiecutter when rendering the sample vim
+    plugin template.
   - pi uses mustache, a logic-less language that has libraries for *many* other
     languages. That means that you can manipulate your pi templates in other
-    languages, if you'd like.
+    languages.
+  - pi can initialize a git or mercurial repository inside your new project
 Reasons not to use pi:
   - pi does not (currently) fetch templates remotely.
-  - pi uses logic-less templates
-  - pi does not allow custom keys to be set in config files. This can be
-    inconvenient.
+  - pi uses logic-less templates, which are not as sophisticated as the
+    [jinja](http://jinja.pocoo.org/) templates that cookiecutter uses.
+  - pi is a work in progress. This might mean you run into some bugs.
 
-## Configuration
+## Use
+
+For use examples, check out `examples/vim-plugin`
+
+### Configuration
 
 Configuration is via the `~/.pi.toml` file. The following is an example:
 
 ```toml
-[author]
-name = "Vanessa McHale"
-email = "tmchale@wisc.edu"
-github_username = "vmchale"
+[files]
+files = ["syntax/{{ project }}.vim","plugin/{{ project }}.vim","doc/{{ project }}.txt"]
+directories = ["doc","syntax","plugin"]
+templates = ["LICENSE","README.md","vimball.txt"]
 
-[version]
+[config]
 version = "0.1.0"
-version-control = "git"
+version_control = "git"
 ```
 
-This will make the variable `name` available in the mustache templates (more
-on that later), and it will initialize a git repository 
-
-## Templates
+### Templates
 
 `pi` uses [mustache](https://mustache.github.io/) for templating, via the
 [rustache](https://github.com/rustache/rustache) crate.
