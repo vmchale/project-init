@@ -1,0 +1,8 @@
+{
+	"full_name": "Vanessa McHale",
+	"email": "tmchale@wisc.edu",
+	"project_name": "plugin-vim",
+	"project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+	"version": "0.1.0",
+        "year": "2017"
+}
