@@ -116,8 +116,7 @@ fn main() {
                                          .insert("filename",Data::from(string))))
                 .collect();
 
-            VecBuilder::new()
-            //VecBuilder { data: s }
+            VecBuilder { data: s }
         }
         else {
             VecBuilder::new()
