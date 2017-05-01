@@ -11,8 +11,8 @@ Cool benchmarks (with Haskell's [bench](https://github.com/Gabriel439/bench)):
 
 | Tool | Language | Time (vim example plugin) |
 | ---- | -------- | ------------------------- |
-| pi | Rust | 317.1 ms |
-| cookiecutter | Python | 10.10 ms |
+| pi | Rust | 10.10 ms |
+| cookiecutter | Python | 317.1 ms |
 
 You can find a bash script to benchmark them in `bash/bench`
 
