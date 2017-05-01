@@ -8,7 +8,6 @@ extern crate core;
 
 use std::fs::File;
 use std::io::prelude::*;
-use std::fs;
 use core::fmt;
 use time::now;
 
@@ -23,27 +22,11 @@ impl fmt::Display for types::Date {
     }
 }
 
-// Trait allowing us to create dirs/templates/files.
-pub trait Create {
-    fn create_dirs(&self, name: &str) -> ();
-}
-
 // Get current date.
 pub fn get_date() -> types::Date {
     let mut t = now();
     t.tm_year = t.tm_year + 1900;
     types::Date { date: t } 
-}
-
-// Create directories given a Vec<String> of directory names
-impl <T:ToString>Create for Vec<T> {
-    fn create_dirs(&self, name: &str) -> () {
-    self.into_iter()
-        .map(|dir| { let mut subdir = name.to_string() ;
-            subdir.push('/') ;
-            subdir.push_str(&dir.to_string()) ;
-            fs::create_dir(subdir) } ).count();
-    }
 }
 
 // Given a filepath, read the .toml file there as containing the directories/templates.

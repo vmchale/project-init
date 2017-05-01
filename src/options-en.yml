@@ -4,14 +4,14 @@ author: Vanessa McHale <tmchale@wisc.edu>
 about: Initialize projects from a template (using rust). 
 args:
     - directory:
-        value_name: DIRECTORY
-        help: Path to directory containing your template.
+        value_name: TEMPLATE_DIR
+        help: Directory containing your template.
         index: 1
         takes_value: true
         required: true
     - name:
         value_name: NAME
-        help: Project name
+        help: Project name to be used for project directory
         index: 2
         takes_value: true
         required: true
