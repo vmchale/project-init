@@ -127,7 +127,26 @@ fn main() {
         .insert("email", author.email)
         .insert("files", files)
         .insert("date", get_date().to_string());
-  
+    // TODO insert user keys as well!
+ 
+    //fn convert(toml: Toml) -> Json {
+    //match toml {
+        //Toml::String(s) => Json::String(s),
+        //Toml::Integer(i) => Json::Number(i.into()),
+        //Toml::Float(f) => {
+            //let n = serde_json::Number::from_f64(f)
+                        //.expect("float infinite and nan not allowed");
+            //Json::Number(n)
+        //}
+        //Toml::Boolean(b) => Json::Bool(b),
+        //Toml::Array(arr) => Json::Array(arr.into_iter().map(convert).collect()),
+        //Toml::Table(table) => Json::Object(table.into_iter().map(|(k, v)| {
+            //(k, convert(v))
+        //}).collect()),
+        //Toml::Datetime(dt) => Json::String(dt.to_string()),
+    //}
+//}
+
     // render templates
     render_templates(project, name, hash_with_files, parsed_dirs.templates);
 
