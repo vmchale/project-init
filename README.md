@@ -32,6 +32,24 @@ Reasons to not use pi:
     [jinja](http://jinja.pocoo.org/) templates that cookiecutter uses.
   - pi is a work in progress. This might mean you run into some bugs.
 
+## Installation
+
+### Binary releases
+
+You can find binaries on the 
+[release](https://github.com/vmchale/project-init/releases) page. Unfortunately, 
+I can only create binaries for x64 linux, ARM linux, and 64-bit Windows at this time.
+
+### Cargo
+
+First, install [cargo](https://rustup.rs/). Then type:
+
+```bash
+ $ cargo install project_init
+```
+
+and cargo will install pi for you. 
+
 ## Use
 
 For use examples, check out `examples/vim-plugin`
@@ -50,6 +68,18 @@ templates = ["LICENSE","README.md","vimball.txt"]
 version = "0.1.0"
 version_control = "git"
 ```
+
+You can also set your defaults (e.g. name, email) in `~/.pi.toml`. The following is an example:
+
+```bash
+version_control = "git"
+
+[author]
+name = "Vanessa McHale"
+email = "vamchale@gmail.com"
+```
+
+This says your preferred version control is `git`, and sets your name & email.
 
 ### Templates
 
