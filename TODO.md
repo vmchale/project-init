@@ -2,5 +2,10 @@
 - [x] use interpolations for actual templates
 - [x] be faster than python
 - [x] benchmarks
-  - [ ] more besides the vim one
-- [ ] use try!() for unwraps?
+  - [x] more besides the vim one
+- [ ] extra templates
+  - [x] vim
+  - [x] rust
+  - [ ] haskell
+- [ ] call templates by name?
+- [ ] user fields
