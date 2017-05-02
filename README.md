@@ -5,9 +5,8 @@
 This is a command-line utility written in rust that initializes projects based
 on templates.
 It is intended to provide something similar to
-[cookiecutter](https://github.com/audreyr/cookiecutter), albeit faster. It is
-somewhat more limited that cookiecutter, but for most users the differences will
-be imperceptible (aside speed, of course).
+[cookiecutter](https://github.com/audreyr/cookiecutter), but faster. It is
+more limited that cookiecutter, but for most users this shouldnt matter. 
 
 Cool benchmarks (with Haskell's [bench](https://github.com/Gabriel439/bench)):
 
