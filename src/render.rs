@@ -55,8 +55,8 @@ pub fn render_templates(project: &str, name: &str, hash: HashBuilder, templates_
 
         // subtitute into template names
         let templates_named: Vec<String> = templates_new.into_iter()
-                                   .map(|name| { let mut o = Cursor::new(Vec::new());
-                                       hash.render(&name, &mut o).unwrap();
+                                   .map(|n| { let mut o = Cursor::new(Vec::new());
+                                       hash.render(&n, &mut o).unwrap();
                                        String::from_utf8(o.into_inner()).unwrap() })
                                    .collect();
 

@@ -6,7 +6,7 @@
 - [ ] extra templates
   - [x] vim
   - [x] rust
-  - [ ] nim
+  - [x] nim
   - [ ] haskell
 - [ ] built-in licenses
   - [ ] bsd3
@@ -19,10 +19,10 @@
 - [ ] add keys
   - [ ] full date 
   - [ ] user-defined keys
-  - [ ] github username
+  - [x] github username
   - [ ] github repo name
   - [ ] set version control globally
   - [ ] set preferred license globally
-  - [ ] always ask user for missing keys
+  - [x] ask user for missing keys
 - [ ] ask before overwriting directories
   - [ ] --force or -f to overwrite anyways

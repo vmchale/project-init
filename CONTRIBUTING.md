@@ -9,7 +9,7 @@ contributors have.
 If you'd like ideas for ways to contribute, check out `TODO.md`. Feel free to
 open a PR or an issue if you want guidance on how to implement something.
 
-## Rules
+## Rules etc.
 As a reminder, we follow the [rust standards of
 conduct](https://www.rust-lang.org/en-US/conduct.html), with the addendum that
 we are committed to providing a friendly, safe and welcoming environment

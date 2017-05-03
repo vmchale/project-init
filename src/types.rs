@@ -12,6 +12,7 @@ pub struct Date {
 pub struct Author {
     pub name: String,
     pub email: String,
+    pub github_username: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]

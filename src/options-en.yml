@@ -15,3 +15,8 @@ args:
         index: 2
         takes_value: true
         required: true
+    - force:
+        short: f
+        long: force
+        help: Initialize project even if directory already exists.
+        
