@@ -6,6 +6,7 @@
 - [ ] extra templates
   - [x] vim
   - [x] rust
+  - [ ] nim
   - [ ] haskell
 - [ ] built-in licenses
   - [ ] bsd3
