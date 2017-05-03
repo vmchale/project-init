@@ -26,6 +26,7 @@ pub struct Directory {
     pub files: Option<Vec<String>>,
     pub directories: Option<Vec<String>>,
     pub templates: Option<Vec<String>>,
+    pub scripts: Option<Vec<String>>,
 }
 
 #[derive(Debug, Deserialize, Clone)]

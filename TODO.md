@@ -7,5 +7,21 @@
   - [x] vim
   - [x] rust
   - [ ] haskell
+- [ ] built-in licenses
+  - [ ] bsd3
+  - [ ] mit
+  - [ ] gnu
+  - [ ] all rights reserved
 - [ ] call templates by name?
-- [ ] user fields
+- [ ] add travis ci badges to readmes
+- [ ] add field for scripts (initialized with +x)
+- [ ] add keys
+  - [ ] full date 
+  - [ ] user-defined keys
+  - [ ] github username
+  - [ ] github repo name
+  - [ ] set version control globally
+  - [ ] set preferred license globally
+  - [ ] always ask user for missing keys
+- [ ] ask before overwriting directories
+  - [ ] --force or -f to overwrite anyways

@@ -137,7 +137,9 @@ fn main() {
     //}
 
     // render templates
-    render_templates(project, name, hash_with_files, parsed_dirs.templates);
+    render_templates(project, name, hash_with_files, parsed_dirs.templates, false);
+
+    render_templates(project, name, hash, parsed_dirs.scripts, true);
 
     // initialize version control
     if let Some(config) = parsed_config {

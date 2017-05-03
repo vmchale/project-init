@@ -6,6 +6,7 @@ use std::fs::File;
 use std::io::Cursor;
 use self::rustache::{HashBuilder, Render};
 use std::io::prelude::*;
+use std::os::unix::fs::PermissionsExt;
 
 // Trait allowing us to create dirs/templates/files.
 pub trait Create {
@@ -24,7 +25,7 @@ impl <T:ToString>Create for Vec<T> {
 }
 
 ///! render an <Vec<String> of templates, or do nothing
-pub fn render_templates(project: &str, name: &str, hash: HashBuilder, templates_pre: Option<Vec<String>>) -> () {
+pub fn render_templates(project: &str, name: &str, hash: HashBuilder, templates_pre: Option<Vec<String>>, executable: bool) -> () {
     if let Some(t) = templates_pre {
 
         // create Vec<T> of paths to templates
@@ -72,7 +73,14 @@ pub fn render_templates(project: &str, name: &str, hash: HashBuilder, templates_
             .map(|(path, contents)| { 
                 let mut c = File::create(path)
                     .expect("File create failed.");
-                c.write(contents.as_bytes()) }
-                ).count();
+                let _ = c.write(contents.as_bytes());
+                if executable {
+                        let mut p = fs::metadata(path).expect("failed to read file metadata")
+                            .permissions();
+                        p.set_mode(0o755);
+                        let _ = fs::set_permissions(path, p);
+                };
+            }
+            ).count();
     }
 }
