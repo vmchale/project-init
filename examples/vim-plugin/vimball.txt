@@ -1,4 +1,1 @@
-syntax/vim-plugin.vim
-plugin/vim-plugin.vim
-doc/vim-plugin.txt
-
+{{ files }}
