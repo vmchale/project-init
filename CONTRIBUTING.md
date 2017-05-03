@@ -4,6 +4,12 @@ We emphatically welcome bug reports, issues you may encounter, documentation, an
 requests, though whether we will incorporate them depends on how much time
 contributors have.
 
+## Getting started
+
+If you'd like ideas for ways to contribute, check out `TODO.md`. Feel free to
+open a PR or an issue if you want guidance on how to implement something.
+
+## Rules
 As a reminder, we follow the [rust standards of
 conduct](https://www.rust-lang.org/en-US/conduct.html), with the addendum that
 we are committed to providing a friendly, safe and welcoming environment
