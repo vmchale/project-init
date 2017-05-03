@@ -53,6 +53,7 @@ fn main() {
     let parsed_dirs = parsed_toml.files;
     let parsed_config = parsed_toml.config;
     
+    // create author struct
     let author = 
         if let Some(aut) = decoded.author {
             aut 
@@ -63,6 +64,7 @@ fn main() {
             Author { name: nam, email: ema, github_username: None }
         };
         
+    // set version
     let version = 
         if let Some(config) = parsed_config.clone() {
             if let Some(v) = config.version {
@@ -76,6 +78,7 @@ fn main() {
             "0.1.0".to_string()
         };
 
+    // set github username to null if it's not provided
     let github_username = 
         if let Some(uname) = author.github_username {
             uname
@@ -169,6 +172,14 @@ fn main() {
             else if vc == "hc" || vc == "mercurial" {
                 repo::hg_init(name);
             }
+        }
+    }
+    else if let Some(vc) = decoded.version_control {
+        if vc == "git" {
+            repo::git_init(name);
+        }
+        else if vc == "hc" || vc == "mercurial" {
+            repo::hg_init(name);
         }
     }
 

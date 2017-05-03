@@ -80,6 +80,7 @@ version_control = "git"
 [author]
 name = "Vanessa McHale"
 email = "vamchale@gmail.com"
+github_username = "vmchale"
 ```
 
 This says your preferred version control is `git`, and sets your name & email.
