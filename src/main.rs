@@ -98,11 +98,7 @@ fn main() {
  
     // check if the directory exists, and exit if we haven't forced an override.
     if Path::new(name).exists() && force == false {
-<<<<<<< HEAD
         println!("Path '{}' already exists. Rerun with -f or --force to overwrite.", name);
-=======
-        println!("Path {} already exists. Rerun with -f or --force to overwrite.", name);
->>>>>>> 4bc8f7701348f29014d489f2fcd9c414b744b138
         std::process::exit(0x0f00);
     };
 
