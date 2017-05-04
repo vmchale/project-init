@@ -1,0 +1,24 @@
+[package]
+name = "project_init"
+version = "0.1.6"
+authors = ["Vanessa McHale <tmchale@wisc.edu>"]
+description = "Initialize projects from a template. Fast"
+license-file = "LICENSE"
+exclude = [ ".gitignore" ]
+readme = "README.md"
+repository = "https://github.com/vmchale/project-init"
+documentation = "https://github.com/vmchale/project-init#README"
+homepage = "https://github.com/vmchale/project-init"
+
+[dependencies]
+toml = "0.4"
+clap = {version = "2.23", features = ["yaml"]}
+time = "0.1"
+rustache-lists = "0.1.0"
+serde_derive = "1.0"
+serde = "1.0"
+text_io = "0.1"
+
+[[bin]]
+name = "pi"
+path = "src/main.rs"
