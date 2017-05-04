@@ -1,0 +1,22 @@
+name: Project Init (pi) 
+version: "0.1.0"
+author: Vanessa McHale <tmchale@wisc.edu>
+about: Initialize projects from a template (using rust). 
+args:
+    - directory:
+        value_name: TEMPLATE_DIR
+        help: Directory containing your template.
+        index: 1
+        takes_value: true
+        required: true
+    - name:
+        value_name: NAME
+        help: Project name to be used for project directory
+        index: 2
+        takes_value: true
+        required: true
+    - force:
+        short: f
+        long: force
+        help: Initialize project even if directory already exists.
+        

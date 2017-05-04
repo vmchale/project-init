@@ -1,0 +1,27 @@
+- [x] define config syntax
+- [x] use interpolations for actual templates
+- [x] be faster than python
+- [x] benchmarks
+  - [x] more besides the vim one
+- [ ] extra templates
+  - [x] vim
+  - [x] rust
+  - [x] nim/shake
+  - [ ] haskell
+- [ ] built-in licenses
+  - [ ] bsd3
+  - [ ] mit
+  - [ ] gnu
+  - [ ] all rights reserved
+- [ ] call templates by name?
+- [x] add field for scripts (initialized with +x)
+- [ ] add keys
+  - [ ] full date 
+  - [ ] user-defined keys
+  - [x] github username
+  - [ ] github repo name
+  - [x] set version control globally
+  - [ ] set preferred license globally
+  - [x] ask user for missing keys
+- [x] ask before overwriting directories
+  - [x] --force or -f to overwrite anyways
