@@ -25,7 +25,7 @@ impl <T:ToString>Create for Vec<T> {
 }
 
 ///! render an <Vec<String> of templates, or do nothing
-pub fn render_templates(project: &str, name: &str, hash: HashBuilder, templates_pre: Option<Vec<String>>, executable: bool) -> () {
+pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates_pre: Option<Vec<String>>, executable: bool) -> () {
     if let Some(t) = templates_pre {
 
         // create Vec<T> of paths to templates
@@ -83,4 +83,19 @@ pub fn render_templates(project: &str, name: &str, hash: HashBuilder, templates_
             }
             ).count();
     }
+}
+
+pub fn render_license(license: &'static str, name: &str, hash: &HashBuilder) -> () {
+    // render the template
+    let mut o = Cursor::new(Vec::new());
+    hash.render(&license, &mut o).unwrap();
+    let contents = String::from_utf8(o.into_inner()).unwrap();
+
+    // write the license
+    let mut p = name.to_string();
+    p.push_str("/LICENSE");
+    let mut c = File::create(p)
+        .expect("File create failed.");
+    let _ = c.write(contents.as_bytes());
+
 }

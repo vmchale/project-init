@@ -1,13 +1,5 @@
 //! This module contains the structs for the configuration files.
 
-extern crate time;
-
-use time::*;
-
-pub struct Date {
-    pub date: Tm,
-}
-
 #[derive(Debug, Deserialize)]
 pub struct Author {
     pub name: String,

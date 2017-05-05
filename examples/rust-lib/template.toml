@@ -1,6 +1,8 @@
+license = "BSD3"
+
 [files]
 directories = ["src"]
-templates = ["LICENSE","README.md","Cargo.toml","src/lib.rs"]
+templates = ["README.md","Cargo.toml","src/lib.rs"]
 
 [config]
 version = "0.1.0"

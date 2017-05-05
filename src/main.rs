@@ -16,6 +16,7 @@ use project_init::types::*;
 use project_init::render::*;
 use project_init::*;
 use std::path::Path;
+use time::strftime;
 
 fn main() {
 
@@ -32,6 +33,22 @@ fn main() {
     // read config file
     let decoded: Config = read_toml_config(path);
 
+    // set license if it's set
+    let license_contents =
+        if let Some(l) = decoded.license {
+            match l.as_str() {
+                "BSD3" => Some(includes::BSD3),
+                "BSD" => Some(includes::BSD),
+                "MIT" => Some(includes::MIT),
+                "GPL3" => Some(includes::GPL3),
+                "AllRightsReserved" => Some(includes::BSD3),
+                _ => { println!("Warning: requested license not found. Defaulting to AllRightsReserved") ; Some(includes::ALL_RIGHTS_RESERVED) }
+            }
+        }
+        else {
+            None
+        };
+
     // get project directory
     let project = matches
         .value_of("directory")
@@ -43,8 +60,9 @@ fn main() {
         .expect("Failed to supply a required argument");
 
     //get year
-    let now = get_date();
-    let year = now.date.tm_year;
+    let now = time::now();
+    let year = now.tm_year + 1900;
+    let current_date = strftime("%m-%d-%Y", &now).unwrap();
 
     // read template.toml
     let mut template_path = project.to_string();
@@ -90,11 +108,11 @@ fn main() {
     // Make a hash for inserting stuff into templates.
     let hash = HashBuilder::new().insert("project",name)
         .insert("year", year)
-        .insert("name", author.name.clone())
-        .insert("version", version.clone())
-        .insert("email", author.email.clone())
-        .insert("github_username", github_username.clone())
-        .insert("date", get_date().to_string());
+        .insert("name", author.name)
+        .insert("version", version)
+        .insert("email", author.email)
+        .insert("github_username", github_username)
+        .insert("date", current_date);
  
     // check if the directory exists, and exit if we haven't forced an override.
     if Path::new(name).exists() && force == false {
@@ -139,29 +157,20 @@ fn main() {
             VecBuilder::new()
         };
 
-    // Make a hash for inserting stuff into templates.
-    let hash_with_files = HashBuilder::new().insert("project",name)
-        .insert("year", year)
-        .insert("name", author.name)
-        .insert("version", version)
-        .insert("email", author.email)
-        .insert("files", files)
-        .insert("github_username", github_username.clone())
-        .insert("date", get_date().to_string());
-    // TODO insert user keys as well!
- 
-    //fn convert(toml: Toml) -> Json {
-    //match toml {
-        //Toml::Table(table) => Json::Object(table.into_iter().map(|(k, v)| {
-            //(k, convert(v))
-        //}).collect()),
-    //}
+    // create license if it was asked for
+    if let Some(lic) = license_contents {
+        render_license(lic, name, &hash);
+    }
 
+    // Make a hash for inserting stuff into templates.
+    let hash_with_files = &hash
+        .insert("files", files);
+ 
     // render templates
-    render_templates(project, name, hash_with_files, parsed_dirs.templates, false);
+    render_templates(project, name, &hash_with_files, parsed_dirs.templates, false);
 
     // render scripts, i.e. files that should be executable.
-    render_templates(project, name, hash, parsed_dirs.scripts, true);
+    render_templates(project, name, &hash_with_files, parsed_dirs.scripts, true);
 
     // initialize version control
     if let Some(config) = parsed_config {
