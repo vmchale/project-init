@@ -1,5 +1,0 @@
-# somethingf
-
-## Installation
-
-## Configuration

@@ -1,5 +1,0 @@
-# something
-
-## Installation
-
-## Configuration
