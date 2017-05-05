@@ -8,12 +8,16 @@
   - [x] rust
   - [x] nim/shake
   - [ ] haskell
-- [ ] built-in licenses
-  - [ ] bsd3
-  - [ ] mit
-  - [ ] gnu
-  - [ ] all rights reserved
+  - [ ] python
+- [x] built-in licenses
+  - [x] bsd3
+  - [x] mit
+  - [x] gnu
+  - [x] all rights reserved
 - [ ] call templates by name?
+  - [ ] rust
+  - [ ] haskell
+  - [ ] python
 - [x] add field for scripts (initialized with +x)
 - [ ] add keys
   - [x] full date 
