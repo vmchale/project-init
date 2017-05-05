@@ -47,7 +47,19 @@ fn main() {
     let year = now.tm_year + 1900;
     let current_date = strftime("%m-%d-%Y", &now).unwrap();
 
-    if let Some(matches_init) = matches.subcommand_matches("init") {
+    if let Some(matches_init) = matches.subcommand_matches("new") {
+
+        // get project name
+        let name = matches_init
+            .value_of("name")
+            .expect("Failed to supply project name");
+
+        // get project template type
+        let template_str = matches_init
+            .value_of("template")
+            .expect("Failed to supply project directory");
+    }
+    else if let Some(matches_init) = matches.subcommand_matches("init") {
 
         // get project name
         let name = matches_init

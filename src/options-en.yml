@@ -26,8 +26,13 @@ subcommands:
     - new:
         about: Use a built-in template
         args:
-            - name:
+            - template:
                 help: Template to be used, e.g. rust, vim
                 index: 1
                 takes_value: true
                 required: true
+            - name:
+                value_name: NAME
+                help: Project name to be used for project directory
+                index: 2
+                takes_value: true
