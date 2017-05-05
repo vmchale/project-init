@@ -3,6 +3,13 @@ version: "0.1.0"
 author: Vanessa McHale <tmchale@wisc.edu>
 about: Initialize projects from a template (using rust). 
 args:
+    #subcommands:
+    #- pre:
+    #    about: Use a prebuilt template 
+    #    args:
+    #        - screen_name:
+    #            help: Screen name of user
+    #            index: 1
     - directory:
         value_name: TEMPLATE_DIR
         help: Directory containing your template.

@@ -85,10 +85,20 @@ pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates
     }
 }
 
-pub fn render_file(license: &'static str, name: &str, filename: &str, hash: &HashBuilder) -> () {
+pub fn create_file(static_contents: &'static str, name: &str, filename: &str) -> () {
+    // write the file
+    let mut p = name.to_string();
+    p.push('/');
+    p.push_str(filename);
+    let mut c = File::create(p)
+        .expect("File create failed.");
+    let _ = c.write(static_contents.as_bytes());
+}
+
+pub fn render_file(static_template: &'static str, name: &str, filename: &str, hash: &HashBuilder) -> () {
     // render the template
     let mut o = Cursor::new(Vec::new());
-    hash.render(&license, &mut o).unwrap();
+    hash.render(&static_template, &mut o).unwrap();
     let contents = String::from_utf8(o.into_inner()).unwrap();
 
     // write the file

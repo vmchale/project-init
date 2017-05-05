@@ -30,6 +30,7 @@ pub struct ProjectConfig {
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Project {
+    pub license: Option<String>,
     pub with_readme: Option<bool>,
     pub files: Directory,
     pub config: Option<ProjectConfig>,

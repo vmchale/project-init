@@ -24,6 +24,8 @@ fn main() {
     let yaml = load_yaml!("options-en.yml");
     let matches = App::from_yaml(yaml).version(crate_version!()).get_matches();
     let force: bool = matches.occurrences_of("force") == 1 ;
+    
+    //else if let Some(command) = matches.subcommand_matches("view") {
 
     // set path to .pi.toml
     let mut path = std::env::home_dir()
@@ -32,22 +34,6 @@ fn main() {
 
     // read config file
     let decoded: Config = read_toml_config(path);
-
-    // set license if it's set
-    let license_contents =
-        if let Some(l) = decoded.license {
-            match l.as_str() {
-                "BSD3" => Some(includes::BSD3),
-                "BSD" => Some(includes::BSD),
-                "MIT" => Some(includes::MIT),
-                "GPL3" => Some(includes::GPL3),
-                "AllRightsReserved" => Some(includes::BSD3),
-                _ => { println!("Warning: requested license not found. Defaulting to AllRightsReserved") ; Some(includes::ALL_RIGHTS_RESERVED) }
-            }
-        }
-        else {
-            None
-        };
 
     // get project directory
     let project = matches
@@ -71,6 +57,32 @@ fn main() {
     let parsed_dirs = parsed_toml.files;
     let parsed_config = parsed_toml.config;
     
+    // set license if it's set
+    let license_contents =
+        if let Some(l) = decoded.license {
+            match l.as_str() {
+                "BSD3" => Some(includes::BSD3),
+                "BSD" => Some(includes::BSD),
+                "MIT" => Some(includes::MIT),
+                "GPL3" => Some(includes::GPL3),
+                "AllRightsReserved" => Some(includes::BSD3),
+                _ => { println!("Warning: requested license not found. Defaulting to AllRightsReserved") ; Some(includes::ALL_RIGHTS_RESERVED) }
+            }
+        }
+        else if let Some(l) = parsed_toml.license {
+            match l.as_str() {
+                "BSD3" => Some(includes::BSD3),
+                "BSD" => Some(includes::BSD),
+                "MIT" => Some(includes::MIT),
+                "GPL3" => Some(includes::GPL3),
+                "AllRightsReserved" => Some(includes::BSD3),
+                _ => { println!("Warning: requested license not found. Defaulting to AllRightsReserved") ; Some(includes::ALL_RIGHTS_RESERVED) }
+            }
+        }
+        else {
+            None
+        };
+
     // create author struct
     let author = 
         if let Some(aut) = decoded.author {
