@@ -159,13 +159,20 @@ fn main() {
 
     // create license if it was asked for
     if let Some(lic) = license_contents {
-        render_license(lic, name, &hash);
+        render_file(lic, name, "LICENSE", &hash);
+    }
+
+    // render readme if requested
+    if let Some(readme) = parsed_toml.with_readme {
+        if readme == true {
+            render_file(includes::README, name, "README.md", &hash);
+        }
     }
 
     // Make a hash for inserting stuff into templates.
     let hash_with_files = &hash
         .insert("files", files);
- 
+
     // render templates
     render_templates(project, name, &hash_with_files, parsed_dirs.templates, false);
 

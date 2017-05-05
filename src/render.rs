@@ -85,15 +85,16 @@ pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates
     }
 }
 
-pub fn render_license(license: &'static str, name: &str, hash: &HashBuilder) -> () {
+pub fn render_file(license: &'static str, name: &str, filename: &str, hash: &HashBuilder) -> () {
     // render the template
     let mut o = Cursor::new(Vec::new());
     hash.render(&license, &mut o).unwrap();
     let contents = String::from_utf8(o.into_inner()).unwrap();
 
-    // write the license
+    // write the file
     let mut p = name.to_string();
-    p.push_str("/LICENSE");
+    p.push('/');
+    p.push_str(filename);
     let mut c = File::create(p)
         .expect("File create failed.");
     let _ = c.write(contents.as_bytes());

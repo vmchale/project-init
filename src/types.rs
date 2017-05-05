@@ -9,9 +9,9 @@ pub struct Author {
 
 #[derive(Debug, Deserialize)]
 pub struct Config {
-    pub license: Option<String>,
     pub version_control: Option<String>,
     pub author: Option<Author>,
+    pub license: Option<String>,
 }
 
 #[derive(Debug, Deserialize, Clone)]
@@ -30,6 +30,7 @@ pub struct ProjectConfig {
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Project {
+    pub with_readme: Option<bool>,
     pub files: Directory,
     pub config: Option<ProjectConfig>,
 }
