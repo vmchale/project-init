@@ -26,7 +26,7 @@ Reasons to not use pi over cookiecutter:
   - pi does not (currently) fetch templates remotely.
   - pi uses logic-less templates, which are not as sophisticated as the
     [jinja](http://jinja.pocoo.org/) templates that cookiecutter uses.
-  - pi is a work in progress. This might mean you run into some bugs.
+  - pi is a work in progress. This might mean you end up missing a feature.
 
 Cool benchmarks (with Haskell's [bench](https://github.com/Gabriel439/bench)):
 
@@ -55,7 +55,13 @@ and cargo will install pi for you.
 
 ## Use
 
-For use examples, check out `examples/vim-plugin`
+For use examples, check out `examples/vim-plugin`. 
+
+Bash commands:
+
+```bash
+pi init path/to/template/dir/ new-project
+```
 
 ### Configuration
 

@@ -1,5 +1,7 @@
 //! This module contains the structs for the configuration files.
 
+/// Struct for the author. This is read from the global 
+/// configuration that resides at $HOME/.pi.toml
 #[derive(Debug, Deserialize)]
 pub struct Author {
     pub name: String,
@@ -7,6 +9,7 @@ pub struct Author {
     pub github_username: Option<String>,
 }
 
+/// Struct for the global configuration at $HOME/.pi.toml
 #[derive(Debug, Deserialize)]
 pub struct Config {
     pub version_control: Option<String>,
@@ -14,6 +17,7 @@ pub struct Config {
     pub license: Option<String>,
 }
 
+/// Struct for directories, files, templates, and scripts to be created. 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Directory {
     pub files: Option<Vec<String>>,
@@ -22,12 +26,14 @@ pub struct Directory {
     pub scripts: Option<Vec<String>>,
 }
 
+/// Struct for project-specific configuration options
 #[derive(Debug, Deserialize, Clone)]
 pub struct ProjectConfig {
     pub version_control: Option<String>,
     pub version: Option<String>,
 }
 
+/// Struct for a project
 #[derive(Debug, Deserialize, Clone)]
 pub struct Project {
     pub license: Option<String>,

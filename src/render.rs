@@ -4,16 +4,55 @@ extern crate rustache;
 use std::fs;
 use std::fs::File;
 use std::io::Cursor;
-use self::rustache::{HashBuilder, Render};
+use self::rustache::*;
 use std::io::prelude::*;
 use std::os::unix::fs::PermissionsExt;
 
-// Trait allowing us to create dirs/templates/files.
+/// Trait allowing us to create dirs/templates/files.
 pub trait Create {
     fn create_dirs(&self, name: &str) -> ();
 }
 
-// Create directories given a Vec<String> of directory names
+/// Render a list of directories, substituting in templates 
+pub fn render_dirs (dirs_pre: Vec<String>, hash: &HashBuilder, name: &str) {
+    // substitute into directory names using templates
+    let dirs: Vec<String> = dirs_pre.into_iter()
+                               .map(|file| { let mut o = Cursor::new(Vec::new());
+                                   hash.render(&file, &mut o).unwrap();
+                                   String::from_utf8(o.into_inner()).unwrap() })
+                               .collect();
+
+    // create directories
+    dirs.create_dirs(name);
+} 
+
+/// Create all the files, and return a list of files that have been created suitable for insertion
+/// into a `HashBuilder`
+pub fn render_files<'a>(files_pre: Vec<String>, hash: &HashBuilder, name: &str) -> VecBuilder<'a> {
+    
+    // render filenames
+    let substitutions: Vec<String> = files_pre.into_iter()
+                               .map(|file| { let mut o = Cursor::new(Vec::new());
+                                   hash.render(&file, &mut o).unwrap();
+                                   String::from_utf8(o.into_inner()).unwrap()}).collect();
+
+    // write files 
+    let _ = substitutions.clone().into_iter()
+        .map(|path| { let mut full_path = name.to_string() ; 
+            full_path.push('/') ;
+            full_path.push_str(&path) ; 
+            File::create(full_path) } ).count();
+
+    // collect filenames
+    let s: Vec<Data> = substitutions.into_iter()
+        .map(|string| Data::from(string))
+        .collect();
+
+    // return a `VecBuilder` object.
+    VecBuilder { data: s }
+}
+    
+/// Create directories given a Vec<String> of directory names
 impl <T:ToString>Create for Vec<T> {
     fn create_dirs(&self, name: &str) -> () {
     self.into_iter()
@@ -24,7 +63,7 @@ impl <T:ToString>Create for Vec<T> {
     }
 }
 
-///! render an <Vec<String> of templates, or do nothing
+/// render a `<Vec<String>>` of templates, doing nothing if it's empty.
 pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates_pre: Option<Vec<String>>, executable: bool) -> () {
     if let Some(t) = templates_pre {
 
@@ -85,8 +124,8 @@ pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates
     }
 }
 
+/// Function to write a file from a static string
 pub fn create_file(static_contents: &'static str, name: &str, filename: &str) -> () {
-    // write the file
     let mut p = name.to_string();
     p.push('/');
     p.push_str(filename);
@@ -95,6 +134,7 @@ pub fn create_file(static_contents: &'static str, name: &str, filename: &str) ->
     let _ = c.write(static_contents.as_bytes());
 }
 
+/// Render a static string and write it to file
 pub fn render_file(static_template: &'static str, name: &str, filename: &str, hash: &HashBuilder) -> () {
     // render the template
     let mut o = Cursor::new(Vec::new());

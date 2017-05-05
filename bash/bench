@@ -1,6 +1,6 @@
 #!/bin/bash
 bench "cookiecutter examples/cookiecutter-vim --no-input -f" -o cookiecutter-vim.html
 bench "cookiecutter examples/cookiecutter-rust --no-input -f" -o cookiecutter-rust.html
-bench "pi -f examples/vim-plugin newproject" -o pi-vim.html
-bench "pi -f examples/rust-lib newproject" -o pi-rust.html
+bench "pi -f init examples/vim-plugin newproject" -o pi-vim.html
+bench "pi -f init examples/rust-lib newproject" -o pi-rust.html
 rm -rf newproject/

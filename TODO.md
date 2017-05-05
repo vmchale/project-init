@@ -19,6 +19,9 @@
   - [ ] haskell
   - [ ] python
 - [x] add field for scripts (initialized with +x)
+- [ ] throw a better error/don't panic when the file to be read doesn't exist
+  - [ ] warn + use empty otherwise?
+  - [x] no superfluous panics
 - [ ] add keys
   - [x] full date 
   - [ ] user-defined keys
