@@ -13,6 +13,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use toml::de;
 use colored::*;
+use std::path::PathBuf;
 
 pub mod types;
 pub mod repo;
@@ -20,19 +21,23 @@ pub mod includes;
 pub mod render;
 
 /// Given a filepath, read the .toml file there as containing the directories/templates.
-pub fn read_toml_dir(template_path: &str) -> types::Project {
-    let mut template_file =
+/// If no such file is found, read from global template directory in `$HOME/.pi_templates/`.
+pub fn read_toml_dir(template_path: &str, home: PathBuf) -> (types::Project, bool) {
+    let (mut template_file, is_global_template) =
         if let Ok(f) = File::open(&template_path) {
-            f
+            (f, false)
+        }
+        else if let Ok(f) = { let mut p = home ; p.push("/.pi_templates/") ; p.push(template_path) ; File::open(p) } {
+            (f, true)
         }
         else {
-            println!("File {:?} could not be opened. Check that it exists.", template_path);
+            println!("{}: File {:?} could not be opened. Check that it exists.", "Error".red(), template_path);
             std::process::exit(0x0f00);
         };
     let mut template = String::new();
     template_file.read_to_string(&mut template)
         .expect("Template file read failed");
-    read_toml_str(template, template_path)
+    (read_toml_str(template, template_path), is_global_template)
 }
 
 /// Read a string containing a toml file

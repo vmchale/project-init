@@ -1,6 +1,0 @@
-[package]
-name = "{{ cookiecutter.project_slug }}"
-version = "{{ cookiecutter.version }}"
-authors = ["{{ cookiecutter.full_name }} {{ cookiecutter.email }}"]
-
-[dependencies]

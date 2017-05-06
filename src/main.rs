@@ -8,8 +8,6 @@ extern crate rustache;
 extern crate project_init;
 extern crate colored;
 
-
-
 use colored::*;
 use rustache::*;
 use std::fs;
@@ -28,8 +26,9 @@ fn main() {
     let force: bool = matches.occurrences_of("force") == 1 ;
 
     // set path to .pi.toml
-    let mut path = std::env::home_dir()
+    let home = std::env::home_dir()
         .expect("Couldn't determine home directory.");
+    let mut path = home.clone();
     path.push(".pi.toml");
 
     // read global config file
@@ -214,14 +213,24 @@ fn main() {
             .expect("Failed to supply project name");
 
         // get project directory
-        let project = matches_init
+        let project_dir = matches_init
             .value_of("directory")
             .expect("Failed to supply project directory");
 
         // read template.toml for template
-        let mut template_path = project.to_string();
+        let mut template_path = project_dir.to_string();
         template_path.push_str("/template.toml");
-        let parsed_toml = read_toml_dir(&template_path);
+        let (parsed_toml, is_global_project) = read_toml_dir(&template_path, home.clone());
+        let project = 
+            if is_global_project {
+                let mut p = home;
+                p.push(".pi_templates/");
+                p.push(project_dir);
+                p.to_str().unwrap().to_string()
+            }
+            else {
+                project_dir.to_string()
+            };
         let parsed_dirs = parsed_toml.files;
         let parsed_config = parsed_toml.config;
         
@@ -328,10 +337,10 @@ fn main() {
             .insert("files", files);
 
         // render templates
-        render_templates(project, name, &hash_with_files, parsed_dirs.templates, false);
+        render_templates(&project, name, &hash_with_files, parsed_dirs.templates, false);
 
         // render scripts, i.e. files that should be executable.
-        render_templates(project, name, &hash_with_files, parsed_dirs.scripts, true);
+        render_templates(&project, name, &hash_with_files, parsed_dirs.scripts, true);
 
         // initialize version control
         if let Some(config) = parsed_config {

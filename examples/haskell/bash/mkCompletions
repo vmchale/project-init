@@ -1,4 +1,0 @@
-#!/bin/bash
-madlang --bash-completion-script `which {{ project }}` > tmp
-sudo cp tmp /etc/bash_completion.d/{{ project }}
-rm tmp

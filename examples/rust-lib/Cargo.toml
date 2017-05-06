@@ -1,6 +1,0 @@
-[package]
-name = "{{ project }}"
-version = "{{ version }}"
-authors = ["{{ name }} {{ email }}"]
-
-[dependencies]
