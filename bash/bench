@@ -17,7 +17,7 @@ else
     bench "cookiecutter examples/cookiecutter-py --no-input -f"
     bench "cookiecutter examples/cookiecutter-vim --no-input -f"
     bench "cookiecutter examples/cookiecutter-rust --no-input -f"
-    benhc "cookiecutter examples/cookiecutter-haskell --no-input -f"
+    bench "cookiecutter examples/cookiecutter-haskell --no-input -f"
     bench "pi -f init examples/pipy newproject"
     bench "pi -f init examples/vim-plugin newproject"
     bench "pi -f init examples/rust-lib newproject"
