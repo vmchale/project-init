@@ -175,32 +175,35 @@ fn main() {
         let hash_with_files = HashBuilder::new()
             .insert("files", files);
 
-        // render appropriate stuff by 
+        // render appropriate stuff by name.
         let _ = match template_str {
-            "rust" => { render_file(includes::RUST_LIB, name, "src/lib.rs", &hash);
-                        render_file(includes::RUST_TRAVIS_CI, name, ".travis.tml", &hash);
+            "rust" => { write_file_plain(includes::RUST_LIB, name, "src/lib.rs");
+                        write_file_plain(includes::RUST_TRAVIS_CI, name, ".travis.tml");
                         render_file(includes::CARGO_TOML, name, "Cargo.toml", &hash) },
             "vim" => render_file(includes::VIMBALL, name, "vimball.txt", &hash_with_files),
             "python" => { render_file(includes::PY_SETUP, name, "setup.py", &hash);
-                          render_file(includes::PY_CFG, name, "setup.cfg", &hash);
+                          write_file_plain(includes::PY_CFG, name, "setup.cfg");
                           let mut bin_path = "bin/".to_string();
                           bin_path.push_str(name);
                           render_file(includes::PY_BIN, name, &bin_path, &hash); }
-            "haskell" => { render_file(includes::SETUP_HS, name, "Setup.hs", &hash);
-                           render_file(includes::MAIN, name, "app/Main.hs", &hash);
-                           render_file(includes::LIB, name, "src/Lib.hs", &hash);
-                           render_file(includes::BENCH, name, "bench/Bench.hs", &hash);
-                           render_file(includes::TEST, name, "test/Spec.hs", &hash);
+            "haskell" => { write_file_plain(includes::SETUP_HS, name, "Setup.hs");
+                           write_file_plain(includes::MAIN, name, "app/Main.hs");
+                           write_file_plain(includes::LIB, name, "src/Lib.hs");
+                           write_file_plain(includes::BENCH, name, "bench/Bench.hs");
+                           write_file_plain(includes::TEST, name, "test/Spec.hs");
                            render_file(includes::DEFAULT_NIX, name, "default.nix", &hash);
                            render_file(includes::RELEASE_NIX, name, "release.nix", &hash);
                            let mut cabal_path = name.to_string();
                            cabal_path.push_str(".cabal");
                            render_file(includes::CABAL, name, &cabal_path, &hash);
-                           render_file(includes::RELEASE_NIX, name, "release.nix", &hash);
-                           render_file(includes::STACK_YAML, name, "stack.yaml", &hash);
-                           render_file(includes::HASKELL_TRAVIS_CI, name, ".travis.yml", &hash); }
+                           write_file_plain(includes::RELEASE_NIX, name, "release.nix");
+                           write_file_plain(includes::STACK_YAML, name, "stack.yaml");
+                           write_file_plain(includes::HASKELL_TRAVIS_CI, name, ".travis.yml"); }
             _ => std::process::exit(0x0f00),
         };
+
+        // Print that we're done
+        println!("Finished initializing project in {}/",name);
 
     }
     else if let Some(matches_init) = matches.subcommand_matches("init") {
@@ -352,5 +355,6 @@ fn main() {
 
         // Print that we're done
         println!("Finished initializing project in {}/",name);
+
     }
 }

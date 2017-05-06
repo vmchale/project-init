@@ -143,6 +143,20 @@ pub fn create_file(static_contents: &'static str, name: &str, filename: &str) ->
     let _ = c.write(static_contents.as_bytes());
 }
 
+/// Write a file from a static string
+pub fn write_file_plain(static_contents: &'static str, name: &str, filename: &str) -> () {
+    // write the file
+    let mut p = name.to_string();
+    p.push('/');
+    p.push_str(filename);
+    
+    // write the rendered template
+    let mut c = File::create(p)
+        .expect("File creation failed.");
+    let _ = c.write(static_contents.as_bytes());
+
+}
+
 /// Render a static string and write it to file
 pub fn render_file(static_template: &'static str, name: &str, filename: &str, hash: &HashBuilder) -> () {
     // render the template

@@ -1,3 +1,4 @@
+- [ ] rewrite readme + emphasize ease of use (w/ four supported)
 - [x] define config syntax
 - [x] use interpolations for actual templates
 - [x] be faster than python
@@ -22,7 +23,7 @@
 - [x] add field for scripts (initialized with +x)
 - [x] throw a better error/don't panic when the file to be read doesn't exist
   - [x] warn + use empty otherwise?
-  - [x] no superfluous panics
+  - [ ] no superfluous panics when opening file in dir that doesn't exist
   - [ ] parse errors + nice display
   - [x] colored crate
 - [ ] add keys

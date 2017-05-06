@@ -1,0 +1,4 @@
+#!/bin/bash
+madlang --bash-completion-script `which {{cookiecutter.project_slug}}` > tmp
+sudo cp tmp /etc/bash_completion.d/{{cookiecutter.project_slug}}
+rm tmp

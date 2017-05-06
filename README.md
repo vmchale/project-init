@@ -23,7 +23,7 @@ Reasons to use pi over cookiecutter:
   - pi can initialize a git or mercurial repository inside your new project
 
 Reasons to not use pi over cookiecutter:
-  - pi does not (currently) fetch templates remotely.
+  - pi does not fetch templates remotely, while cookiecutter does.
   - pi uses logic-less templates, which are not as sophisticated as the
     [jinja](http://jinja.pocoo.org/) templates that cookiecutter uses.
   - pi is a work in progress. This might mean you end up missing a feature.
