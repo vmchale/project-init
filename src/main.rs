@@ -68,6 +68,7 @@ fn main() {
             "rust" => includes::RUST_TEMPLATE,
             "vim" => includes::VIM_TEMPLATE,
             "python" => includes::PY_TEMPLATE,
+            "haskell" => includes::HASK_TEMPLATE,
             _ => { println!("The requested template is not a built-in :(") ; std::process::exit(0x0f00) },
         };
         let parsed_toml = read_toml_str(toml_file.to_string(), "BUILTIN");
