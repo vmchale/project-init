@@ -1,10 +1,16 @@
-#!/bin/bash
-if [[ $* == *--output* ]]; then
+#!/usr/bin/env ion
+let output = "false"
+for x in @args
+    if test $x = "--output"
+        let output = "true"
+    end
+end
+if test $output = "true"
     mkdir -p target/bench_result/
     bench "cookiecutter examples/cookiecutter-py --no-input -f" -o target/bench_result/cookiecutter-python.html
     bench "cookiecutter examples/cookiecutter-vim --no-input -f" -o target/bench_result/cookiecutter-vim.html
     bench "cookiecutter examples/cookiecutter-rust --no-input -f" -o target/bench_result/cookiecutter-rust.html
-    benhc "cookiecutter examples/cookiecutter-haskell --no-input -f" -o target/bench_result/cookiecutter-haskell.html
+    bench "cookiecutter examples/cookiecutter-haskell --no-input -f" -o target/bench_result/cookiecutter-haskell.html
     bench "pi -f init examples/pipy newproject" -o target/bench_result/pi-py.html
     bench "pi -f init examples/vim-plugin newproject" -o target/bench_result/pi-vim.html
     bench "pi -f init examples/rust-lib newproject" -o target/bench_result/pi-rust.html
@@ -26,5 +32,5 @@ else
     bench "pi -f new vim newproject"
     bench "pi -f new python newproject"
     bench "pi -f new haskell newproject"
-fi
+end
 rm -rf newproject/

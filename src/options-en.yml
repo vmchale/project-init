@@ -1,5 +1,4 @@
 name: Project Init (pi) 
-version: "0.1.0"
 author: Vanessa McHale <tmchale@wisc.edu>
 about: Initialize projects from a template (using rust). 
 args:

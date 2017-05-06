@@ -1,0 +1,40 @@
+#!/usr/bin/env ion
+let output = "false";
+for x in @args
+    if test $x = "--output"
+        let output = "true";
+    end
+end
+let a = "true";
+if test $a = "true"
+    echo "a == 5"
+end
+if test $output = "true"
+    mkdir -p target/bench_result/
+    bench "cookiecutter examples/cookiecutter-py --no-input -f" -o target/bench_result/cookiecutter-python.html
+    bench "cookiecutter examples/cookiecutter-vim --no-input -f" -o target/bench_result/cookiecutter-vim.html
+    bench "cookiecutter examples/cookiecutter-rust --no-input -f" -o target/bench_result/cookiecutter-rust.html
+    bench "cookiecutter examples/cookiecutter-haskell --no-input -f" -o target/bench_result/cookiecutter-haskell.html
+    bench "pi -f init examples/pipy newproject" -o target/bench_result/pi-py.html
+    bench "pi -f init examples/vim-plugin newproject" -o target/bench_result/pi-vim.html
+    bench "pi -f init examples/rust-lib newproject" -o target/bench_result/pi-rust.html
+    bench "pi -f init examples/haskell newproject" -o target/bench_result/pi-haskell.html
+    bench "pi -f new rust newproject" -o target/bench_result/pi-rust-builtin.html
+    bench "pi -f new vim newproject" -o target/bench_result/pi-vim-builtin.html
+    bench "pi -f new python newproject" -o target/bench_result/pi-python-builtin.html
+    bench "pi -f new haskell newproject" -o target/bench_result/pi-haskell-builtin.html
+else
+    bench "cookiecutter examples/cookiecutter-py --no-input -f"
+    bench "cookiecutter examples/cookiecutter-vim --no-input -f"
+    bench "cookiecutter examples/cookiecutter-rust --no-input -f"
+    bench "cookiecutter examples/cookiecutter-haskell --no-input -f"
+    bench "pi -f init examples/pipy newproject"
+    bench "pi -f init examples/vim-plugin newproject"
+    bench "pi -f init examples/rust-lib newproject"
+    bench "pi -f init examples/haskell newproject"
+    bench "pi -f new rust newproject"
+    bench "pi -f new vim newproject"
+    bench "pi -f new python newproject"
+    bench "pi -f new haskell newproject"
+end
+rm -rf newproject/

@@ -1,4 +1,6 @@
 - [ ] rewrite readme + emphasize ease of use (w/ four supported)
+- [ ] warning if ~/.pi.toml doesn't exist
+- [ ] read templates from a ~/.pi/ dir?
 - [x] define config syntax
 - [x] use interpolations for actual templates
 - [x] be faster than python
