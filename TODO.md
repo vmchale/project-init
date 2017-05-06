@@ -8,7 +8,7 @@
   - [x] rust
   - [x] nim/shake
   - [ ] haskell
-  - [ ] python
+  - [x] python
 - [x] built-in licenses
   - [x] bsd3
   - [x] mit
@@ -17,20 +17,20 @@
 - [x] call templates by name?
   - [x] rust
   - [ ] haskell
-  - [ ] python
+  - [x] python
+  - [x] vim
 - [x] add field for scripts (initialized with +x)
 - [x] throw a better error/don't panic when the file to be read doesn't exist
   - [x] warn + use empty otherwise?
   - [x] no superfluous panics
   - [ ] parse errors + nice display
-  - [ ] colored crate
+  - [x] colored crate
 - [ ] add keys
   - [x] full date 
   - [ ] user-defined keys
   - [x] github username
-  - [ ] github repo name
   - [x] set version control globally
-  - [ ] set preferred license globally
+  - [x] set preferred license globally
   - [x] ask user for missing keys
 - [x] ask before overwriting directories
   - [x] --force or -f to overwrite anyways
