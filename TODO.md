@@ -3,11 +3,11 @@
 - [x] be faster than python
 - [x] benchmarks
   - [x] more besides the vim one
-- [ ] extra templates
+- [x] extra templates
   - [x] vim
   - [x] rust
   - [x] nim/shake
-  - [ ] haskell
+  - [x] haskell
   - [x] python
 - [x] built-in licenses
   - [x] bsd3

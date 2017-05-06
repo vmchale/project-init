@@ -19,5 +19,6 @@ else
     bench "pi -f init examples/rust-lib newproject"
     bench "pi -f new rust newproject"
     bench "pi -f new vim newproject"
+    bench "pi -f new python newproject"
 fi
 rm -rf newproject/
