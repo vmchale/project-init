@@ -14,14 +14,16 @@
   - [x] mit
   - [x] gnu
   - [x] all rights reserved
-- [ ] call templates by name?
-  - [ ] rust
+- [x] call templates by name?
+  - [x] rust
   - [ ] haskell
   - [ ] python
 - [x] add field for scripts (initialized with +x)
-- [ ] throw a better error/don't panic when the file to be read doesn't exist
-  - [ ] warn + use empty otherwise?
+- [x] throw a better error/don't panic when the file to be read doesn't exist
+  - [x] warn + use empty otherwise?
   - [x] no superfluous panics
+  - [ ] parse errors + nice display
+  - [ ] colored crate
 - [ ] add keys
   - [x] full date 
   - [ ] user-defined keys

@@ -7,6 +7,7 @@ use std::io::Cursor;
 use self::rustache::*;
 use std::io::prelude::*;
 use std::os::unix::fs::PermissionsExt;
+use std::process::*;
 
 /// Trait allowing us to create dirs/templates/files.
 pub trait Create {
@@ -77,10 +78,17 @@ pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates
         // read all the template files
         let template_files: Vec<String> = templates.into_iter()
             .map(|p| { 
-                let template_f = File::open(p) ;
+                let template_f_pre = File::open(&p) ;
                 let mut t = String::new();
-                let s = "Failed to open file".to_string();
-                template_f.expect(&s)
+                let mut template_f = 
+                    if let Ok(f) = template_f_pre {
+                        f
+                    }
+                    else {
+                        println!("Failed to open file: {:?}", p);
+                        exit(0x0f00);
+                    };
+                template_f
                     .read_to_string(&mut t)
                     .expect("File read failed.");
                 t }).collect();
@@ -111,10 +119,11 @@ pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates
         let _ = files_to_write.into_iter()
             .map(|(path, contents)| { 
                 let mut c = File::create(path)
-                    .expect("File create failed.");
+                    .expect("File creation failed.");
                 let _ = c.write(contents.as_bytes());
                 if executable {
-                        let mut p = fs::metadata(path).expect("failed to read file metadata")
+                        let mut p = fs::metadata(path)
+                            .expect("failed to read file metadata")
                             .permissions();
                         p.set_mode(0o755);
                         let _ = fs::set_permissions(path, p);
@@ -130,7 +139,7 @@ pub fn create_file(static_contents: &'static str, name: &str, filename: &str) ->
     p.push('/');
     p.push_str(filename);
     let mut c = File::create(p)
-        .expect("File create failed.");
+        .expect("File creation failed.");
     let _ = c.write(static_contents.as_bytes());
 }
 
@@ -145,8 +154,10 @@ pub fn render_file(static_template: &'static str, name: &str, filename: &str, ha
     let mut p = name.to_string();
     p.push('/');
     p.push_str(filename);
+    
+    // write the rendered template
     let mut c = File::create(p)
-        .expect("File create failed.");
+        .expect("File creation failed.");
     let _ = c.write(contents.as_bytes());
 
 }

@@ -9,8 +9,8 @@ args:
         help: Initialize project even if directory already exists.
 subcommands:
     - init:
-        args:
         about: Use a template from a folder
+        args:
             - directory:
                 value_name: TEMPLATE_DIR
                 help: Directory containing your template.

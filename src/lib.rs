@@ -1,6 +1,8 @@
 //! This library provides the functions/structs/methods used by the main binary. They are included
 //! here in the hopes that they can be illuminating to users.
 
+#![feature(type_ascription)]
+
 #[macro_use] extern crate serde_derive;
 extern crate toml;
 extern crate time;
@@ -8,6 +10,7 @@ extern crate core;
 
 use std::fs::File;
 use std::io::prelude::*;
+use toml::de;
 
 pub mod types;
 pub mod repo;
@@ -27,7 +30,20 @@ pub fn read_toml_dir(template_path: &str) -> types::Project {
     let mut template = String::new();
     template_file.read_to_string(&mut template)
         .expect("Template file read failed");
-    toml::from_str(&template).unwrap()
+    read_toml_str(template, template_path)
+}
+
+pub fn read_toml_str(template: String, template_path: &str) -> types::Project {
+    if let Ok(t) = toml::from_str(&template) {
+        t
+    }
+    else if let Err(e) = toml::from_str(&template): Result<String, de::Error> {
+        println!("Error parsing {:?}: {}", template_path, e);
+        std::process::exit(0x0f00);
+    }
+    else {
+        std::process::exit(0x0f00);
+    }
 }
     
 /// Given a PathBuf, read the .toml file there as a configuration file.

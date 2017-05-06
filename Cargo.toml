@@ -12,6 +12,7 @@ homepage = "https://github.com/vmchale/project-init"
 
 [dependencies]
 toml = "0.4"
+colored = "1.5"
 clap = {version = "2.23", features = ["yaml"]}
 time = "0.1"
 rustache-lists = "0.1.0"
