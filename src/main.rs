@@ -32,7 +32,7 @@ fn main() {
         .expect("Couldn't determine home directory.");
     path.push(".pi.toml");
 
-    // read config file
+    // read global config file
     let decoded: Config = read_toml_config(path);
     
     // create author struct
@@ -75,31 +75,31 @@ fn main() {
         let parsed_config = parsed_toml.config;
         
         // set license if it's set
-        let license_contents =
-            if let Some(l) = decoded.license {
+        let (license_contents, license_name) =
+            if let Some(l) = parsed_toml.license {
                 match l.as_str() {
-                    "BSD3" => Some(includes::BSD3),
-                    "BSD" => Some(includes::BSD),
-                    "MIT" => Some(includes::MIT),
-                    "GPL3" => Some(includes::GPL3),
-                    "AllRightsReserved" => Some(includes::BSD3),
-                    _ => { println!("{}: requested license not found. Defaulting to AllRightsReserved", "Warning".yellow()) 
-                           ; Some(includes::ALL_RIGHTS_RESERVED) }
+                    "BSD3" => (Some(includes::BSD3), "BSD3"),
+                    "BSD" => (Some(includes::BSD), "BSD"),
+                    "MIT" => (Some(includes::MIT), "MIT"),
+                    "GPL3" => (Some(includes::GPL3), "GLP3"),
+                    "AllRightsReserved" => (Some(includes::BSD3), "AllRightsReserved"),
+                    _ => { println!("{}: requested license not found. Defaulting to AllRightsReserved","Warning".yellow()) 
+                           ; (Some(includes::ALL_RIGHTS_RESERVED), "AllRightsReserved") }
                 }
             }
-            else if let Some(l) = parsed_toml.license {
+            else if let Some(l) = decoded.license {
                 match l.as_str() {
-                    "BSD3" => Some(includes::BSD3),
-                    "BSD" => Some(includes::BSD),
-                    "MIT" => Some(includes::MIT),
-                    "GPL3" => Some(includes::GPL3),
-                    "AllRightsReserved" => Some(includes::BSD3),
+                    "BSD3" => (Some(includes::BSD3), "BSD3"),
+                    "BSD" => (Some(includes::BSD), "BSD"),
+                    "MIT" => (Some(includes::MIT), "MIT"),
+                    "GPL3" => (Some(includes::GPL3), "GLP3"),
+                    "AllRightsReserved" => (Some(includes::BSD3), "AllRightsReserved"),
                     _ => { println!("{}: requested license not found. Defaulting to AllRightsReserved","Warning".yellow()) 
-                           ; Some(includes::ALL_RIGHTS_RESERVED) }
+                           ; (Some(includes::ALL_RIGHTS_RESERVED), "AllRightsReserved") }
                 }
             }
             else {
-                None
+                (None,"")
             };
 
         // set version
@@ -135,6 +135,7 @@ fn main() {
             .insert("version", version)
             .insert("email", author.email)
             .insert("github_username", github_username)
+            .insert("license", license_name)
             .insert("date", current_date);
      
         // check if the directory exists and exit, if we haven't forced an overwrite.
@@ -200,7 +201,7 @@ fn main() {
             .value_of("directory")
             .expect("Failed to supply project directory");
 
-        // read template.toml
+        // read template.toml for template
         let mut template_path = project.to_string();
         template_path.push_str("/template.toml");
         let parsed_toml = read_toml_dir(&template_path);
@@ -208,31 +209,31 @@ fn main() {
         let parsed_config = parsed_toml.config;
         
         // set license if it's set
-        let license_contents =
-            if let Some(l) = decoded.license {
+        let (license_contents, license_name) =
+            if let Some(l) = parsed_toml.license {
                 match l.as_str() {
-                    "BSD3" => Some(includes::BSD3),
-                    "BSD" => Some(includes::BSD),
-                    "MIT" => Some(includes::MIT),
-                    "GPL3" => Some(includes::GPL3),
-                    "AllRightsReserved" => Some(includes::BSD3),
-                    _ => { println!("{}: requested license not found. Defaulting to AllRightsReserved", "Warning".yellow()) 
-                           ; Some(includes::ALL_RIGHTS_RESERVED) }
+                    "BSD3" => (Some(includes::BSD3), "BSD3"),
+                    "BSD" => (Some(includes::BSD), "BSD"),
+                    "MIT" => (Some(includes::MIT), "MIT"),
+                    "GPL3" => (Some(includes::GPL3), "GLP3"),
+                    "AllRightsReserved" => (Some(includes::BSD3), "AllRightsReserved"),
+                    _ => { println!("{}: requested license not found. Defaulting to AllRightsReserved","Warning".yellow()) 
+                           ; (Some(includes::ALL_RIGHTS_RESERVED), "AllRightsReserved") }
                 }
             }
-            else if let Some(l) = parsed_toml.license {
+            else if let Some(l) = decoded.license {
                 match l.as_str() {
-                    "BSD3" => Some(includes::BSD3),
-                    "BSD" => Some(includes::BSD),
-                    "MIT" => Some(includes::MIT),
-                    "GPL3" => Some(includes::GPL3),
-                    "AllRightsReserved" => Some(includes::BSD3),
-                    _ => { println!("{}: requested license not found. Defaulting to AllRightsReserved", "Warning".yellow()) 
-                           ; Some(includes::ALL_RIGHTS_RESERVED) }
+                    "BSD3" => (Some(includes::BSD3), "BSD3"),
+                    "BSD" => (Some(includes::BSD), "BSD"),
+                    "MIT" => (Some(includes::MIT), "MIT"),
+                    "GPL3" => (Some(includes::GPL3), "GLP3"),
+                    "AllRightsReserved" => (Some(includes::BSD3), "AllRightsReserved"),
+                    _ => { println!("{}: requested license not found. Defaulting to AllRightsReserved","Warning".yellow()) 
+                           ; (Some(includes::ALL_RIGHTS_RESERVED), "AllRightsReserved") }
                 }
             }
             else {
-                None
+                (None,"")
             };
 
         // set version
@@ -268,6 +269,7 @@ fn main() {
             .insert("version", version)
             .insert("email", author.email)
             .insert("github_username", github_username)
+            .insert("license", license_name)
             .insert("date", current_date);
      
         // check if the directory exists and exit, if we haven't forced an overwrite.
