@@ -1,0 +1,11 @@
+license = "BSD3"
+with_readme = true
+
+[files]
+files = ["syntax/{{ project }}.vim","plugin/{{ project }}.vim","doc/{{ project }}.txt"]
+directories = ["doc","syntax","plugin"]
+templates = ["vimball.txt"]
+
+[config]
+version = "0.1.0"
+version_control = "git"
