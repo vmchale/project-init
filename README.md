@@ -32,7 +32,8 @@ Cool benchmarks (with Haskell's [bench](https://github.com/Gabriel439/bench)):
 
 | Tool | Language | Time (vim example plugin) | Time (rust library) |
 | ---- | -------- | ------------------------- | ------------------- |
-| pi | Rust | 10.10 ms | 8.809 ms
+| pi init | Rust | 10.10 ms | 8.809 ms |
+| pi new | Rust | 6.672 ms | 8.653 ms |
 | cookiecutter | Python | 317.1 ms | 316.9 ms |
 
 ## Installation
