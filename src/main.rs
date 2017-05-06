@@ -186,6 +186,19 @@ fn main() {
                           let mut bin_path = "bin/".to_string();
                           bin_path.push_str(name);
                           render_file(includes::PY_BIN, name, &bin_path, &hash); }
+            "haskell" => { render_file(includes::SETUP_HS, name, "Setup.hs", &hash);
+                           render_file(includes::MAIN, name, "app/Main.hs", &hash);
+                           render_file(includes::LIB, name, "src/Lib.hs", &hash);
+                           render_file(includes::BENCH, name, "bench/Bench.hs", &hash);
+                           render_file(includes::TEST, name, "test/Spec.hs", &hash);
+                           render_file(includes::DEFAULT_NIX, name, "default.nix", &hash);
+                           render_file(includes::RELEASE_NIX, name, "release.nix", &hash);
+                           let mut cabal_path = name.to_string();
+                           cabal_path.push_str(".cabal");
+                           render_file(includes::CABAL, name, &cabal_path, &hash);
+                           render_file(includes::RELEASE_NIX, name, "release.nix", &hash);
+                           render_file(includes::STACK_YAML, name, "stack.yaml", &hash);
+                           render_file(includes::HASKELL_TRAVIS_CI, name, ".travis.yml", &hash); }
             _ => std::process::exit(0x0f00),
         };
 

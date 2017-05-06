@@ -36,5 +36,5 @@ pub const DEFAULT_NIX:&'static str = include_str!("includes/haskell/default.nix"
 pub const RELEASE_NIX:&'static str = include_str!("includes/haskell/release.nix");
 pub const CABAL:&'static str = include_str!("includes/haskell/project.cabal");
 pub const STACK_YAML:&'static str = include_str!("includes/haskell/stack.yaml");
-pub const HASKELL_TEMPLATE:&'static str = include_str!("includes/haskell/template.toml");
+pub const HASK_TEMPLATE:&'static str = include_str!("includes/haskell/template.toml");
 pub const HASKELL_TRAVIS_CI:&'static str = include_str!("includes/haskell/.travis.yml");

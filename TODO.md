@@ -16,7 +16,7 @@
   - [x] all rights reserved
 - [x] call templates by name?
   - [x] rust
-  - [ ] haskell
+  - [x] haskell
   - [x] python
   - [x] vim
 - [x] add field for scripts (initialized with +x)
