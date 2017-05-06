@@ -1,0 +1,11 @@
+license = "BSD3"
+with_readme = true
+
+[files]
+directories = ["{{ project }}","bin"]
+files = ["{{ project }}/__init__.py"]
+templates = ["bin/{{ project }}", "setup.py", "setup.cfg"]
+
+[config]
+version = "0.1"
+version_control = "git"
