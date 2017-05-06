@@ -67,6 +67,7 @@ fn main() {
         let toml_file = match template_str {
             "rust" => includes::RUST_TEMPLATE,
             "vim" => includes::VIM_TEMPLATE,
+            "python" => includes::PY_TEMPLATE,
             _ => { println!("The requested template is not a built-in :(") ; std::process::exit(0x0f00) },
         };
         let parsed_toml = read_toml_str(toml_file.to_string(), "BUILTIN");
@@ -178,6 +179,11 @@ fn main() {
                         render_file(includes::RUST_TRAVIS_CI, name, ".travis.tml", &hash);
                         render_file(includes::CARGO_TOML, name, "Cargo.toml", &hash) },
             "vim" => render_file(includes::VIMBALL, name, "vimball.txt", &hash_with_files),
+            "python" => { render_file(includes::PY_SETUP, name, "setup.py", &hash);
+                          render_file(includes::PY_CFG, name, "setup.cfg", &hash);
+                          let mut bin_path = "bin/".to_string();
+                          bin_path.push_str(name);
+                          render_file(includes::PY_BIN, name, &bin_path, &hash); }
             _ => std::process::exit(0x0f00),
         };
 

@@ -19,3 +19,9 @@ pub const RUST_TRAVIS_CI:&'static str = include_str!("includes/rust/.travis.yml"
 // Vim includes
 pub const VIMBALL:&'static str = include_str!("includes/vim/vimball.txt");
 pub const VIM_TEMPLATE:&'static str = include_str!("includes/vim/template.toml");
+
+// Python includes
+pub const PY_BIN:&'static str = include_str!("includes/python/bin.py");
+pub const PY_SETUP:&'static str = include_str!("includes/python/setup.py");
+pub const PY_CFG:&'static str = include_str!("includes/python/setup.cfg");
+pub const PY_TEMPLATE:&'static str = include_str!("includes/python/template.toml");

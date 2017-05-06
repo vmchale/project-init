@@ -1,7 +1,12 @@
 #!/bin/bash
-bench "cookiecutter examples/cookiecutter-vim --no-input -f" -o cookiecutter-vim.html
-bench "cookiecutter examples/cookiecutter-rust --no-input -f" -o cookiecutter-rust.html
-bench "pi -f init examples/vim-plugin newproject" -o pi-vim.html
-bench "pi -f init examples/rust-lib newproject" -o pi-rust.html
-bench "pi -f new rust newproject" -o pi-rust-builtin.html
+mkdir -p target/bench_result/
+bench "cookiecutter examples/cookiecutter-py --no-input -f" -o target/bench_result/cookiecutter-python.html
+bench "cookiecutter examples/cookiecutter-vim --no-input -f" -o target/bench_result/cookiecutter-vim.html
+bench "cookiecutter examples/cookiecutter-rust --no-input -f" -o target/bench_result/cookiecutter-rust.html
+bench "pi -f init examples/pipy newproject" -o target/bench_result/pi-py.html
+bench "pi -f init examples/vim-plugin newproject" -o target/bench_result/pi-vim.html
+bench "pi -f init examples/rust-lib newproject" -o target/bench_result/pi-rust.html
+bench "pi -f new rust newproject" -o target/bench_result/pi-rust-builtin.html
+bench "pi -f new vim newproject" -o target/bench_result/pi-vim-builtin.html
+bench "pi -f new python newproject" -o target/bench_result/pi-python-builtin.html
 rm -rf newproject/
