@@ -1,6 +1,0 @@
-[package]
-name = "plugin-vim"
-version = "0.1.0"
-authors = ["Vanessa McHale tmchale@wisc.edu"]
-
-[dependencies]

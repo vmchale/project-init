@@ -63,6 +63,12 @@ Bash commands:
 pi init path/to/template/dir/ new-project
 ```
 
+For builtin templates (available or vim, rust, haskell, and python):
+
+```bash
+pi new rust new-project
+```
+
 ### Configuration
 
 Configuration is via the `~/.pi.toml` file. The following is an example:
