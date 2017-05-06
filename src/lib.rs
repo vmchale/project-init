@@ -7,10 +7,12 @@
 extern crate toml;
 extern crate time;
 extern crate core;
+extern crate colored;
 
 use std::fs::File;
 use std::io::prelude::*;
 use toml::de;
+use colored::*;
 
 pub mod types;
 pub mod repo;
@@ -33,6 +35,7 @@ pub fn read_toml_dir(template_path: &str) -> types::Project {
     read_toml_str(template, template_path)
 }
 
+/// Read a string containing a toml file
 pub fn read_toml_str(template: String, template_path: &str) -> types::Project {
     if let Ok(t) = toml::from_str(&template) {
         t
@@ -57,7 +60,20 @@ pub fn read_toml_config(config_path: std::path::PathBuf) -> types::Config {
             std::process::exit(0x0f00);
         };
     let mut toml_str = String::new();
-    file.read_to_string(&mut toml_str)
-        .expect("File $HOME/.pi.toml read failed");
-    toml::from_str(&toml_str).unwrap()
+    if let Ok(_) = file.read_to_string(&mut toml_str) {
+        if let Ok(t) = toml::from_str(&toml_str) {
+            t
+        }
+        else if let Err(e) = toml::from_str(&toml_str): Result<String, de::Error> {
+            println!("Error parsing {:?}: {}", config_path, e);
+            std::process::exit(0x0f00);
+        }
+        else {
+            std::process::exit(0x0f00);
+        }
+    }
+    else {
+        println!("{}: No ~/.pi.toml found. Using defaults.", "Warning".yellow());
+        types::Config { version_control: None, author: None, license: None }
+    }
 }

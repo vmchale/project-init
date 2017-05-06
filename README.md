@@ -2,10 +2,10 @@
 
 [![Build Status](https://travis-ci.org/vmchale/project-init.svg?branch=master)](https://travis-ci.org/vmchale/project-init)
 
-This is a command-line utility written in rust that initializes projects based
-on templates.
-It is intended to provide something similar to
-[cookiecutter](https://github.com/audreyr/cookiecutter), but faster. 
+`pi` is a command-line utility to initialize projects. It is written in rust.
+
+It is intended to provide something like 
+[cookiecutter](https://github.com/audreyr/cookiecutter), but faster.
 
 Reasons to use pi:
   - You want to automate the process of starting a new project, in a
@@ -13,82 +13,68 @@ Reasons to use pi:
   - You want project initialization that's *quick*
 
 Reasons to use pi over cookiecutter:
-  - Templates are smaller. Define files you need in a `.toml` rather than an
-    entire directory tree.
+  - Templates are smaller. Define files you need in a `.toml`.
   - *Fast*. pi **30x faster** than cookiecutter when rendering the sample vim
     plugin template.
   - pi uses mustache, a logic-less language that has libraries for *many* other
-    languages. That means that you can manipulate your pi templates in other
     languages.
   - pi can initialize a git or mercurial repository inside your new project
 
 Reasons to not use pi over cookiecutter:
-  - pi does not fetch templates remotely, while cookiecutter does.
+  - pi does not fetch templates remotely.
   - pi uses logic-less templates, which are not as sophisticated as the
     [jinja](http://jinja.pocoo.org/) templates that cookiecutter uses.
-  - pi is a work in progress. This might mean you end up missing a feature.
+  - pi is a work in progress. It does not yet have custom keys.
 
 Cool benchmarks (with Haskell's [bench](https://github.com/Gabriel439/bench)):
 
 | Tool | Language | Time (vim example plugin) | Time (rust library) |
 | ---- | -------- | ------------------------- | ------------------- |
-| pi init | Rust | 10.10 ms | 8.809 ms |
-| pi new | Rust | 6.672 ms | 8.653 ms |
-| cookiecutter | Python | 317.1 ms | 316.9 ms |
+| pi init | rust | 10.10 ms | 8.809 ms |
+| pi new | rust | 6.672 ms | 8.653 ms |
+| cookiecutter | python | 317.1 ms | 316.9 ms |
 
 ## Installation
 
 ### Binary releases
 
-You can find binaries on the 
-[release](https://github.com/vmchale/project-init/releases) page. Unfortunately, 
-I can only create binaries for x64 linux, ARM linux, and 64-bit Windows at this time.
+You can find binaries for x64 linux, ARM linux, and x64-windows on the
+[release](https://github.com/vmchale/project-init/releases) page.
 
 ### Cargo
 
-First, install [cargo](https://rustup.rs/). Then type:
+First, install [cargo](https://rustup.rs/). Then:
 
 ```bash
  $ cargo install project_init
 ```
 
-and cargo will install pi for you. 
-
 ## Use
 
-For use examples, check out `examples/vim-plugin`. 
-
-Bash commands:
+The easiest way to use pi is with the builtin templates:
 
 ```bash
-pi init path/to/template/dir/ new-project
+$ pi new haskell new-project
+Finished initializing project in new-project/
 ```
 
-For builtin templates (available or vim, rust, haskell, and python):
+For a custom template:
 
 ```bash
-pi new rust new-project
+$ pi init path/to/template/dir/ new-project
+Finished initializing project in new-project/
 ```
+
+For template examples, check out the `examples/` folder. 
 
 ### Configuration
 
-Configuration is via the `~/.pi.toml` file. The following is an example:
+Global configuration is via the `~/.pi.toml` file. The following is an example:
 
 ```toml
-[files]
-files = ["syntax/{{ project }}.vim","plugin/{{ project }}.vim","doc/{{ project }}.txt"]
-directories = ["doc","syntax","plugin"]
-templates = ["LICENSE","README.md","vimball.txt"]
-
-[config]
+license = "BSD3"
+version_control = "git"
 version = "0.1.0"
-version_control = "git"
-```
-
-You can also set your defaults (e.g. name, email) in `~/.pi.toml`. The following is an example:
-
-```bash
-version_control = "git"
 
 [author]
 name = "Vanessa McHale"
@@ -96,7 +82,22 @@ email = "vamchale@gmail.com"
 github_username = "vmchale"
 ```
 
-This says your preferred version control is `git`, and sets your name & email.
+Project-specific config lives in `$PROJECT_NAME/template.toml`. The following is
+an example for a vim plugin:
+
+```toml
+license = "BSD3"
+with_readme = true
+
+[files]
+files = ["syntax/{{ project }}.vim","plugin/{{ project }}.vim","doc/{{ project }}.txt"] # blank files
+directories = ["doc","syntax","plugin"]
+templates = ["vimball.txt"] # files to be processed
+
+[config]
+version = "0.1.0"
+version_control = "git"
+```
 
 ### Templates
 

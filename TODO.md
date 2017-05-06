@@ -1,5 +1,6 @@
-- [ ] rewrite readme + emphasize ease of use (w/ four supported)
-- [ ] warning if ~/.pi.toml doesn't exist
+- [x] rewrite readme
+- [ ] emphasize ease of use (w/ four supported)
+- [x] warning if ~/.pi.toml doesn't exist
 - [ ] read templates from a ~/.pi/ dir?
 - [x] define config syntax
 - [x] use interpolations for actual templates
@@ -25,8 +26,8 @@
 - [x] add field for scripts (initialized with +x)
 - [x] throw a better error/don't panic when the file to be read doesn't exist
   - [x] warn + use empty otherwise?
-  - [ ] no superfluous panics when opening file in dir that doesn't exist
-  - [ ] parse errors + nice display
+  - [x] no superfluous panics when opening file in dir that doesn't exist
+  - [x] parse errors + nice display
   - [x] colored crate
 - [ ] add keys
   - [x] full date 

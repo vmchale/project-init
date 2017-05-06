@@ -90,7 +90,7 @@ pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates
                     };
                 template_f
                     .read_to_string(&mut t)
-                    .expect("File read failed.");
+                    .expect("File read failed."); 
                 t }).collect();
 
         // create Vec<T> of paths to rendered templates
@@ -118,9 +118,14 @@ pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates
         let files_to_write = templates_named.iter().zip(s.iter());
         let _ = files_to_write.into_iter()
             .map(|(path, contents)| { 
-                let mut c = File::create(path)
-                    .expect("File creation failed.");
-                let _ = c.write(contents.as_bytes());
+                let c = File::create(&path);
+                if let Ok(mut f) = c {
+                    let _ = f.write(contents.as_bytes());
+                }
+                else {
+                    println!("Failed to create file: {:?}. Check that the directory is included in your template.toml", path);
+                    exit(0x0f00);
+                };
                 if executable {
                         let mut p = fs::metadata(path)
                             .expect("failed to read file metadata")
@@ -170,8 +175,12 @@ pub fn render_file(static_template: &'static str, name: &str, filename: &str, ha
     p.push_str(filename);
     
     // write the rendered template
-    let mut c = File::create(p)
-        .expect("File creation failed.");
-    let _ = c.write(contents.as_bytes());
-
+    let c = File::create(&p);
+    if let Ok(mut f) = c {
+        let _ = f.write(contents.as_bytes());
+    }
+    else {
+        println!("Failed to create file: {:?}. Check that the directory is included in your template.toml", p);
+        exit(0x0f00);
+    }
 }
