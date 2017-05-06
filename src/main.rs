@@ -66,6 +66,7 @@ fn main() {
         // read template.toml
         let toml_file = match template_str {
             "rust" => includes::RUST_TEMPLATE,
+            "vim" => includes::VIM_TEMPLATE,
             _ => { println!("The requested template is not a built-in :(") ; std::process::exit(0x0f00) },
         };
         let parsed_toml = read_toml_str(toml_file.to_string(), "BUILTIN");
@@ -122,7 +123,7 @@ fn main() {
                 uname
             }
             else {
-                println!("Warning: no version info found, defaulting to '0.1.0'");
+                println!("{}: No github username found, defaulting to null.", "Warning".yellow());
                 "".to_string()
             };
 
@@ -148,7 +149,7 @@ fn main() {
         }
 
         // Create files.
-        let _ =
+        let files =
             if let Some(files_pre) = parsed_dirs.files {
                 render_files(files_pre, &hash, name)
             }
@@ -167,12 +168,16 @@ fn main() {
                 render_file(includes::README, name, "README.md", &hash);
             }
         }
-       
+      
+        let hash_with_files = HashBuilder::new()
+            .insert("files", files);
+
         // render appropriate stuff by 
         let _ = match template_str {
             "rust" => { render_file(includes::RUST_LIB, name, "src/lib.rs", &hash);
                         render_file(includes::RUST_TRAVIS_CI, name, ".travis.tml", &hash);
                         render_file(includes::CARGO_TOML, name, "Cargo.toml", &hash) },
+            "vim" => render_file(includes::VIMBALL, name, "vimball.txt", &hash_with_files),
             _ => std::process::exit(0x0f00),
         };
 
@@ -246,7 +251,7 @@ fn main() {
                 uname
             }
             else {
-                println!("{}: no version info found, defaulting to '0.1.0'", "Warning".yellow());
+                println!("{}: no github username found, defaulting to null", "Warning".yellow());
                 "".to_string()
             };
 

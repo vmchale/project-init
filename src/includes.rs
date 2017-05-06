@@ -15,3 +15,7 @@ pub const CARGO_TOML:&'static str = include_str!("includes/rust/Cargo.toml");
 pub const RUST_TEMPLATE:&'static str = include_str!("includes/rust/template.toml");
 pub const RUST_LIB:&'static str = include_str!("includes/rust/lib.rs");
 pub const RUST_TRAVIS_CI:&'static str = include_str!("includes/rust/.travis.yml");
+
+// Vim includes
+pub const VIMBALL:&'static str = include_str!("includes/vim/vimball.txt");
+pub const VIM_TEMPLATE:&'static str = include_str!("includes/vim/template.toml");
