@@ -82,7 +82,7 @@ fn main() {
                     "MIT" => Some(includes::MIT),
                     "GPL3" => Some(includes::GPL3),
                     "AllRightsReserved" => Some(includes::BSD3),
-                    _ => { println!("Warning: requested license not found. Defaulting to AllRightsReserved") 
+                    _ => { println!("{}: requested license not found. Defaulting to AllRightsReserved", "Warning".yellow()) 
                            ; Some(includes::ALL_RIGHTS_RESERVED) }
                 }
             }
@@ -93,7 +93,7 @@ fn main() {
                     "MIT" => Some(includes::MIT),
                     "GPL3" => Some(includes::GPL3),
                     "AllRightsReserved" => Some(includes::BSD3),
-                    _ => { println!("Warning: requested license not found. Defaulting to AllRightsReserved") 
+                    _ => { println!("{}: requested license not found. Defaulting to AllRightsReserved","Warning".yellow()) 
                            ; Some(includes::ALL_RIGHTS_RESERVED) }
                 }
             }
@@ -113,7 +113,7 @@ fn main() {
                 }
             }
             else {
-                println!("Warning: no version info found, defaulting to '0.1.0'");
+                println!("{}: no version info found, defaulting to '0.1.0'","Warning".yellow());
                 "0.1.0".to_string()
             };
 
@@ -210,7 +210,7 @@ fn main() {
                     "MIT" => Some(includes::MIT),
                     "GPL3" => Some(includes::GPL3),
                     "AllRightsReserved" => Some(includes::BSD3),
-                    _ => { println!("Warning: requested license not found. Defaulting to AllRightsReserved") 
+                    _ => { println!("{}: requested license not found. Defaulting to AllRightsReserved", "Warning".yellow()) 
                            ; Some(includes::ALL_RIGHTS_RESERVED) }
                 }
             }
@@ -221,7 +221,7 @@ fn main() {
                     "MIT" => Some(includes::MIT),
                     "GPL3" => Some(includes::GPL3),
                     "AllRightsReserved" => Some(includes::BSD3),
-                    _ => { println!("Warning: requested license not found. Defaulting to AllRightsReserved") 
+                    _ => { println!("{}: requested license not found. Defaulting to AllRightsReserved", "Warning".yellow()) 
                            ; Some(includes::ALL_RIGHTS_RESERVED) }
                 }
             }
@@ -241,7 +241,7 @@ fn main() {
                 }
             }
             else {
-                println!("Warning: no version info found, defaulting to '0.1.0'");
+                println!("{}: no version info found, defaulting to '0.1.0'", "Warning".yellow());
                 "0.1.0".to_string()
             };
 
