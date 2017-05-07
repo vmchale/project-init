@@ -1,3 +1,3 @@
 [submodule "pi-templates"]
 	path = pi-templates
-	url = git@github.com:vmchale/pi-templates.git
+	url = https://github.com/vmchale/pi-templates.git
