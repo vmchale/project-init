@@ -65,7 +65,11 @@ $ pi init path/to/template/dir/ new-project
 Finished initializing project in new-project/
 ```
 
-For template examples, check out the `examples/` folder. 
+Note that you can put templates in `$HOME/.pi_templates` and they can then be
+called from anywhere.
+
+For template examples, check out
+[pi-templates](https://github.com/vmchale/pi-templates). 
 
 ### Configuration
 

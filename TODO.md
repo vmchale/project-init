@@ -1,7 +1,7 @@
 - [x] rewrite readme
-- [ ] emphasize ease of use (w/ four supported)
+- [ ] ease of use via builtins + globals!
 - [x] warning if ~/.pi.toml doesn't exist
-- [ ] read templates from a ~/.pi/ dir?
+- [x] read templates from a ~/.pi/ dir?
 - [x] define config syntax
 - [x] use interpolations for actual templates
 - [x] be faster than python
@@ -31,7 +31,7 @@
   - [x] colored crate
 - [ ] add keys
   - [x] full date 
-  - [ ] user-defined keys
+  - [ ] user-defined keys (under [user] & accessed with user.custom?)
   - [x] github username
   - [x] set version control globally
   - [x] set preferred license globally
