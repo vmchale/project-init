@@ -1,10 +1,11 @@
 - [x] rewrite readme
-- [ ] ease of use via builtins + globals!
+- [x] document global templates nicely
 - [x] warning if ~/.pi.toml doesn't exist
 - [x] read templates from a ~/.pi/ dir?
 - [x] define config syntax
 - [x] use interpolations for actual templates
 - [x] be faster than python
+- [ ] reorder directories so it doesn't panic when it creates them out of order
 - [x] benchmarks
   - [x] more besides the vim one
 - [x] extra templates

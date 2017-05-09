@@ -11,6 +11,7 @@ documentation = "https://github.com/vmchale/project-init#README"
 homepage = "https://github.com/vmchale/project-init"
 
 [dependencies]
+case = "0.1.0"
 toml = "0.4"
 colored = "1.5"
 clap = {version = "2.23", features = ["yaml"]}

@@ -6,6 +6,7 @@ extern crate time;
 extern crate toml;
 extern crate rustache;
 extern crate project_init;
+extern crate case;
 extern crate colored;
 
 use colored::*;
@@ -17,6 +18,7 @@ use project_init::render::*;
 use project_init::*;
 use std::path::Path;
 use time::strftime;
+use case::*;
 
 fn main() {
 
@@ -76,7 +78,8 @@ fn main() {
         
         // set license if it's set
         let (license_contents, license_name) =
-            if let Some(l) = parsed_toml.license {
+            // prefer global license over builtin
+            if let Some(l) = decoded.license {
                 match l.as_str() {
                     "BSD3" => (Some(includes::BSD3), "BSD3"),
                     "BSD" => (Some(includes::BSD), "BSD"),
@@ -87,7 +90,7 @@ fn main() {
                            ; (Some(includes::ALL_RIGHTS_RESERVED), "AllRightsReserved") }
                 }
             }
-            else if let Some(l) = decoded.license {
+            else if let Some(l) = parsed_toml.license {
                 match l.as_str() {
                     "BSD3" => (Some(includes::BSD3), "BSD3"),
                     "BSD" => (Some(includes::BSD), "BSD"),
@@ -103,7 +106,6 @@ fn main() {
             };
 
         // set version
-        // TODO only insert into the hash if necessary
         let version = 
             if let Some(config) = parsed_config.clone() {
                 if let Some(v) = config.version {
@@ -130,6 +132,7 @@ fn main() {
 
         // Make a hash for inserting stuff into templates.
         let hash = HashBuilder::new().insert("project",name)
+            .insert("Project", name.to_capitalized())
             .insert("year", year)
             .insert("name", author.name)
             .insert("version", version)
@@ -236,6 +239,7 @@ fn main() {
         
         // set license if it's set
         let (license_contents, license_name) =
+            // prefer project-specific license over global
             if let Some(l) = parsed_toml.license {
                 match l.as_str() {
                     "BSD3" => (Some(includes::BSD3), "BSD3"),
@@ -290,6 +294,7 @@ fn main() {
 
         // Make a hash for inserting stuff into templates.
         let hash = HashBuilder::new().insert("project",name)
+            .insert("Project", name.to_capitalized())
             .insert("year", year)
             .insert("name", author.name)
             .insert("version", version)

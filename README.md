@@ -51,34 +51,33 @@ First, install [cargo](https://rustup.rs/). Then:
 
 ## Use
 
-The easiest way to use pi is with the builtin templates:
+`pi` reads from `$HOME/.pi_templates/` *and* the local directory. So, if you
+place a template in the `$HOME/.pi_templates/idris/`, you can initialize a
+project *anywhere* with
 
 ```bash
-$ pi new haskell new-project
-Finished initializing project in new-project/
+pi init idris treesod
 ```
 
-For a custom template:
+There is a repo of templates for pi
+[here](https://github.com/vmchale/pi-templates). 
+
+You can also use pi with built-in templates. Currently pi has rust, haskell,
+vimscript, and python templates built-in.
 
 ```bash
-$ pi init path/to/template/dir/ new-project
+$ pi new haskell really-good-project
 Finished initializing project in new-project/
 ```
-
-Note that you can put templates in `$HOME/.pi_templates` and they can then be
-called from anywhere.
-
-For template examples, check out
-[pi-templates](https://github.com/vmchale/pi-templates). 
 
 ### Configuration
 
-Global configuration is via the `~/.pi.toml` file. The following is an example:
+Global configuration is via the `$HOME/.pi.toml` file. The following is an example:
 
 ```toml
-license = "BSD3"
-version_control = "git"
-version = "0.1.0"
+license = "BSD3"         # set default license to BSD3 
+version_control = "git"  # initialize new repositories with git
+version = "0.1.0"        # start new projects at version 0.1.0
 
 [author]
 name = "Vanessa McHale"
@@ -90,8 +89,8 @@ Project-specific config lives in `$PROJECT_NAME/template.toml`. The following is
 an example for a vim plugin:
 
 ```toml
-license = "BSD3"
-with_readme = true
+license = "BSD3"        # overrides global value if set
+with_readme = true      # add README.md
 
 [files]
 files = ["syntax/{{ project }}.vim","plugin/{{ project }}.vim","doc/{{ project }}.txt"] # blank files
@@ -101,6 +100,21 @@ templates = ["vimball.txt"] # files to be processed
 [config]
 version = "0.1.0"
 version_control = "git"
+```
+
+This will generate the following directory structure:
+
+```
+vim-plugin
+├── LICENSE
+├── README.md
+├── doc
+│  └── vim-plugin.txt
+├── plugin
+│  └── vim-plugin.vim
+├── syntax
+│  └── vim-plugin.vim
+└── vimball.txt
 ```
 
 ### Templates
