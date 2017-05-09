@@ -36,7 +36,7 @@ pub fn read_toml_dir(template_path: &str, home: PathBuf) -> (types::Project, boo
         };
     let mut template = String::new();
     template_file.read_to_string(&mut template)
-        .expect("Template file read failed");
+        .expect("Failed to read file"); // we can panic because we already errored if the file didn't exist.
     (read_toml_str(template, template_path), is_global_template)
 }
 

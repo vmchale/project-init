@@ -57,12 +57,12 @@ fn main() {
         // get project name
         let name = matches_init
             .value_of("name")
-            .expect("Failed to supply project name");
+            .expect("Clap failed to supply project name");
 
         // get project template type
         let template_str = matches_init
             .value_of("template")
-            .expect("Failed to supply project directory");
+            .expect("Clap failed to supply project directory");
 
         // read template.toml
         let toml_file = match template_str {

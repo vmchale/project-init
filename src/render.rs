@@ -90,7 +90,7 @@ pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates
                     };
                 template_f
                     .read_to_string(&mut t)
-                    .expect("File read failed."); 
+                    .expect("File read failed."); // ok to panic because we already errored. 
                 t }).collect();
 
         // create Vec<T> of paths to rendered templates
@@ -144,7 +144,7 @@ pub fn create_file(static_contents: &'static str, name: &str, filename: &str) ->
     p.push('/');
     p.push_str(filename);
     let mut c = File::create(p)
-        .expect("File creation failed.");
+        .expect("File creation failed."); // ok to panic because this is for built-ins.
     let _ = c.write(static_contents.as_bytes());
 }
 
@@ -157,7 +157,7 @@ pub fn write_file_plain(static_contents: &'static str, name: &str, filename: &st
     
     // write the rendered template
     let mut c = File::create(p)
-        .expect("File creation failed.");
+        .expect("File creation failed."); // ok to panic because this is for built-ins.
     let _ = c.write(static_contents.as_bytes());
 
 }
