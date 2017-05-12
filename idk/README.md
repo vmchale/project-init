@@ -1,5 +1,0 @@
-# idk
-
-## Installation
-
-## Configuration
