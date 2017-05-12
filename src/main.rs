@@ -19,6 +19,7 @@ use project_init::*;
 use std::path::Path;
 use time::strftime;
 use case::*;
+use toml::Value::Table;
 
 fn main() {
 
@@ -70,6 +71,7 @@ fn main() {
             "vim" => includes::VIM_TEMPLATE,
             "python" => includes::PY_TEMPLATE,
             "haskell" => includes::HASK_TEMPLATE,
+            "plain" => includes::PLAIN_TEMPLATE,
             _ => { println!("The requested template is not a built-in :(") ; std::process::exit(0x0f00) },
         };
         let parsed_toml = read_toml_str(toml_file.to_string(), "BUILTIN");
@@ -179,6 +181,7 @@ fn main() {
 
         // render appropriate stuff by name.
         let _ = match template_str {
+            "plain" => (),
             "rust" => { write_file_plain(includes::RUST_LIB, name, "src/lib.rs");
                         write_file_plain(includes::RUST_TRAVIS_CI, name, ".travis.tml");
                         render_file(includes::CARGO_TOML, name, "Cargo.toml", &hash) },
@@ -292,8 +295,51 @@ fn main() {
                 "".to_string()
             };
 
+        // make user_keys into a vector; prepare to insert them into the `HashBuilder`
+        let user_keys = 
+            if let Some(u) = parsed_toml.user {
+                match u.toml {
+                    Table(t) => Some(t),
+                    _ => None,
+                }
+            }
+            else {
+                None
+            };
+
+        // make user_keys into a vector; prepare to insert them into the `HashBuilder`
+        let user_keys_global = 
+            if let Some(u) = decoded.user {
+                match u.toml {
+                    Table(t) => Some(t),
+                    _ => None,
+                }
+            }
+            else {
+                None
+            };
+
+
         // Make a hash for inserting stuff into templates.
-        let hash = HashBuilder::new().insert("project",name)
+        let mut hash = HashBuilder::new();
+        // project-specific
+        if let Some(x) = user_keys {
+            for (key, value) in x.iter() {
+                if let Some(a) = value.as_str() {
+                    hash = hash.insert(key, a);
+                }
+            }
+        }
+        // global
+        if let Some(x) = user_keys_global {
+            for (key, value) in x.iter() {
+                if let Some(a) = value.as_str() {
+                    hash = hash.insert(key, a);
+                }
+            }
+        }
+        // add the normal stuff
+        hash = hash.insert("project",name)
             .insert("Project", name.to_capitalized())
             .insert("year", year)
             .insert("name", author.name)
@@ -338,14 +384,14 @@ fn main() {
         }
 
         // Make a hash for inserting stuff into templates.
-        let hash_with_files = &hash
+        hash = hash
             .insert("files", files);
 
         // render templates
-        render_templates(&project, name, &hash_with_files, parsed_dirs.templates, false);
+        render_templates(&project, name, &hash, parsed_dirs.templates, false);
 
         // render scripts, i.e. files that should be executable.
-        render_templates(&project, name, &hash_with_files, parsed_dirs.scripts, true);
+        render_templates(&project, name, &hash, parsed_dirs.scripts, true);
 
         // initialize version control
         if let Some(config) = parsed_config {

@@ -6,3 +6,6 @@ version = "0.1.0"
 name = "Vanessa McHale"
 email = "vamchale@gmail.com"
 github_username = "vmchale"
+
+[[user]]
+website = "https://vmchale.com"

@@ -10,6 +10,9 @@ pub const ALL_RIGHTS_RESERVED:&'static str = include_str!("includes/licenses/All
 // README.md
 pub const README:&'static str = include_str!("includes/README.md");
 
+// Plain template
+pub const PLAIN_TEMPLATE:&'static str = include_str!("includes/plain.toml");
+
 // Rust includes 
 pub const CARGO_TOML:&'static str = include_str!("includes/rust/Cargo.toml.init");
 pub const RUST_TEMPLATE:&'static str = include_str!("includes/rust/template.toml");

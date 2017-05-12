@@ -27,7 +27,7 @@ pub fn read_toml_dir(template_path: &str, home: PathBuf) -> (types::Project, boo
         if let Ok(f) = File::open(&template_path) {
             (f, false)
         }
-        else if let Ok(f) = { let mut p = home ; p.push(".pi_templates/") ; p.push(template_path) ; println!("{:?}", p.clone()) ; File::open(p) } {
+        else if let Ok(f) = { let mut p = home ; p.push(".pi_templates/") ; p.push(template_path) ; File::open(p) } {
             (f, true)
         }
         else {
@@ -79,6 +79,6 @@ pub fn read_toml_config(config_path: std::path::PathBuf) -> types::Config {
     }
     else {
         println!("{}: No ~/.pi.toml found. Using defaults.", "Warning".yellow());
-        types::Config { version_control: None, author: None, license: None }
+        types::Config { version_control: None, author: None, license: None, user: None }
     }
 }

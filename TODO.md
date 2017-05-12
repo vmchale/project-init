@@ -5,15 +5,23 @@
 - [x] define config syntax
 - [x] use interpolations for actual templates
 - [x] be faster than python
-- [ ] reorder directories so it doesn't panic when it creates them out of order
+- [x] reorder directories so it doesn't panic when it creates them out of order
 - [x] benchmarks
   - [x] more besides the vim one
 - [x] extra templates
   - [x] vim
-  - [x] rust
+  - [x] rust-lib
+  - [x] rust-bin
   - [x] nim/shake
   - [x] haskell
   - [x] python
+  - [x] idris
+    - [ ] test
+  - [x] julia
+    - [ ] test
+  - [x] yesod
+    - [ ] test
+  - [ ] reflex
 - [x] built-in licenses
   - [x] bsd3
   - [x] mit
@@ -21,6 +29,7 @@
   - [x] all rights reserved
 - [x] call templates by name?
   - [x] rust
+  - [x] plain (license/readme)
   - [x] haskell
   - [x] python
   - [x] vim
@@ -30,9 +39,11 @@
   - [x] no superfluous panics when opening file in dir that doesn't exist
   - [x] parse errors + nice display
   - [x] colored crate
-- [ ] add keys
+- [x] add keys
   - [x] full date 
-  - [ ] user-defined keys (under [user] & accessed with user.custom?)
+  - [x] user-defined keys (under [[user]])
+    - [ ] user-define arrays
+    - [ ] put in README
   - [x] github username
   - [x] set version control globally
   - [x] set preferred license globally

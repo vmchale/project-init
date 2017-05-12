@@ -24,7 +24,6 @@ Reasons to not use pi over cookiecutter:
   - pi does not fetch templates remotely.
   - pi uses logic-less templates, which are not as sophisticated as the
     [jinja](http://jinja.pocoo.org/) templates that cookiecutter uses.
-  - pi is a work in progress. It does not yet have custom keys.
 
 Cool benchmarks (with Haskell's [bench](https://github.com/Gabriel439/bench)):
 
@@ -83,6 +82,10 @@ version = "0.1.0"        # start new projects at version 0.1.0
 name = "Vanessa McHale"
 email = "vamchale@gmail.com"
 github_username = "vmchale"
+
+# put any custom keys you want below [[user]]
+[[user]]
+website = "https://vmchale.com"
 ```
 
 Project-specific config lives in `$PROJECT_NAME/template.toml`. The following is
@@ -100,6 +103,10 @@ templates = ["vimball.txt"] # files to be processed
 [config]
 version = "0.1.0"
 version_control = "git"
+
+# put any custom keys you want below [[user]]
+[[user]]
+vim_org_username = "vmchale"
 ```
 
 This will generate the following directory structure:
