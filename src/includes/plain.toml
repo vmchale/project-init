@@ -1,0 +1,9 @@
+license = "BSD3"
+with_readme = true
+
+[files]
+files = []
+directories = []
+templates = []
+
+[config]
