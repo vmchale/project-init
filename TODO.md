@@ -48,6 +48,7 @@
   - [x] set version control globally
   - [x] set preferred license globally
   - [x] ask user for missing keys
+- [ ] vim integration would be cool
 - [x] ask before overwriting directories
   - [x] --force or -f to overwrite anyways
 - [x] ask user for missing keys
