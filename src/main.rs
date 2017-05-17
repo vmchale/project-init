@@ -144,7 +144,7 @@ fn main() {
             .insert("date", current_date);
      
         // check if the directory exists and exit, if we haven't forced an overwrite.
-        if Path::new(name).exists() && force == false {
+        if Path::new(name).exists() && !force {
             println!("Path '{}' already exists. Rerun with -f or --force to overwrite.", name);
             std::process::exit(0x0f00);
         };
@@ -171,7 +171,7 @@ fn main() {
 
         // render readme if requested
         if let Some(readme) = parsed_toml.with_readme {
-            if readme == true {
+            if readme {
                 render_file(includes::README, name, "README.md", &hash);
             }
         }
@@ -180,7 +180,7 @@ fn main() {
             .insert("files", files);
 
         // render appropriate stuff by name.
-        let _ = match template_str {
+        match template_str {
             "plain" => (),
             "rust" => { write_file_plain(includes::RUST_LIB, name, "src/lib.rs");
                         write_file_plain(includes::RUST_TRAVIS_CI, name, ".travis.tml");
@@ -324,7 +324,7 @@ fn main() {
         let mut hash = HashBuilder::new();
         // project-specific
         if let Some(x) = user_keys {
-            for (key, value) in x.iter() {
+            for (key, value) in &x {
                 if let Some(a) = value.as_str() {
                     hash = hash.insert(key, a);
                 }
@@ -332,7 +332,7 @@ fn main() {
         }
         // global
         if let Some(x) = user_keys_global {
-            for (key, value) in x.iter() {
+            for (key, value) in &x {
                 if let Some(a) = value.as_str() {
                     hash = hash.insert(key, a);
                 }
@@ -350,7 +350,7 @@ fn main() {
             .insert("date", current_date);
      
         // check if the directory exists and exit, if we haven't forced an overwrite.
-        if Path::new(name).exists() && force == false {
+        if Path::new(name).exists() && !force {
             println!("Path '{}' already exists. Rerun with -f or --force to overwrite.", name);
             std::process::exit(0x0f00);
         };
@@ -378,7 +378,7 @@ fn main() {
 
         // render readme if requested
         if let Some(readme) = parsed_toml.with_readme {
-            if readme == true {
+            if readme {
                 render_file(includes::README, name, "README.md", &hash);
             }
         }
