@@ -37,15 +37,15 @@ pub fn read_toml_dir(template_path: &str, home: PathBuf) -> (types::Project, boo
     let mut template = String::new();
     template_file.read_to_string(&mut template)
         .expect("Failed to read file"); // we can panic because we already errored if the file didn't exist.
-    (read_toml_str(template, template_path), is_global_template)
+    (read_toml_str(&template, template_path), is_global_template)
 }
 
 /// Read a string containing a toml file
-pub fn read_toml_str(template: String, template_path: &str) -> types::Project {
-    if let Ok(t) = toml::from_str(&template) {
+pub fn read_toml_str(template: &str, template_path: &str) -> types::Project {
+    if let Ok(t) = toml::from_str(template) {
         t
     }
-    else if let Err(e) = toml::from_str(&template): Result<String, de::Error> {
+    else if let Err(e) = toml::from_str(template): Result<String, de::Error> {
         println!("Error parsing {:?}: {}", template_path, e);
         std::process::exit(0x0f00);
     }
@@ -54,8 +54,8 @@ pub fn read_toml_str(template: String, template_path: &str) -> types::Project {
     }
 }
     
-/// Given a PathBuf, read the .toml file there as a configuration file.
-pub fn read_toml_config(config_path: std::path::PathBuf) -> types::Config {
+/// Given a `PathBuf`, read the .toml file there as a configuration file.
+pub fn read_toml_config(config_path: &std::path::PathBuf) -> types::Config {
     let mut file =
         if let Ok(f) = File::open(&config_path) {
             f
@@ -65,7 +65,7 @@ pub fn read_toml_config(config_path: std::path::PathBuf) -> types::Config {
             std::process::exit(0x0f00);
         };
     let mut toml_str = String::new();
-    if let Ok(_) = file.read_to_string(&mut toml_str) {
+    if file.read_to_string(&mut toml_str).is_ok() {
         if let Ok(t) = toml::from_str(&toml_str) {
             t
         }

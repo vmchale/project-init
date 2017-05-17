@@ -46,7 +46,7 @@ pub fn render_files<'a>(files_pre: Vec<String>, hash: &HashBuilder, name: &str) 
 
     // collect filenames
     let s: Vec<Data> = substitutions.into_iter()
-        .map(|string| Data::from(string))
+        .map(Data::from)
         .collect();
 
     // return a `VecBuilder` object.
@@ -166,7 +166,7 @@ pub fn write_file_plain(static_contents: &'static str, name: &str, filename: &st
 pub fn render_file(static_template: &'static str, name: &str, filename: &str, hash: &HashBuilder) -> () {
     // render the template
     let mut o = Cursor::new(Vec::new());
-    hash.render(&static_template, &mut o).unwrap();
+    hash.render(static_template, &mut o).unwrap();
     let contents = String::from_utf8(o.into_inner()).unwrap();
 
     // write the file

@@ -10,6 +10,9 @@ repository = "https://github.com/vmchale/project-init"
 documentation = "https://github.com/vmchale/project-init#README"
 homepage = "https://github.com/vmchale/project-init"
 
+[profile.release]
+lto = true
+
 [dependencies]
 case = "0.1.0"
 toml = "0.4"

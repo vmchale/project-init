@@ -35,7 +35,7 @@ fn main() {
     path.push(".pi.toml");
 
     // read global config file
-    let decoded: Config = read_toml_config(path);
+    let decoded: Config = read_toml_config(&path);
     
     // create author struct
     let author = 
@@ -74,7 +74,7 @@ fn main() {
             "plain" => includes::PLAIN_TEMPLATE,
             _ => { println!("The requested template is not a built-in :(") ; std::process::exit(0x0f00) },
         };
-        let parsed_toml = read_toml_str(toml_file.to_string(), "BUILTIN");
+        let parsed_toml = read_toml_str(toml_file, "BUILTIN");
         let parsed_dirs = parsed_toml.files;
         let parsed_config = parsed_toml.config;
         
