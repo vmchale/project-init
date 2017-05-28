@@ -6,6 +6,7 @@ use std::fs::File;
 use std::io::Cursor;
 use self::rustache::*;
 use std::io::prelude::*;
+#[cfg(not(target_os = "windows"))]
 use std::os::unix::fs::PermissionsExt;
 use std::process::*;
 
@@ -65,6 +66,78 @@ impl <T:ToString>Create for Vec<T> {
 }
 
 /// render a `<Vec<String>>` of templates, doing nothing if it's empty.
+#[cfg(target_os = "windows")]
+pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates_pre: Option<Vec<String>>, executable: bool) -> () {
+    if let Some(t) = templates_pre {
+
+        // create Vec<T> of paths to templates
+        let templates: Vec<String> = t.clone().into_iter()
+            .map(|file| { let mut p = project.to_string();
+                p.push('/');
+                p.push_str(&file);
+                if executable { 
+                    p.push_str(".bat");
+                }
+                p } ).collect();
+
+        // read all the template files
+        let template_files: Vec<String> = templates.into_iter()
+            .map(|p| { 
+                let template_f_pre = File::open(&p) ;
+                let mut t = String::new();
+                let mut template_f = 
+                    if let Ok(f) = template_f_pre {
+                        f
+                    }
+                    else {
+                        println!("Failed to open file: {:?}", p);
+                        exit(0x0f00);
+                    };
+                template_f
+                    .read_to_string(&mut t)
+                    .expect("File read failed."); // ok to panic because we already errored. 
+                t }).collect();
+
+        // create Vec<T> of paths to rendered templates
+        let templates_new: Vec<String> = t.into_iter()
+            .map(|file| { let mut p = name.to_string();
+                p.push('/');
+                p.push_str(&file);
+                p }).collect();
+
+        // subtitute into template names
+        let templates_named: Vec<String> = templates_new.into_iter()
+                                   .map(|n| { let mut o = Cursor::new(Vec::new());
+                                       hash.render(&n, &mut o).unwrap();
+                                       String::from_utf8(o.into_inner()).unwrap() })
+                                   .collect();
+
+        // render all the template files
+        let s: Vec<String> = template_files.clone().into_iter()
+                                   .map(|file| { let mut o = Cursor::new(Vec::new());
+                                       hash.render(&file, &mut o).unwrap();
+                                       String::from_utf8(o.into_inner()).unwrap()})
+                                   .collect();
+
+        // write the rendered templates
+        let files_to_write = templates_named.iter().zip(s.iter());
+        let _ = files_to_write.into_iter()
+            .map(|(path, contents)| { 
+                let c = File::create(&path);
+                if let Ok(mut f) = c {
+                    let _ = f.write(contents.as_bytes());
+                }
+                else {
+                    println!("Failed to create file: {:?}. Check that the directory is included in your template.toml", path);
+                    exit(0x0f00);
+                };
+            }
+            ).count();
+    }
+}
+
+/// render a `<Vec<String>>` of templates, doing nothing if it's empty.
+#[cfg(not(target_os = "windows"))]
 pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates_pre: Option<Vec<String>>, executable: bool) -> () {
     if let Some(t) = templates_pre {
 
@@ -126,6 +199,7 @@ pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates
                     println!("Failed to create file: {:?}. Check that the directory is included in your template.toml", path);
                     exit(0x0f00);
                 };
+
                 if executable {
                         let mut p = fs::metadata(path)
                             .expect("failed to read file metadata")
