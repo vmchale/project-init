@@ -14,7 +14,7 @@ pub fn git_init(name: &str) -> std::process::Child {
             c
         }
     else {
-        println!("{}, git failed to initialize. Is git on your path?","Error".red());
+        eprintln!("{}, git failed to initialize. Is git on your path?","Error".red());
         std::process::exit(0x0f01);
     }
 }
@@ -31,7 +31,7 @@ pub fn hg_init(name: &str) -> std::process::Child {
             c
         }
     else {
-        println!("{}, Mercurial failed to initialize. Is hg on your path?","Error".red());
+        eprintln!("{}, Mercurial failed to initialize. Is hg on your path?","Error".red());
         std::process::exit(0x0f01);
     }
 }

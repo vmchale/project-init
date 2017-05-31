@@ -90,7 +90,7 @@ pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates
                         f
                     }
                     else {
-                        println!("Failed to open file: {:?}", p);
+                        eprintln!("Failed to open file: {:?}", p);
                         exit(0x0f00);
                     };
                 template_f
@@ -128,8 +128,8 @@ pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates
                     let _ = f.write(contents.as_bytes());
                 }
                 else {
-                    println!("Failed to create file: {:?}. Check that the directory is included in your template.toml", path);
-                    exit(0x0f00);
+                    eprintln!("Failed to create file: {:?}. Check that the directory is included in your template.toml", path);
+                    exit(0x0f01);
                 };
             }
             ).count();
@@ -158,8 +158,8 @@ pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates
                         f
                     }
                     else {
-                        println!("Failed to open file: {:?}", p);
-                        exit(0x0f00);
+                        eprintln!("Failed to open file: {:?}", p);
+                        exit(0x0f01);
                     };
                 template_f
                     .read_to_string(&mut t)
@@ -196,8 +196,8 @@ pub fn render_templates(project: &str, name: &str, hash: &HashBuilder, templates
                     let _ = f.write(contents.as_bytes());
                 }
                 else {
-                    println!("Failed to create file: {:?}. Check that the directory is included in your template.toml", path);
-                    exit(0x0f00);
+                    eprintln!("Failed to create file: {:?}. Check that the directory is included in your template.toml", path);
+                    exit(0x0f01);
                 };
 
                 if executable {
@@ -254,7 +254,7 @@ pub fn render_file(static_template: &'static str, name: &str, filename: &str, ha
         let _ = f.write(contents.as_bytes());
     }
     else {
-        println!("Failed to create file: {:?}. Check that the directory is included in your template.toml", p);
-        exit(0x0f00);
+        eprintln!("Failed to create file: {:?}. Check that the directory is included in your template.toml", p);
+        exit(0x0f01);
     }
 }

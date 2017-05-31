@@ -281,7 +281,7 @@ fn main() {
                 }
             }
             else {
-                println!("{}: no version info found, defaulting to '0.1.0'", "Warning".yellow());
+                eprintln!("{}: no version info found, defaulting to '0.1.0'", "Warning".yellow());
                 "0.1.0".to_string()
             };
 
@@ -291,7 +291,7 @@ fn main() {
                 uname
             }
             else {
-                println!("{}: no github username found, defaulting to null", "Warning".yellow());
+                eprintln!("{}: no github username found, defaulting to null", "Warning".yellow());
                 "".to_string()
             };
 

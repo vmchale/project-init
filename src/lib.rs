@@ -78,7 +78,7 @@ pub fn read_toml_config(config_path: &std::path::PathBuf) -> types::Config {
         }
     }
     else {
-        println!("{}: No ~/.pi.toml found. Using defaults.", "Warning".yellow());
+        eprintln!("{}: No ~/.pi.toml found. Using defaults.", "Warning".yellow());
         types::Config { version_control: None, author: None, license: None, user: None }
     }
 }
