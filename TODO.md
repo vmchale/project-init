@@ -21,6 +21,8 @@
     - [ ] test
   - [x] yesod
     - [ ] test
+  - [x] elm
+    - [x] test
   - [ ] reflex
 - [x] built-in licenses
   - [x] bsd3
