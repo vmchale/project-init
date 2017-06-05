@@ -1,0 +1,10 @@
+license = "BSD3"
+with_readme = true
+
+[files]
+directories = ["src","test"]
+templates = ["src/{{ Project }}", "test/test.jl","REQUIRE"]
+
+[config]
+version = "0.1"
+version_control = "git"

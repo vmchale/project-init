@@ -1,0 +1,11 @@
+license = "BSD3"
+with_readme = true
+
+[files]
+files = []
+directories = ["{{ Project }}"]
+templates = ["{{ Project }}/Lib.idr","Main.idr","{{ project }}.ipkg",".gitignore"]
+
+[config]
+version = "0.1.0"
+version_control = "git"

@@ -1,0 +1,14 @@
+license = "BSD3"
+with_readme = true
+
+[files]
+files = []
+directories = ["src", "test"]
+templates = ["src/View.elm","src/Update.elm","src/State.elm","src/main.elm","elm-package.json",".gitignore","test/TestSuite.elm","test/main.elm","test/elm-package.json"]
+
+[config]
+version = "1.0.0"
+version_control = "git"
+
+[[user]]
+license_file = "LICENSE"
