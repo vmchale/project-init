@@ -62,7 +62,7 @@ There is a repo of templates for pi
 [here](https://github.com/vmchale/pi-templates). 
 
 You can also use pi with built-in templates. Currently pi has rust, haskell,
-vimscript, and python templates built-in.
+vimscript, idris, julia, and python templates built-in.
 
 ```bash
 $ pi new haskell really-good-project
@@ -129,4 +129,4 @@ vim-plugin
 `pi` uses [mustache](https://mustache.github.io/) for templating, via the
 [rustache](https://github.com/rustache/rustache) crate.
 
-You can find examples and help on the [mustache page](https://mustache.github.io/).
+You can find examples and help on the [mustache page](https://mustache.github.io/), or you can my look at [my repo](https://github.com/vmchale/pi-templates).

@@ -71,6 +71,8 @@ fn main() {
             "vim" => includes::VIM_TEMPLATE,
             "python" => includes::PY_TEMPLATE,
             "haskell" => includes::HASK_TEMPLATE,
+            "idris" => includes::IDRIS_TEMPLATE,
+            //"julia" => includes::JULIA_TEMPLATE,
             "plain" => includes::PLAIN_TEMPLATE,
             _ => { println!("The requested template is not a built-in :(") ; std::process::exit(0x0f00) },
         };
@@ -182,15 +184,35 @@ fn main() {
         // render appropriate stuff by name.
         match template_str {
             "plain" => (),
+
             "rust" => { write_file_plain(includes::RUST_LIB, name, "src/lib.rs");
                         write_file_plain(includes::RUST_TRAVIS_CI, name, ".travis.tml");
                         render_file(includes::CARGO_TOML, name, "Cargo.toml", &hash) },
+
             "vim" => render_file(includes::VIMBALL, name, "vimball.txt", &hash_with_files),
+
             "python" => { render_file(includes::PY_SETUP, name, "setup.py", &hash);
                           write_file_plain(includes::PY_CFG, name, "setup.cfg");
                           let mut bin_path = "bin/".to_string();
                           bin_path.push_str(name);
-                          render_file(includes::PY_BIN, name, &bin_path, &hash); }
+                          render_file(includes::PY_BIN, name, &bin_path, &hash); },
+
+            "idris" => {  let mut pkg_path = name.to_string();
+                          pkg_path.push_str(".ipkg");
+                          let mut main_path = name.to_capitalized();
+                          main_path.push_str(".idr");
+                          render_file(includes::IPKG, name, &pkg_path, &hash);
+                          render_file(includes::IDRIS_EXE, name, &main_path, &hash);
+                          let mut lib_path = name.to_capitalized();
+                          lib_path.push('/');
+                          lib_path.push_str(name);
+                          lib_path.push_str(".idr");
+                          render_file(includes::IDRIS_LIB, name, &lib_path, &hash); },
+
+            /*"julia" => {  render_file(includes::JULIA_REQUIRE, name, "REQUIRE", &hash);
+                          render_file(includes::JULIA_LIB, name, "src/{{ Project }}.jl");
+                          write_file_plain(includes::IDRIS_LIB, name, "test/test.jl", &hash); },*/
+
             "haskell" => { write_file_plain(includes::SETUP_HS, name, "Setup.hs");
                            write_file_plain(includes::MAIN, name, "app/Main.hs");
                            write_file_plain(includes::LIB, name, "src/Lib.hs");
@@ -203,8 +225,9 @@ fn main() {
                            render_file(includes::CABAL, name, &cabal_path, &hash);
                            write_file_plain(includes::RELEASE_NIX, name, "release.nix");
                            write_file_plain(includes::STACK_YAML, name, "stack.yaml");
-                           write_file_plain(includes::HASKELL_TRAVIS_CI, name, ".travis.yml"); }
-            _ => std::process::exit(0x0f00),
+                           write_file_plain(includes::HASKELL_TRAVIS_CI, name, ".travis.yml"); },
+
+            _ => std::process::exit(0x0f01),
         };
 
         // Print that we're done

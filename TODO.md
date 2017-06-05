@@ -17,12 +17,15 @@
   - [x] python
   - [x] idris
     - [ ] test
+    - [ ] builtin
   - [x] julia
     - [ ] test
+    - [ ] builtin
   - [x] yesod
     - [ ] test
   - [x] elm
     - [x] test
+    - [ ] builtin
   - [ ] reflex
 - [x] built-in licenses
   - [x] bsd3

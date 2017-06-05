@@ -29,6 +29,13 @@ pub const PY_SETUP:&'static str = include_str!("includes/python/setup.py");
 pub const PY_CFG:&'static str = include_str!("includes/python/setup.cfg");
 pub const PY_TEMPLATE:&'static str = include_str!("includes/python/template.toml");
 
+// Julia includes
+/*
+pub const JULIA_TEMPLATE:&'static str = include!("includes/julia-lib/template.toml");
+pub const JULIA_REQUIRE:&'static str = include!("includes/julia-lib/REQUIRE");
+pub const JULIA_TEST:&'static str = include!("includes/julia-lib/test/test.jl");
+pub const JULIA_SRC:&'static str = include!("includes/julia-lib/src/{{ Project }}.jl");*/
+
 // Haskell includes
 pub const SETUP_HS:&'static str = include_str!("includes/haskell/Setup.hs");
 pub const MAIN:&'static str = include_str!("includes/haskell/app/Main.hs");
@@ -41,3 +48,9 @@ pub const CABAL:&'static str = include_str!("includes/haskell/project.cabal");
 pub const STACK_YAML:&'static str = include_str!("includes/haskell/stack.yaml");
 pub const HASK_TEMPLATE:&'static str = include_str!("includes/haskell/template.toml");
 pub const HASKELL_TRAVIS_CI:&'static str = include_str!("includes/haskell/.travis.yml");
+
+// Idiris includes
+pub const IDRIS_TEMPLATE:&'static str = include_str!("includes/idris/template.toml");
+pub const IDRIS_LIB:&'static str = include_str!("includes/idris/{{ Project }}/Lib.idr");
+pub const IDRIS_EXE:&'static str = include_str!("includes/idris/{{ Project }}.idr");
+pub const IPKG:&'static str = include_str!("includes/idris/{{ project }}.ipkg");
