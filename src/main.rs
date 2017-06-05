@@ -72,7 +72,7 @@ fn main() {
             "python" => includes::PY_TEMPLATE,
             "haskell" => includes::HASK_TEMPLATE,
             "idris" => includes::IDRIS_TEMPLATE,
-            //"julia" => includes::JULIA_TEMPLATE,
+            "julia" => includes::JULIA_TEMPLATE,
             "plain" => includes::PLAIN_TEMPLATE,
             _ => { println!("The requested template is not a built-in :(") ; std::process::exit(0x0f00) },
         };
@@ -209,9 +209,12 @@ fn main() {
                           lib_path.push_str(".idr");
                           render_file(includes::IDRIS_LIB, name, &lib_path, &hash); },
 
-            /*"julia" => {  render_file(includes::JULIA_REQUIRE, name, "REQUIRE", &hash);
-                          render_file(includes::JULIA_LIB, name, "src/{{ Project }}.jl");
-                          write_file_plain(includes::IDRIS_LIB, name, "test/test.jl", &hash); },*/
+            "julia" => {  write_file_plain(includes::JULIA_REQUIRE, name, "REQUIRE");
+                          let mut project_path = "src/".to_string();
+                          project_path.push_str(name.to_capitalized().as_str());
+                          project_path.push_str(".jl");
+                          write_file_plain(includes::JULIA_SRC, name, &project_path);
+                          write_file_plain(includes::JULIA_TEST, name, "test/test.jl"); },
 
             "haskell" => { write_file_plain(includes::SETUP_HS, name, "Setup.hs");
                            write_file_plain(includes::MAIN, name, "app/Main.hs");

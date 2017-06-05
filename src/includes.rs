@@ -30,11 +30,11 @@ pub const PY_CFG:&'static str = include_str!("includes/python/setup.cfg");
 pub const PY_TEMPLATE:&'static str = include_str!("includes/python/template.toml");
 
 // Julia includes
-/*
-pub const JULIA_TEMPLATE:&'static str = include!("includes/julia-lib/template.toml");
-pub const JULIA_REQUIRE:&'static str = include!("includes/julia-lib/REQUIRE");
-pub const JULIA_TEST:&'static str = include!("includes/julia-lib/test/test.jl");
-pub const JULIA_SRC:&'static str = include!("includes/julia-lib/src/{{ Project }}.jl");*/
+
+pub const JULIA_TEMPLATE:&'static str = include_str!("includes/julia-lib/template.toml");
+pub const JULIA_REQUIRE:&'static str = include_str!("includes/julia-lib/REQUIRE");
+pub const JULIA_TEST:&'static str = include_str!("includes/julia-lib/test/test.jl");
+pub const JULIA_SRC:&'static str = include_str!("includes/julia-lib/src/{{ Project }}.jl");
 
 // Haskell includes
 pub const SETUP_HS:&'static str = include_str!("includes/haskell/Setup.hs");
