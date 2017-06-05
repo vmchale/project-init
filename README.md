@@ -48,6 +48,12 @@ First, install [cargo](https://rustup.rs/). Then:
  $ cargo install project_init
 ```
 
+You will need to use the nightly release for this to work; if in doubt run
+
+```bash
+rustup default nightly
+```
+
 ## Use
 
 `pi` reads from `$HOME/.pi_templates/` *and* the local directory. So, if you
