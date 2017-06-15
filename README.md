@@ -18,7 +18,7 @@ Reasons to use pi over cookiecutter:
     plugin template.
   - pi uses mustache, a logic-less language that has libraries for *many* other
     languages.
-  - pi can initialize a git or mercurial repository inside your new project
+  - pi can initialize a darcs, pijul, mercurial, or git repository inside your new project
 
 Reasons to not use pi over cookiecutter:
   - pi does not fetch templates remotely.
@@ -108,7 +108,7 @@ templates = ["vimball.txt"] # files to be processed
 
 [config]
 version = "0.1.0"
-version_control = "git"
+version_control = "darcs"
 
 # put any custom keys you want below [[user]]
 [[user]]

@@ -1,4 +1,5 @@
 //! Source file for the binary.
+#![allow(panic_params)]
 #[macro_use] extern crate clap;
 #[macro_use] extern crate text_io;
 
@@ -21,6 +22,7 @@ use time::strftime;
 use case::*;
 use toml::Value::Table;
 
+#[allow(cyclomatic_complexity)] 
 fn main() {
 
     // command-line parser
@@ -422,20 +424,22 @@ fn main() {
         // initialize version control
         if let Some(config) = parsed_config {
             if let Some(vc) = config.version_control {
-                if vc == "git" {
-                    repo::git_init(name);
-                }
-                else if vc == "hc" || vc == "mercurial" {
-                    repo::hg_init(name);
+                match vc.as_str() {
+                    "git" => repo::git_init(name),
+                    "hg" | "mercurial" => repo::hg_init(name),
+                    "pijul" => repo::pijul_init(name),
+                    "darcs" => repo::darcs_init(name),
+                    _ => { eprintln!("{}: version control {} is not yet supported. Supported version control tools are darcs, pijul, mercurial, and git.", "Error".red(), vc); }
                 }
             }
         }
         else if let Some(vc) = decoded.version_control {
-            if vc == "git" {
-                repo::git_init(name);
-            }
-            else if vc == "hc" || vc == "mercurial" {
-                repo::hg_init(name);
+            match vc.as_str() {
+                "git" => repo::git_init(name),
+                "hg" | "mercurial" => repo::hg_init(name),
+                "pijul" => repo::pijul_init(name),
+                "darcs" => repo::darcs_init(name),
+                _ => { eprintln!("{}: version control {} is not yet supported. Supported version control tools are darcs, pijul, mercurial, and git.", "Error".red(), vc); }
             }
         }
 
