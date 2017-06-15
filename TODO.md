@@ -17,10 +17,10 @@
   - [x] python
   - [x] idris
     - [ ] test
-    - [ ] builtin
+    - [x] builtin
   - [x] julia
     - [ ] test
-    - [ ] builtin
+    - [x] builtin
   - [x] yesod
     - [ ] test
   - [x] elm

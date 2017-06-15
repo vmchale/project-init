@@ -1,5 +1,5 @@
-name: Project Init (pi) 
-author: Vanessa McHale <tmchale@wisc.edu>
+name: Project Init (pi)
+author: Vanessa McHale <vanessa.mchale@reconfigure.io>
 about: Initialize projects from a template (using rust). 
 args:
     - force:
