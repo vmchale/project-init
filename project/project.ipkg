@@ -1,0 +1,9 @@
+package project
+
+sourceloc  = git://git@github.com:vmchale/project.git
+bugtracker = http://www.github.com/vmchale/project/issues
+
+pkgs = 
+
+modules = Project
+        , Project.Lib
