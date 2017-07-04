@@ -11,7 +11,6 @@ github-release release -u vmchale -r project-init --tag $tag --name @args[1..]
 
 github-release upload --user vmchale --repo project-init --tag $tag --name "pi-x86_64-linux-gnu" --file target/release/pi
 github-release upload --user vmchale --repo project-init --tag $tag --name "pi-armv7-linux-gnueabihf" --file target/arm-unknown-linux-gnueabihf/release/pi
-github-release upload --user vmchale --repo project-init --tag $tag --name "pi-armv7-linux-musleabi" --file target/arm-unknown-linux-musleabi/release/pi
 github-release upload --user vmchale --repo project-init --tag $tag --name "pi-x86_64-pc-windows.exe" --file target/x86_64-pc-windows-gnu/release/pi.exe
 github-release upload --user vmchale --repo project-init --tag $tag --name "pi-x86_64-freebsd" --file target/x86_64-unknown-freebsd/release/pi
 github-release upload --user vmchale --repo project-init --tag $tag --name "pi-x86_64-linux-musl" --file target/x86_64-unknown-linux-musl/release/pi
