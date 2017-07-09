@@ -18,6 +18,7 @@ pub const RUST_GITIGNORE:&'static str = include_str!("includes/rust/.gitignore")
 pub const CARGO_TOML:&'static str = include_str!("includes/rust/Cargo.toml.init");
 pub const RUST_TEMPLATE:&'static str = include_str!("includes/rust/template.toml");
 pub const RUST_LIB:&'static str = include_str!("includes/rust/lib.rs.init");
+pub const RUST_MAIN:&'static str = include_str!("includes/rust/main.rs.init");
 pub const RUST_TRAVIS_CI:&'static str = include_str!("includes/rust/.travis.yml");
 
 // Vim includes

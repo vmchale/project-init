@@ -3,7 +3,7 @@ with_readme = true
 
 [files]
 directories = ["src"]
-templates = ["Cargo.toml","src/lib.rs"]
+templates = ["Cargo.toml","src/lib.rs", "src/main.rs"]
 
 [config]
 version = "0.1.0"

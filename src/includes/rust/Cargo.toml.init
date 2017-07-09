@@ -1,6 +1,13 @@
 [package]
 name = "{{ project }}"
 version = "{{ version }}"
-authors = ["{{ name }} {{ email }}"]
+authors = ["{{ name }} <{{ email }}>"]
+
+[profile.release]
+lto = true
+
+[[bin]]
+name = "{{ project }}"
+path = "src/main.rs"
 
 [dependencies]
