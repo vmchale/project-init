@@ -16,7 +16,7 @@
   - [x] haskell
   - [x] python
   - [x] idris
-    - [ ] test
+    - [x] test
     - [x] builtin
   - [x] julia
     - [ ] test

@@ -189,32 +189,36 @@ fn main() {
 
             "rust" => { write_file_plain(includes::RUST_LIB, name, "src/lib.rs");
                         write_file_plain(includes::RUST_TRAVIS_CI, name, ".travis.tml");
+                        write_file_plain(includes::RUST_GITIGNORE, name, ".gitignore");
                         render_file(includes::CARGO_TOML, name, "Cargo.toml", &hash) },
 
-            "vim" => render_file(includes::VIMBALL, name, "vimball.txt", &hash_with_files),
+            "vim" => { write_file_plain(includes::VIM_GITIGNORE, name, ".gitignore");
+                       render_file(includes::VIMBALL, name, "vimball.txt", &hash_with_files) },
 
             "python" => { render_file(includes::PY_SETUP, name, "setup.py", &hash);
                           write_file_plain(includes::PY_CFG, name, "setup.cfg");
+                          write_file_plain(includes::PY_GITIGNORE, name, ".gitignore");
                           let mut bin_path = "bin/".to_string();
                           bin_path.push_str(name);
                           render_file(includes::PY_BIN, name, &bin_path, &hash); },
 
             "idris" => {  let mut pkg_path = name.to_string();
                           pkg_path.push_str(".ipkg");
+                          write_file_plain(includes::IDRIS_GITIGNORE, name, ".gitignore");
                           let mut main_path = name.to_capitalized();
                           main_path.push_str(".idr");
                           render_file(includes::IPKG, name, &pkg_path, &hash);
                           render_file(includes::IDRIS_EXE, name, &main_path, &hash);
                           let mut lib_path = name.to_capitalized();
                           lib_path.push('/');
-                          lib_path.push_str(name);
-                          lib_path.push_str(".idr");
+                          lib_path.push_str("Lib.idr");
                           render_file(includes::IDRIS_LIB, name, &lib_path, &hash); },
 
             "julia" => {  write_file_plain(includes::JULIA_REQUIRE, name, "REQUIRE");
                           let mut project_path = "src/".to_string();
                           project_path.push_str(name.to_capitalized().as_str());
                           project_path.push_str(".jl");
+                          write_file_plain(includes::JULIA_GITIGNORE, name, ".gitignore");
                           write_file_plain(includes::JULIA_SRC, name, &project_path);
                           write_file_plain(includes::JULIA_TEST, name, "test/test.jl"); },
 
@@ -228,6 +232,7 @@ fn main() {
                            let mut cabal_path = name.to_string();
                            cabal_path.push_str(".cabal");
                            render_file(includes::CABAL, name, &cabal_path, &hash);
+                           write_file_plain(includes::HASKELL_GITIGNORE, name, ".gitignore");
                            write_file_plain(includes::RELEASE_NIX, name, "release.nix");
                            write_file_plain(includes::STACK_YAML, name, "stack.yaml");
                            write_file_plain(includes::HASKELL_TRAVIS_CI, name, ".travis.yml"); },
