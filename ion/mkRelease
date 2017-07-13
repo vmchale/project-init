@@ -3,16 +3,18 @@
 git add *
 git commit -am "for release"
 
+cargo release --no-dev-version -l @args[1]
+
 mkdir -p target/completions
 export PATH=/home/vanessa/.cargo/bin:$PATH
 cargo build --release
 cross build --target=x86_64-pc-windows-gnu --release &&
 cross build --target=armv7-unknown-linux-gnueabihf --release &&
+cross build --target=armv7-unknown-linux-musleabihf --release &&
+cross build --target=x86_64-unknown-linux-musl --release &&
 cross build --target=x86_64-unknown-freebsd --release &&
 cross build --target=x86_64-unknown-netbsd --release &&
 cross build --target=sparc64-unknown-linux-gnu --release
-
-cargo release --no-dev-version -l @args[1]
 
 # set path to include go binaries
 export GITHUB_TOKEN=$(cat .git-token)
