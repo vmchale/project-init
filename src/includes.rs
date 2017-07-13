@@ -60,4 +60,6 @@ pub const IDRIS_TEMPLATE:&'static str = include_str!("includes/idris/template.to
 pub const IDRIS_LIB:&'static str = include_str!("includes/idris/{{ Project }}/Lib.idr");
 pub const IDRIS_EXE:&'static str = include_str!("includes/idris/{{ Project }}.idr");
 pub const IPKG:&'static str = include_str!("includes/idris/{{ project }}.ipkg");
+pub const IPKG_TEST:&'static str = include_str!("includes/idris/{{ project }}_test.ipkg");
+pub const IDRIS_TEST:&'static str = include_str!("includes/idris/Spec.idr");
 pub const IDRIS_GITIGNORE:&'static str = include_str!("includes/idris/.gitignore");
