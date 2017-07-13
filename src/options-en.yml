@@ -35,3 +35,4 @@ subcommands:
                 help: Project name to be used for project directory
                 index: 2
                 takes_value: true
+                required: true
