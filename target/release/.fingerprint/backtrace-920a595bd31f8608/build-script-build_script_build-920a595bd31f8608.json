@@ -1,0 +1,1 @@
+{"rustc":4245118658129598836,"features":"[\"backtrace-sys\", \"dbghelp\", \"dbghelp-sys\", \"default\", \"dladdr\", \"kernel32-sys\", \"libbacktrace\", \"libunwind\", \"winapi\"]","target":8966019867095999496,"profile":12692912412281557898,"deps":[],"local":[{"Precalculated":"0.2.3"}],"rustflags":[]}
