@@ -1,7 +1,7 @@
 [package]
 name = "project_init"
-version = "2.3.4"
-authors = ["Vanessa McHale <tmchale@wisc.edu>"]
+version = "2.3.3"
+authors = ["Vanessa McHale <vanessa.mchale@reconfigure.io>"]
 description = "Initialize projects from a template. Fast"
 license-file = "LICENSE"
 exclude = [ ".gitignore" ]
