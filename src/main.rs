@@ -245,6 +245,17 @@ fn main() {
             _ => std::process::exit(0x0f01),
         };
 
+        // initialize version control
+        if let Some(vc) = decoded.version_control {
+            match vc.as_str() {
+                "git" => repo::git_init(name),
+                "hg" | "mercurial" => repo::hg_init(name),
+                "pijul" => repo::pijul_init(name),
+                "darcs" => repo::darcs_init(name),
+                _ => { eprintln!("{}: version control {} is not yet supported. Supported version control tools are darcs, pijul, mercurial, and git.", "Error".red(), vc); }
+            }
+        }
+
         // Print that we're done
         println!("Finished initializing project in {}/",name);
 

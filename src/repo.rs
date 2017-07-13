@@ -3,7 +3,10 @@ use std;
 use colored::*;
 
 pub fn git_init(name: &str) -> () {
-    let mut cmd = "git init && git add *".to_string();
+    let mut cmd = "cd ".to_string();
+    cmd.push_str(name);
+    cmd.push_str("&&");
+    cmd.push_str("git init && git add *");
     cmd.push(' ');
     cmd.push_str(name);
     if let Ok(c) = Command::new("sh")
@@ -20,7 +23,10 @@ pub fn git_init(name: &str) -> () {
 }
 
 pub fn pijul_init(name: &str) -> () {
-    let mut cmd = "pijul init && pijul add **".to_string();
+    let mut cmd = "cd ".to_string();
+    cmd.push_str(name);
+    cmd.push_str("&&");
+    cmd.push_str("pijul init && pijul add **");
     cmd.push(' ');
     cmd.push_str(name);
     if let Ok(c) = Command::new("sh")
@@ -31,13 +37,16 @@ pub fn pijul_init(name: &str) -> () {
             c.wait_with_output().expect("failed to wait on child");
         }
     else {
-        eprintln!("{}, Pijul failed to initialize. Is hg on your path?","Error".red());
+        eprintln!("{}, Pijul failed to initialize. Is it on your path?","Error".red());
         std::process::exit(0x0f01);
     }
 }
 
 pub fn darcs_init(name: &str) -> () {
-    let mut cmd = "darcs init && darcs add **".to_string();
+    let mut cmd = "cd ".to_string();
+    cmd.push_str(name);
+    cmd.push_str("&&");
+    cmd.push_str("darcs init && darcs add **");
     cmd.push(' ');
     cmd.push_str(name);
     if let Ok(c) = Command::new("sh")
@@ -65,7 +74,7 @@ pub fn hg_init(name: &str) -> () {
             c.wait_with_output().expect("failed to wait on child");
         }
     else {
-        eprintln!("{}, Mercurial failed to initialize. Is hg on your path?","Error".red());
+        eprintln!("{}, Mercurial failed to initialize. Is it on your path?","Error".red());
         std::process::exit(0x0f01);
     }
 }

@@ -3,6 +3,7 @@
 - [x] warning if ~/.pi.toml doesn't exist
 - [x] read templates from a ~/.pi/ dir?
 - [x] define config syntax
+- [x] builtin templates should use version control if desired
 - [x] use interpolations for actual templates
 - [x] be faster than python
 - [x] reorder directories so it doesn't panic when it creates them out of order
