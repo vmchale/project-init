@@ -1,5 +1,8 @@
 #!/usr/bin/env ion
 
+git add *
+git commit -am "for release"
+
 mkdir -p target/completions
 export PATH=/home/vanessa/.cargo/bin:$PATH
 cargo build --release
