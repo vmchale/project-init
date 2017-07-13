@@ -1,6 +1,6 @@
 [root]
 name = "project_init"
-version = "2.3.0"
+version = "2.3.1"
 dependencies = [
  "case 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "clap 2.25.0 (registry+https://github.com/rust-lang/crates.io-index)",
