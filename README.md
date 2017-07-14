@@ -8,24 +8,25 @@ It is intended to provide something like
 [cookiecutter](https://github.com/audreyr/cookiecutter), but faster.
 
 Reasons to use pi:
-  - You want to automate the process of starting a new project, in a
-    language-agnostic way.
+  - You want to automate the process of starting a new project, for *all* your
+    projects.
   - You want project initialization that's *quick*
 
 Reasons to use pi over cookiecutter:
   - Templates are smaller. Define files you need in a `.toml`.
   - *Fast*. pi **30x faster** than cookiecutter when rendering the sample vim
     plugin template.
-  - pi uses mustache, a logic-less language that has libraries for *many* other
-    languages.
-  - pi can initialize a darcs, pijul, mercurial, or git repository inside your new project
+  - pi uses mustache, a logic-less language, for templates.
+  - pi can initialize a darcs, pijul, mercurial, or git repository inside your projects
+  - pi is extensible in Rust
 
 Reasons to not use pi over cookiecutter:
   - pi does not fetch templates remotely.
-  - pi uses logic-less templates, which are not as sophisticated as the
-    [jinja](http://jinja.pocoo.org/) templates that cookiecutter uses.
+  - cookiecutter uses [jinja](http://jinja.pocoo.org/) templates, which are far more sophisticated.
+  - pi is newer and presumably more buggy
+  - cookiecutter is extensible in Python
 
-Cool benchmarks (with Haskell's [bench](https://github.com/Gabriel439/bench)):
+Benchmarks (with Haskell's [bench](https://github.com/Gabriel439/bench)):
 
 | Tool | Language | Time (vim example plugin) | Time (rust library) |
 | ---- | -------- | ------------------------- | ------------------- |
@@ -37,7 +38,8 @@ Cool benchmarks (with Haskell's [bench](https://github.com/Gabriel439/bench)):
 
 ### Binary releases
 
-You can find binaries for x64 linux, ARM linux, and x64-windows on the
+The easiest way for most users is simply to download the prebuilt binaries.
+You can find binaries for various platforms on the
 [release](https://github.com/vmchale/project-init/releases) page.
 
 ### Cargo
@@ -51,7 +53,7 @@ First, install [cargo](https://rustup.rs/). Then:
 You will need to use the nightly release for this to work; if in doubt run
 
 ```bash
-rustup default nightly
+rustup run nightly cargo install project_init
 ```
 
 ## Use
@@ -64,16 +66,18 @@ project *anywhere* with
 pi init idris treesod
 ```
 
-There is a repo of templates for pi
+There is a repo containing pi templates
 [here](https://github.com/vmchale/pi-templates). 
 
-You can also use pi with built-in templates. Currently pi has rust, haskell,
-vimscript, idris, julia, and python templates built-in.
+You can also use pi with built-in templates, viz. 
 
 ```bash
 $ pi new haskell really-good-project
-Finished initializing project in new-project/
+Finished initializing project in really-good-project/
 ```
+
+Currently pi has Rust, Haskell,
+Vimscript, Idris, Julia, Elm, and Python templates built-in.
 
 ### Configuration
 
@@ -86,10 +90,10 @@ version = "0.1.0"        # start new projects at version 0.1.0
 
 [author]
 name = "Vanessa McHale"
-email = "vamchale@gmail.com"
+email = "vanessa.mchale@reconfigure.io"
 github_username = "vmchale"
 
-# put any custom keys you want below [[user]]
+# put any custom keys you want under a [[user]] table
 [[user]]
 website = "https://vmchale.com"
 ```
@@ -135,4 +139,4 @@ vim-plugin
 `pi` uses [mustache](https://mustache.github.io/) for templating, via the
 [rustache](https://github.com/rustache/rustache) crate.
 
-You can find examples and help on the [mustache page](https://mustache.github.io/), or you can my look at [my repo](https://github.com/vmchale/pi-templates).
+You can find examples and help on the [mustache page](https://mustache.github.io/), or you can my look at [the example repo](https://github.com/vmchale/pi-templates).
