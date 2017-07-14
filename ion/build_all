@@ -3,7 +3,6 @@ mkdir -p target/completions
 export PATH=/home/vanessa/.cargo/bin:$PATH
 cargo build --release
 cross build --target=armv7-unknown-linux-gnueabihf --release &&
-cross build --target=armv7-unknown-linux-musleabihf --release &&
 cross build --target=x86_64-pc-windows-gnu --release &&
 cross build --target=x86_64-unknown-linux-musl --release &&
 cross build --target=x86_64-unknown-freebsd --release &&
