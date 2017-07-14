@@ -2,7 +2,7 @@
 
 use toml::value::Value;
 
-/// Struct for the author. This is read from the global 
+/// Struct for the author. This is read from the global
 /// configuration that resides at $HOME/.pi.toml
 #[derive(Debug, Deserialize)]
 pub struct Author {
@@ -20,7 +20,7 @@ pub struct Config {
     pub user: Option<UserConfig>,
 }
 
-/// Struct for directories, files, templates, and scripts to be created. 
+/// Struct for directories, files, templates, and scripts to be created.
 #[derive(Debug, Deserialize, Clone)]
 pub struct Directory {
     pub files: Option<Vec<String>>,

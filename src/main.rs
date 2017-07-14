@@ -1,7 +1,9 @@
 //! Source file for the binary.
 #![allow(panic_params)]
-#[macro_use] extern crate clap;
-#[macro_use] extern crate text_io;
+#[macro_use]
+extern crate clap;
+#[macro_use]
+extern crate text_io;
 
 extern crate time;
 extern crate toml;
@@ -22,34 +24,35 @@ use time::strftime;
 use case::*;
 use toml::Value::Table;
 
-#[allow(cyclomatic_complexity)] 
+#[allow(cyclomatic_complexity)]
 fn main() {
 
     // command-line parser
     let yaml = load_yaml!("options-en.yml");
     let matches = App::from_yaml(yaml).version(crate_version!()).get_matches();
-    let force: bool = matches.occurrences_of("force") == 1 ;
+    let force: bool = matches.occurrences_of("force") == 1;
 
     // set path to .pi.toml
-    let home = std::env::home_dir()
-        .expect("Couldn't determine home directory.");
+    let home = std::env::home_dir().expect("Couldn't determine home directory.");
     let mut path = home.clone();
     path.push(".pi.toml");
 
     // read global config file
     let decoded: Config = read_toml_config(&path);
-    
+
     // create author struct
-    let author = 
-        if let Some(aut) = decoded.author {
-            aut 
+    let author = if let Some(aut) = decoded.author {
+        aut
+    } else {
+        let nam: String = read!("Enter your name: {}!");
+        let ema: String = read!("Enter your email: {}!");
+        Author {
+            name: nam,
+            email: ema,
+            github_username: None,
         }
-        else {
-            let nam: String = read!("Enter your name: {}!");
-            let ema: String = read!("Enter your email: {}!");
-            Author { name: nam, email: ema, github_username: None }
-        };
-        
+    };
+
     //get year
     let now = time::now();
     let year = now.tm_year + 1900;
@@ -58,14 +61,14 @@ fn main() {
     if let Some(matches_init) = matches.subcommand_matches("new") {
 
         // get project name
-        let name = matches_init
-            .value_of("name")
-            .expect("Clap failed to supply project name");
+        let name = matches_init.value_of("name").expect(
+            "Clap failed to supply project name",
+        );
 
         // get project template type
-        let template_str = matches_init
-            .value_of("template")
-            .expect("Clap failed to supply project directory");
+        let template_str = matches_init.value_of("template").expect(
+            "Clap failed to supply project directory",
+        );
 
         // read template.toml
         let toml_file = match template_str {
@@ -76,12 +79,15 @@ fn main() {
             "idris" => includes::IDRIS_TEMPLATE,
             "julia" => includes::JULIA_TEMPLATE,
             "plain" => includes::PLAIN_TEMPLATE,
-            _ => { println!("The requested template is not a built-in :(") ; std::process::exit(0x0f00) },
+            _ => {
+                println!("The requested template is not a built-in :(");
+                std::process::exit(0x0f00)
+            }
         };
         let parsed_toml = read_toml_str(toml_file, "BUILTIN");
         let parsed_dirs = parsed_toml.files;
         let parsed_config = parsed_toml.config;
-        
+
         // set license if it's set
         let (license_contents, license_name) =
             // prefer global license over builtin
@@ -112,32 +118,34 @@ fn main() {
             };
 
         // set version
-        let version = 
-            if let Some(config) = parsed_config.clone() {
-                if let Some(v) = config.version {
-                    v
-                }
-                else {
-                    "0.1.0".to_string()
-                }
-            }
-            else {
-                println!("{}: no version info found, defaulting to '0.1.0'","Warning".yellow());
+        let version = if let Some(config) = parsed_config.clone() {
+            if let Some(v) = config.version {
+                v
+            } else {
                 "0.1.0".to_string()
-            };
+            }
+        } else {
+            println!(
+                "{}: no version info found, defaulting to '0.1.0'",
+                "Warning".yellow()
+            );
+            "0.1.0".to_string()
+        };
 
         // set github username to null if it's not provided
-        let github_username = 
-            if let Some(uname) = author.github_username {
-                uname
-            }
-            else {
-                println!("{}: No github username found, defaulting to null.", "Warning".yellow());
-                "".to_string()
-            };
+        let github_username = if let Some(uname) = author.github_username {
+            uname
+        } else {
+            println!(
+                "{}: No github username found, defaulting to null.",
+                "Warning".yellow()
+            );
+            "".to_string()
+        };
 
         // Make a hash for inserting stuff into templates.
-        let hash = HashBuilder::new().insert("project",name)
+        let hash = HashBuilder::new()
+            .insert("project", name)
             .insert("Project", name.to_capitalized())
             .insert("year", year)
             .insert("name", author.name)
@@ -146,10 +154,13 @@ fn main() {
             .insert("github_username", github_username)
             .insert("license", license_name)
             .insert("date", current_date);
-     
+
         // check if the directory exists and exit, if we haven't forced an overwrite.
         if Path::new(name).exists() && !force {
-            println!("Path '{}' already exists. Rerun with -f or --force to overwrite.", name);
+            println!(
+                "Path '{}' already exists. Rerun with -f or --force to overwrite.",
+                name
+            );
             std::process::exit(0x0f00);
         };
 
@@ -160,13 +171,11 @@ fn main() {
         }
 
         // Create files.
-        let files =
-            if let Some(files_pre) = parsed_dirs.files {
-                render_files(files_pre, &hash, name)
-            }
-            else {
-                VecBuilder::new()
-            };
+        let files = if let Some(files_pre) = parsed_dirs.files {
+            render_files(files_pre, &hash, name)
+        } else {
+            VecBuilder::new()
+        };
 
         // create license if it was asked for
         if let Some(lic) = license_contents {
@@ -179,68 +188,79 @@ fn main() {
                 render_file(includes::README, name, "README.md", &hash);
             }
         }
-      
-        let hash_with_files = HashBuilder::new()
-            .insert("files", files);
+
+        let hash_with_files = HashBuilder::new().insert("files", files);
 
         // render appropriate stuff by name.
         match template_str {
             "plain" => (),
 
-            "rust" => { write_file_plain(includes::RUST_LIB, name, "src/lib.rs");
-                        write_file_plain(includes::RUST_MAIN, name, "src/main.rs");
-                        write_file_plain(includes::RUST_TRAVIS_CI, name, ".travis.tml");
-                        write_file_plain(includes::RUST_GITIGNORE, name, ".gitignore");
-                        render_file(includes::CARGO_TOML, name, "Cargo.toml", &hash) },
+            "rust" => {
+                write_file_plain(includes::RUST_LIB, name, "src/lib.rs");
+                write_file_plain(includes::RUST_MAIN, name, "src/main.rs");
+                write_file_plain(includes::RUST_TRAVIS_CI, name, ".travis.tml");
+                write_file_plain(includes::RUST_GITIGNORE, name, ".gitignore");
+                render_file(includes::CARGO_TOML, name, "Cargo.toml", &hash)
+            }
 
-            "vim" => { write_file_plain(includes::VIM_GITIGNORE, name, ".gitignore");
-                       render_file(includes::VIMBALL, name, "vimball.txt", &hash_with_files) },
+            "vim" => {
+                write_file_plain(includes::VIM_GITIGNORE, name, ".gitignore");
+                render_file(includes::VIMBALL, name, "vimball.txt", &hash_with_files)
+            }
 
-            "python" => { render_file(includes::PY_SETUP, name, "setup.py", &hash);
-                          write_file_plain(includes::PY_CFG, name, "setup.cfg");
-                          write_file_plain(includes::PY_GITIGNORE, name, ".gitignore");
-                          let mut bin_path = "bin/".to_string();
-                          bin_path.push_str(name);
-                          render_file(includes::PY_BIN, name, &bin_path, &hash); },
+            "python" => {
+                render_file(includes::PY_SETUP, name, "setup.py", &hash);
+                write_file_plain(includes::PY_CFG, name, "setup.cfg");
+                write_file_plain(includes::PY_GITIGNORE, name, ".gitignore");
+                let mut bin_path = "bin/".to_string();
+                bin_path.push_str(name);
+                render_file(includes::PY_BIN, name, &bin_path, &hash);
+            }
 
-            "idris" => {  let mut pkg_path = name.to_string();
-                          pkg_path.push_str(".ipkg");
-                          write_file_plain(includes::IDRIS_GITIGNORE, name, ".gitignore");
-                          let mut test_pkg_path = name.to_string();
-                          test_pkg_path.push_str("_test.ipkg");
-                          let mut main_path = name.to_capitalized();
-                          main_path.push_str(".idr");
-                          render_file(includes::IPKG, name, &pkg_path, &hash);
-                          render_file(includes::IPKG_TEST, name, &test_pkg_path, &hash);
-                          render_file(includes::IDRIS_EXE, name, &main_path, &hash);
-                          render_file(includes::IDRIS_TEST, name, "Test/Spec.idr", &hash);
-                          let mut lib_path = name.to_capitalized();
-                          lib_path.push('/');
-                          lib_path.push_str("Lib.idr");
-                          render_file(includes::IDRIS_LIB, name, &lib_path, &hash); },
+            "idris" => {
+                let mut pkg_path = name.to_string();
+                pkg_path.push_str(".ipkg");
+                write_file_plain(includes::IDRIS_GITIGNORE, name, ".gitignore");
+                let mut test_pkg_path = name.to_string();
+                test_pkg_path.push_str("_test.ipkg");
+                let mut main_path = name.to_capitalized();
+                main_path.push_str(".idr");
+                render_file(includes::IPKG, name, &pkg_path, &hash);
+                render_file(includes::IPKG_TEST, name, &test_pkg_path, &hash);
+                render_file(includes::IDRIS_EXE, name, &main_path, &hash);
+                render_file(includes::IDRIS_TEST, name, "Test/Spec.idr", &hash);
+                let mut lib_path = name.to_capitalized();
+                lib_path.push('/');
+                lib_path.push_str("Lib.idr");
+                render_file(includes::IDRIS_LIB, name, &lib_path, &hash);
+            }
 
-            "julia" => {  write_file_plain(includes::JULIA_REQUIRE, name, "REQUIRE");
-                          let mut project_path = "src/".to_string();
-                          project_path.push_str(name.to_capitalized().as_str());
-                          project_path.push_str(".jl");
-                          write_file_plain(includes::JULIA_GITIGNORE, name, ".gitignore");
-                          write_file_plain(includes::JULIA_SRC, name, &project_path);
-                          write_file_plain(includes::JULIA_TEST, name, "test/test.jl"); },
+            "julia" => {
+                write_file_plain(includes::JULIA_REQUIRE, name, "REQUIRE");
+                let mut project_path = "src/".to_string();
+                project_path.push_str(name.to_capitalized().as_str());
+                project_path.push_str(".jl");
+                write_file_plain(includes::JULIA_GITIGNORE, name, ".gitignore");
+                write_file_plain(includes::JULIA_SRC, name, &project_path);
+                write_file_plain(includes::JULIA_TEST, name, "test/test.jl");
+            }
 
-            "haskell" => { write_file_plain(includes::SETUP_HS, name, "Setup.hs");
-                           write_file_plain(includes::MAIN, name, "app/Main.hs");
-                           write_file_plain(includes::LIB, name, "src/Lib.hs");
-                           write_file_plain(includes::BENCH, name, "bench/Bench.hs");
-                           write_file_plain(includes::TEST, name, "test/Spec.hs");
-                           render_file(includes::DEFAULT_NIX, name, "default.nix", &hash);
-                           render_file(includes::RELEASE_NIX, name, "release.nix", &hash);
-                           let mut cabal_path = name.to_string();
-                           cabal_path.push_str(".cabal");
-                           render_file(includes::CABAL, name, &cabal_path, &hash);
-                           write_file_plain(includes::HASKELL_GITIGNORE, name, ".gitignore");
-                           write_file_plain(includes::RELEASE_NIX, name, "release.nix");
-                           write_file_plain(includes::STACK_YAML, name, "stack.yaml");
-                           write_file_plain(includes::HASKELL_TRAVIS_CI, name, ".travis.yml"); },
+            "haskell" => {
+                write_file_plain(includes::SETUP_HS, name, "Setup.hs");
+                write_file_plain(includes::MAIN, name, "app/Main.hs");
+                write_file_plain(includes::LIB, name, "src/Lib.hs");
+                write_file_plain(includes::BENCH, name, "bench/Bench.hs");
+                write_file_plain(includes::TEST, name, "test/Spec.hs");
+                render_file(includes::DEFAULT_NIX, name, "default.nix", &hash);
+                render_file(includes::RELEASE_NIX, name, "release.nix", &hash);
+                let mut cabal_path = name.to_string();
+                cabal_path.push_str(".cabal");
+                render_file(includes::CABAL, name, &cabal_path, &hash);
+                write_file_plain(includes::HASKELL_GITIGNORE, name, ".gitignore");
+                write_file_plain(includes::RELEASE_NIX, name, "release.nix");
+                write_file_plain(includes::STACK_YAML, name, "stack.yaml");
+                write_file_plain(includes::HASKELL_TRAVIS_CI, name, ".travis.yml");
+            }
 
             _ => std::process::exit(0x0f01),
         };
@@ -252,43 +272,46 @@ fn main() {
                 "hg" | "mercurial" => repo::hg_init(name),
                 "pijul" => repo::pijul_init(name),
                 "darcs" => repo::darcs_init(name),
-                _ => { eprintln!("{}: version control {} is not yet supported. Supported version control tools are darcs, pijul, mercurial, and git.", "Error".red(), vc); }
+                _ => {
+                    eprintln!(
+                        "{}: version control {} is not yet supported. Supported version control tools are darcs, pijul, mercurial, and git.",
+                        "Error".red(),
+                        vc
+                    );
+                }
             }
         }
 
         // Print that we're done
-        println!("Finished initializing project in {}/",name);
+        println!("Finished initializing project in {}/", name);
 
-    }
-    else if let Some(matches_init) = matches.subcommand_matches("init") {
+    } else if let Some(matches_init) = matches.subcommand_matches("init") {
 
         // get project name
-        let name = matches_init
-            .value_of("name")
-            .expect("Failed to supply project name");
+        let name = matches_init.value_of("name").expect(
+            "Failed to supply project name",
+        );
 
         // get project directory
-        let project_dir = matches_init
-            .value_of("directory")
-            .expect("Failed to supply project directory");
+        let project_dir = matches_init.value_of("directory").expect(
+            "Failed to supply project directory",
+        );
 
         // read template.toml for template
         let mut template_path = project_dir.to_string();
         template_path.push_str("/template.toml");
         let (parsed_toml, is_global_project) = read_toml_dir(&template_path, home.clone());
-        let project = 
-            if is_global_project {
-                let mut p = home;
-                p.push(".pi_templates/");
-                p.push(project_dir);
-                p.to_str().unwrap().to_string()
-            }
-            else {
-                project_dir.to_string()
-            };
+        let project = if is_global_project {
+            let mut p = home;
+            p.push(".pi_templates/");
+            p.push(project_dir);
+            p.to_str().unwrap().to_string()
+        } else {
+            project_dir.to_string()
+        };
         let parsed_dirs = parsed_toml.files;
         let parsed_config = parsed_toml.config;
-        
+
         // set license if it's set
         let (license_contents, license_name) =
             // prefer project-specific license over global
@@ -320,53 +343,50 @@ fn main() {
 
         // set version
         // TODO only insert into the hash if necessary
-        let version = 
-            if let Some(config) = parsed_config.clone() {
-                if let Some(v) = config.version {
-                    v
-                }
-                else {
-                    "0.1.0".to_string()
-                }
-            }
-            else {
-                eprintln!("{}: no version info found, defaulting to '0.1.0'", "Warning".yellow());
+        let version = if let Some(config) = parsed_config.clone() {
+            if let Some(v) = config.version {
+                v
+            } else {
                 "0.1.0".to_string()
-            };
+            }
+        } else {
+            eprintln!(
+                "{}: no version info found, defaulting to '0.1.0'",
+                "Warning".yellow()
+            );
+            "0.1.0".to_string()
+        };
 
         // set github username to null if it's not provided
-        let github_username = 
-            if let Some(uname) = author.github_username {
-                uname
-            }
-            else {
-                eprintln!("{}: no github username found, defaulting to null", "Warning".yellow());
-                "".to_string()
-            };
+        let github_username = if let Some(uname) = author.github_username {
+            uname
+        } else {
+            eprintln!(
+                "{}: no github username found, defaulting to null",
+                "Warning".yellow()
+            );
+            "".to_string()
+        };
 
         // make user_keys into a vector; prepare to insert them into the `HashBuilder`
-        let user_keys = 
-            if let Some(u) = parsed_toml.user {
-                match u.toml {
-                    Table(t) => Some(t),
-                    _ => None,
-                }
+        let user_keys = if let Some(u) = parsed_toml.user {
+            match u.toml {
+                Table(t) => Some(t),
+                _ => None,
             }
-            else {
-                None
-            };
+        } else {
+            None
+        };
 
         // make user_keys into a vector; prepare to insert them into the `HashBuilder`
-        let user_keys_global = 
-            if let Some(u) = decoded.user {
-                match u.toml {
-                    Table(t) => Some(t),
-                    _ => None,
-                }
+        let user_keys_global = if let Some(u) = decoded.user {
+            match u.toml {
+                Table(t) => Some(t),
+                _ => None,
             }
-            else {
-                None
-            };
+        } else {
+            None
+        };
 
 
         // Make a hash for inserting stuff into templates.
@@ -388,7 +408,7 @@ fn main() {
             }
         }
         // add the normal stuff
-        hash = hash.insert("project",name)
+        hash = hash.insert("project", name)
             .insert("Project", name.to_capitalized())
             .insert("year", year)
             .insert("name", author.name)
@@ -397,10 +417,13 @@ fn main() {
             .insert("github_username", github_username)
             .insert("license", license_name)
             .insert("date", current_date);
-     
+
         // check if the directory exists and exit, if we haven't forced an overwrite.
         if Path::new(name).exists() && !force {
-            println!("Path '{}' already exists. Rerun with -f or --force to overwrite.", name);
+            println!(
+                "Path '{}' already exists. Rerun with -f or --force to overwrite.",
+                name
+            );
             std::process::exit(0x0f00);
         };
 
@@ -412,13 +435,11 @@ fn main() {
 
         // create a list of files contained in the project, and create those files.
         // TODO should include templates/scripts/etc.
-        let files =
-            if let Some(files_pre) = parsed_dirs.files {
-                render_files(files_pre, &hash, name)
-            }
-            else {
-                VecBuilder::new()
-            };
+        let files = if let Some(files_pre) = parsed_dirs.files {
+            render_files(files_pre, &hash, name)
+        } else {
+            VecBuilder::new()
+        };
 
         // create license if it was asked for
         if let Some(lic) = license_contents {
@@ -433,8 +454,7 @@ fn main() {
         }
 
         // Make a hash for inserting stuff into templates.
-        hash = hash
-            .insert("files", files);
+        hash = hash.insert("files", files);
 
         // render templates
         render_templates(&project, name, &hash, parsed_dirs.templates, false);
@@ -450,22 +470,33 @@ fn main() {
                     "hg" | "mercurial" => repo::hg_init(name),
                     "pijul" => repo::pijul_init(name),
                     "darcs" => repo::darcs_init(name),
-                    _ => { eprintln!("{}: version control {} is not yet supported. Supported version control tools are darcs, pijul, mercurial, and git.", "Error".red(), vc); }
+                    _ => {
+                        eprintln!(
+                            "{}: version control {} is not yet supported. Supported version control tools are darcs, pijul, mercurial, and git.",
+                            "Error".red(),
+                            vc
+                        );
+                    }
                 }
             }
-        }
-        else if let Some(vc) = decoded.version_control {
+        } else if let Some(vc) = decoded.version_control {
             match vc.as_str() {
                 "git" => repo::git_init(name),
                 "hg" | "mercurial" => repo::hg_init(name),
                 "pijul" => repo::pijul_init(name),
                 "darcs" => repo::darcs_init(name),
-                _ => { eprintln!("{}: version control {} is not yet supported. Supported version control tools are darcs, pijul, mercurial, and git.", "Error".red(), vc); }
+                _ => {
+                    eprintln!(
+                        "{}: version control {} is not yet supported. Supported version control tools are darcs, pijul, mercurial, and git.",
+                        "Error".red(),
+                        vc
+                    );
+                }
             }
         }
 
         // Print that we're done
-        println!("Finished initializing project in {}/",name);
+        println!("Finished initializing project in {}/", name);
 
     }
 }

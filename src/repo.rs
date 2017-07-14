@@ -13,11 +13,14 @@ pub fn git_init(name: &str) -> () {
         .arg("-c")
         .arg(cmd)
         .stdout(std::process::Stdio::null())
-        .spawn() {
-            c.wait_with_output().expect("failed to wait on child");
-        }
-    else {
-        eprintln!("{}, git failed to initialize. Is git on your path?","Error".red());
+        .spawn()
+    {
+        c.wait_with_output().expect("failed to wait on child");
+    } else {
+        eprintln!(
+            "{}, git failed to initialize. Is git on your path?",
+            "Error".red()
+        );
         std::process::exit(0x0f01);
     }
 }
@@ -33,11 +36,14 @@ pub fn pijul_init(name: &str) -> () {
         .arg("-c")
         .arg(cmd)
         .stdout(std::process::Stdio::null())
-        .spawn() {
-            c.wait_with_output().expect("failed to wait on child");
-        }
-    else {
-        eprintln!("{}, Pijul failed to initialize. Is it on your path?","Error".red());
+        .spawn()
+    {
+        c.wait_with_output().expect("failed to wait on child");
+    } else {
+        eprintln!(
+            "{}, Pijul failed to initialize. Is it on your path?",
+            "Error".red()
+        );
         std::process::exit(0x0f01);
     }
 }
@@ -53,11 +59,14 @@ pub fn darcs_init(name: &str) -> () {
         .arg("-c")
         .arg(cmd)
         .stdout(std::process::Stdio::null())
-        .spawn() {
-            c.wait_with_output().expect("failed to wait on child");
-        }
-    else {
-        eprintln!("{}, Darcs failed to initialize. Is hg on your path?","Error".red());
+        .spawn()
+    {
+        c.wait_with_output().expect("failed to wait on child");
+    } else {
+        eprintln!(
+            "{}, Darcs failed to initialize. Is hg on your path?",
+            "Error".red()
+        );
         std::process::exit(0x0f01);
     }
 }
@@ -70,11 +79,14 @@ pub fn hg_init(name: &str) -> () {
         .arg("-c")
         .arg(cmd)
         .stdout(std::process::Stdio::null())
-        .spawn() {
-            c.wait_with_output().expect("failed to wait on child");
-        }
-    else {
-        eprintln!("{}, Mercurial failed to initialize. Is it on your path?","Error".red());
+        .spawn()
+    {
+        c.wait_with_output().expect("failed to wait on child");
+    } else {
+        eprintln!(
+            "{}, Mercurial failed to initialize. Is it on your path?",
+            "Error".red()
+        );
         std::process::exit(0x0f01);
     }
 }

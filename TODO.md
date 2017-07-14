@@ -58,3 +58,4 @@
 - [x] ask before overwriting directories
   - [x] --force or -f to overwrite anyways
 - [x] ask user for missing keys
+- [ ] sourceloc and bugtracker should depend on user-selected version control?
