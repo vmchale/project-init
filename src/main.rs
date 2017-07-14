@@ -66,9 +66,16 @@ fn main() {
         );
 
         // get project template type
-        let template_str = matches_init.value_of("template").expect(
-            "Clap failed to supply project directory",
-        );
+        let template_str_upper: String = matches_init
+            .value_of("template")
+            .expect("Clap failed to supply project directory")
+            .to_string()
+            .chars()
+            .map(|c| c.to_uppercase().to_string())
+            .collect::<Vec<String>>()
+            .join("");
+
+        let template_str = template_str_upper.as_str();
 
         // read template.toml
         let toml_file = match template_str {
@@ -226,7 +233,6 @@ fn main() {
                 write_file_plain(includes::ELM_VIEW, name, "src/View.elm");
                 render_file(includes::ELM_PACKAGE, name, "elm-package.json", &hash);
             }
-
 
             "idris" => {
                 let mut pkg_path = name.to_string();
