@@ -34,12 +34,20 @@ pub const PY_CFG: &'static str = include_str!("includes/python/setup.cfg");
 pub const PY_TEMPLATE: &'static str = include_str!("includes/python/template.toml");
 
 // Julia includes
-
 pub const JULIA_TEMPLATE: &'static str = include_str!("includes/julia-lib/template.toml");
 pub const JULIA_GITIGNORE: &'static str = include_str!("includes/julia-lib/.gitignore");
 pub const JULIA_REQUIRE: &'static str = include_str!("includes/julia-lib/REQUIRE");
 pub const JULIA_TEST: &'static str = include_str!("includes/julia-lib/test/test.jl");
 pub const JULIA_SRC: &'static str = include_str!("includes/julia-lib/src/{{ Project }}.jl");
+
+// Elm includes
+pub const ELM_PACKAGE: &'static str = include_str!("includes/elm/elm-package.json");
+pub const ELM_MAIN: &'static str = include_str!("includes/elm/src/main.elm");
+pub const ELM_STATE: &'static str = include_str!("includes/elm/src/State.elm");
+pub const ELM_UPDATE: &'static str = include_str!("includes/elm/src/Update.elm");
+pub const ELM_VIEW: &'static str = include_str!("includes/elm/src/View.elm");
+pub const ELM_GITIGNORE: &'static str = include_str!("includes/elm/.gitignore");
+pub const ELM_TEMPLATE: &'static str = include_str!("includes/elm/template.toml");
 
 // Haskell includes
 pub const SETUP_HS: &'static str = include_str!("includes/haskell/Setup.hs");

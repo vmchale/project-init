@@ -78,6 +78,7 @@ fn main() {
             "haskell" => includes::HASK_TEMPLATE,
             "idris" => includes::IDRIS_TEMPLATE,
             "julia" => includes::JULIA_TEMPLATE,
+            "elm" => includes::ELM_TEMPLATE,
             "plain" => includes::PLAIN_TEMPLATE,
             _ => {
                 println!("The requested template is not a built-in :(");
@@ -216,6 +217,16 @@ fn main() {
                 bin_path.push_str(name);
                 render_file(includes::PY_BIN, name, &bin_path, &hash);
             }
+
+            "elm" => {
+                write_file_plain(includes::ELM_GITIGNORE, name, ".gitignore");
+                write_file_plain(includes::ELM_MAIN, name, "src/main.elm");
+                write_file_plain(includes::ELM_STATE, name, "src/State.elm");
+                write_file_plain(includes::ELM_UPDATE, name, "src/Update.elm");
+                write_file_plain(includes::ELM_VIEW, name, "src/View.elm");
+                render_file(includes::ELM_PACKAGE, name, "elm-package.json", &hash);
+            }
+
 
             "idris" => {
                 let mut pkg_path = name.to_string();
