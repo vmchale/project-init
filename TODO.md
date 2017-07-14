@@ -19,14 +19,17 @@
   - [x] idris
     - [x] test
     - [x] builtin
+    - [x] test suite
   - [x] julia
     - [ ] test
     - [x] builtin
+    - [ ] test suite
   - [x] yesod
     - [ ] test
   - [x] elm
     - [x] test
-    - [ ] builtin
+    - [x] builtin
+    - [ ] test suite
   - [ ] reflex
 - [x] built-in licenses
   - [x] bsd3

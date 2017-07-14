@@ -7,8 +7,6 @@ pub fn git_init(name: &str) -> () {
     cmd.push_str(name);
     cmd.push_str("&&");
     cmd.push_str("git init && git add *");
-    cmd.push(' ');
-    cmd.push_str(name);
     if let Ok(c) = Command::new("sh")
         .arg("-c")
         .arg(cmd)
@@ -30,8 +28,6 @@ pub fn pijul_init(name: &str) -> () {
     cmd.push_str(name);
     cmd.push_str("&&");
     cmd.push_str("pijul init && pijul add **");
-    cmd.push(' ');
-    cmd.push_str(name);
     if let Ok(c) = Command::new("sh")
         .arg("-c")
         .arg(cmd)
@@ -53,8 +49,6 @@ pub fn darcs_init(name: &str) -> () {
     cmd.push_str(name);
     cmd.push_str("&&");
     cmd.push_str("darcs init && darcs add **");
-    cmd.push(' ');
-    cmd.push_str(name);
     if let Ok(c) = Command::new("sh")
         .arg("-c")
         .arg(cmd)
@@ -72,9 +66,10 @@ pub fn darcs_init(name: &str) -> () {
 }
 
 pub fn hg_init(name: &str) -> () {
-    let mut cmd = "hg init".to_string();
-    cmd.push(' ');
+    let mut cmd = "cd ".to_string();
     cmd.push_str(name);
+    cmd.push_str("&&");
+    cmd.push_str("hg init && hg add *");
     if let Ok(c) = Command::new("sh")
         .arg("-c")
         .arg(cmd)
