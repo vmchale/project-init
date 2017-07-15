@@ -15,7 +15,7 @@ extern crate colored;
 use colored::*;
 use rustache::*;
 use std::fs;
-use clap::App;
+use clap::{App, AppSettings};
 use project_init::types::*;
 use project_init::render::*;
 use project_init::*;
@@ -29,7 +29,10 @@ fn main() {
 
     // command-line parser
     let yaml = load_yaml!("options-en.yml");
-    let matches = App::from_yaml(yaml).version(crate_version!()).get_matches();
+    let matches = App::from_yaml(yaml).version(crate_version!())
+        .set_term_width(90)
+        .setting(AppSettings::SubcommandRequired)
+        .get_matches();
     let force: bool = matches.occurrences_of("force") == 1;
 
     // set path to .pi.toml
