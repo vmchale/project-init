@@ -66,16 +66,16 @@ fn main() {
         );
 
         // get project template type
-        let template_str_upper: String = matches_init
+        let template_str_lower: String = matches_init
             .value_of("template")
             .expect("Clap failed to supply project directory")
             .to_string()
             .chars()
-            .map(|c| c.to_uppercase().to_string())
+            .map(|c| c.to_lowercase().to_string())
             .collect::<Vec<String>>()
             .join("");
 
-        let template_str = template_str_upper.as_str();
+        let template_str = template_str_lower.as_str();
 
         // read template.toml
         let toml_file = match template_str {

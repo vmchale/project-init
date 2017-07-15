@@ -18,7 +18,7 @@ Reasons to use pi over cookiecutter:
     plugin template.
   - pi uses mustache, a logic-less language, for templates.
   - pi can initialize a darcs, pijul, mercurial, or git repository inside your projects
-  - pi requires no setup for many languages
+  - pi provides opinionated templates for many languages
   - pi is extensible in Rust
 
 Reasons to not use pi over cookiecutter:
