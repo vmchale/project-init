@@ -30,6 +30,9 @@
     - [x] test
     - [x] builtin
     - [ ] test suite
+  - [ ] Ruby
+    - [ ] test
+    - [ ] builtin
   - [ ] reflex
 - [x] built-in licenses
   - [x] bsd3

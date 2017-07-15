@@ -3,8 +3,8 @@ with_readme = true
 
 [files]
 files = []
-directories = ["src", "test"]
-templates = ["src/View.elm","src/Update.elm","src/State.elm","src/main.elm","elm-package.json",".gitignore","test/TestSuite.elm","test/main.elm","test/elm-package.json"]
+directories = ["src"]
+templates = ["src/View.elm","src/Update.elm","src/State.elm","src/main.elm","elm-package.json",".gitignore"]
 
 [config]
 version = "1.0.0"

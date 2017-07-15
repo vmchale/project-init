@@ -80,7 +80,7 @@ fn main() {
         // read template.toml
         let toml_file = match template_str {
             "rust" => includes::RUST_TEMPLATE,
-            "vim" => includes::VIM_TEMPLATE,
+            "vim" | "vimscript" => includes::VIM_TEMPLATE,
             "python" => includes::PY_TEMPLATE,
             "haskell" => includes::HASK_TEMPLATE,
             "idris" => includes::IDRIS_TEMPLATE,
@@ -211,7 +211,7 @@ fn main() {
                 render_file(includes::CARGO_TOML, name, "Cargo.toml", &hash)
             }
 
-            "vim" => {
+            "vim" | "vimscript" => {
                 write_file_plain(includes::VIM_GITIGNORE, name, ".gitignore");
                 render_file(includes::VIMBALL, name, "vimball.txt", &hash_with_files)
             }
