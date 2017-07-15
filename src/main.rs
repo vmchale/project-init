@@ -33,7 +33,6 @@ fn main() {
         .set_term_width(90)
         .setting(AppSettings::SubcommandRequired)
         .get_matches();
-    let force: bool = matches.occurrences_of("force") == 1;
 
     // set path to .pi.toml
     let home = std::env::home_dir().expect("Couldn't determine home directory.");
@@ -62,6 +61,8 @@ fn main() {
     let current_date = strftime("%m-%d-%Y", &now).unwrap();
 
     if let Some(matches_init) = matches.subcommand_matches("new") {
+
+        let force: bool = matches_init.occurrences_of("force") == 1;
 
         // get project name
         let name = matches_init.value_of("name").expect(
@@ -306,6 +307,8 @@ fn main() {
         println!("Finished initializing project in {}/", name);
 
     } else if let Some(matches_init) = matches.subcommand_matches("init") {
+
+        let force: bool = matches_init.occurrences_of("force") == 1;
 
         // get project name
         let name = matches_init.value_of("name").expect(

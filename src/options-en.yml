@@ -2,10 +2,6 @@ name: Project Init (pi)
 author: Vanessa McHale <vanessa.mchale@reconfigure.io>
 about: Initialize projects from a template (using rust). 
 args:
-    - force:
-        short: f
-        long: force
-        help: Initialize project even if directory already exists.
 subcommands:
     - init:
         about: Use a template from a folder
@@ -23,6 +19,10 @@ subcommands:
                 index: 2
                 takes_value: true
                 required: true
+            - force:
+                short: f
+                long: force
+                help: Initialize project even if directory already exists.
     - new:
         about: Use a built-in template
         alias: "n"
@@ -39,3 +39,7 @@ subcommands:
                 index: 2
                 takes_value: true
                 required: true
+            - force:
+                short: f
+                long: force
+                help: Initialize project even if directory already exists.

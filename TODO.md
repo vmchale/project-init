@@ -63,5 +63,8 @@
 - [ ] vim integration would be cool
 - [x] ask before overwriting directories
   - [x] --force or -f to overwrite anyways
+  - [ ] make the flag local to the subcommands
 - [x] ask user for missing keys
+- [x] build + release scripts
 - [ ] sourceloc and bugtracker should depend on user-selected version control?
+- [ ] tests of some sort
