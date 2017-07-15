@@ -29,7 +29,8 @@ fn main() {
 
     // command-line parser
     let yaml = load_yaml!("options-en.yml");
-    let matches = App::from_yaml(yaml).version(crate_version!())
+    let matches = App::from_yaml(yaml)
+        .version(crate_version!())
         .set_term_width(90)
         .setting(AppSettings::SubcommandRequired)
         .get_matches();

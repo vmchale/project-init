@@ -66,5 +66,5 @@
   - [ ] make the flag local to the subcommands
 - [x] ask user for missing keys
 - [x] build + release scripts
+- [x] tests of some sort
 - [ ] sourceloc and bugtracker should depend on user-selected version control?
-- [ ] tests of some sort
