@@ -1,7 +1,8 @@
 name: Project Init (pi)
 author: Vanessa McHale <vanessa.mchale@reconfigure.io>
 about: Initialize projects from a template (using rust). 
-args:
+after_help: >
+    pi is a tool to initialize projects written in Rust. It's fast and extensible via mustache templates.
 subcommands:
     - init:
         about: Use a template from a folder

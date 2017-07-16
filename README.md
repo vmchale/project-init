@@ -1,6 +1,7 @@
 # project init (pi)
 
 [![Build Status](https://travis-ci.org/vmchale/project-init.svg?branch=master)](https://travis-ci.org/vmchale/project-init)
+[![](https://img.shields.io/crates/d/project-init.svg)](https://crates.io/crates/project-init)
 
 `pi` is a command-line utility to initialize projects. It is written in rust.
 
@@ -59,7 +60,7 @@ rustup run nightly cargo install project_init
 
 ## Use
 
-`pi` reads from `$HOME/.pi_templates/` *and* the local directory. So, if you
+`pi` reads from `$HOME/.pi_templates/` *and* your current directory. So, if you
 place a template in the `$HOME/.pi_templates/idris/`, you can initialize a
 project *anywhere* with
 

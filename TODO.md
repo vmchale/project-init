@@ -29,6 +29,7 @@
   - [x] elm
     - [x] test
     - [x] builtin
+    - [ ] elm-package.json should have module names?
     - [ ] test suite
   - [ ] Ruby
     - [ ] test
