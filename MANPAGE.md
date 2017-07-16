@@ -60,10 +60,4 @@ For sample templates, see:
 
 pi new idris permutations
 
-  This would initialize a new Idris project in a directory called 'permutations'
-
 pi init ruby blog
-
-  This would initialize a new project in the directory 'blog', based on the
-  template 'ruby'. pi will search for the template first in the current working
-  directory and then in $HOME/.pi_templates

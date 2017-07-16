@@ -1,0 +1,9 @@
+#!/usr/bin/env ion
+echo 'generating manpages...'
+pandoc MANPAGE.md -s -t man -o pi.1
+echo 'installing manpages...'
+sudo mkdir -p /usr/local/share/man/man1/
+sudo cp pi.1 /usr/local/share/man/man1/
+sudo mandb >> /dev/null
+echo 'cleaning up...'
+rm pi.1
