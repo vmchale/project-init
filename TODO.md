@@ -69,3 +69,4 @@
 - [x] build + release scripts
 - [x] tests of some sort
 - [ ] sourceloc and bugtracker should depend on user-selected version control?
+- [ ] build.rs to install manpages locally?
