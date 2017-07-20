@@ -2,7 +2,7 @@
 name = "project_init"
 version = "2.4.7"
 authors = ["Vanessa McHale <vanessa.mchale@reconfigure.io>"]
-description = "Initialize projects from a template. Fast"
+description = "Initialize projects from a template. Fast."
 license-file = "LICENSE"
 exclude = [ ".gitignore" ]
 readme = "README.md"
