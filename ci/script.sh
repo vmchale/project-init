@@ -13,8 +13,8 @@ main() {
     cross test --target $TARGET
     cross test --target $TARGET --release
 
-    cross run --target $TARGET -- a
-    cross run --target $TARGET --release -- a
+    cross run --target $TARGET -- new idris proj
+    cross run --target $TARGET --release -- new idris proj
 }
 
 # we don't run the "test phase" when doing deploys
