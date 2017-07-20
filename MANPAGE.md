@@ -7,9 +7,9 @@ pi - initialize projects from mustache templates
 
 # SYNOPSIS
 
-  pi new language directory [--force]
+  pi new \<language\> \<directory\> [--force]
 
-  pi init template directory [--force]
+  pi init \<template\> \<directory\> [--force]
 
 # DESCRIPTION
 
