@@ -34,6 +34,13 @@
   - [ ] Ruby
     - [ ] test
     - [ ] builtin
+  - [ ] Go (reconfigure io)
+    - [ ] test
+    - [ ] builtin
+    - [ ] test suite
+  - [ ] Purescript
+    - [ ] test
+    - [ ] builtin
   - [ ] reflex
 - [x] built-in licenses
   - [x] bsd3
