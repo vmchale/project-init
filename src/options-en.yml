@@ -33,7 +33,7 @@ subcommands:
                 takes_value: true
                 required: true
                 help: Template to be used
-                long_help: Template to used. Currently supported are Rust, Haskell, Idris, Elm, Python, Vimscript, and Julia.
+                long_help: Template to used. Currently supported are Rust, Haskell, Idris, Elm, Python, Vimscript, Miso, and Julia.
             - name:
                 value_name: NAME
                 help: Project name to be used for project directory
