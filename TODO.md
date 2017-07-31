@@ -38,7 +38,7 @@
     - [ ] test suite
   - [x] miso
     - [x] test
-    - [ ] builtin
+    - [x] builtin
 - [x] built-in licenses
   - [x] bsd3
   - [x] mit
