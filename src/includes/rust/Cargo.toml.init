@@ -2,6 +2,7 @@
 name = "{{ project }}"
 version = "{{ version }}"
 authors = ["{{ name }} <{{ email }}>"]
+excludes = [ ".gitignore" ]
 
 [profile.release]
 lto = true
