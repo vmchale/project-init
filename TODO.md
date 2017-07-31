@@ -29,19 +29,16 @@
   - [x] elm
     - [x] test
     - [x] builtin
-    - [ ] elm-package.json should have module names?
-    - [ ] test suite
   - [ ] Ruby
     - [ ] test
     - [ ] builtin
-  - [ ] Go (reconfigure io)
+  - [x] Go
     - [ ] test
     - [ ] builtin
     - [ ] test suite
-  - [ ] Purescript
-    - [ ] test
+  - [x] miso
+    - [x] test
     - [ ] builtin
-  - [ ] reflex
 - [x] built-in licenses
   - [x] bsd3
   - [x] mit
@@ -77,3 +74,6 @@
 - [x] tests of some sort
 - [ ] sourceloc and bugtracker should depend on user-selected version control?
 - [ ] build.rs to install manpages locally?
+- [ ] bug w/ vimball.txt
+- [ ] nice CI for rust package
+- [ ] "scripts" section for templates that should be executable.

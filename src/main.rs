@@ -23,6 +23,25 @@ use std::path::Path;
 use time::strftime;
 use case::*;
 use toml::Value::Table;
+use std::fs::File;
+use std::fs::set_permissions;
+
+#[cfg(not(target_os = "windows"))]
+use std::os::unix::fs::PermissionsExt;
+
+#[cfg(not(target_os = "windows"))]
+fn mk_executable<P: AsRef<Path>>(p: P) -> () {
+    let f = File::open(&p).unwrap();
+    let metadata = f.metadata().unwrap();
+    let mut permissions = metadata.permissions();
+    permissions.set_mode(0o755);
+    set_permissions(p, permissions).unwrap();
+}
+
+#[cfg(target_os = "windows")]
+fn mk_executable(_: P) -> () {
+    ()
+}
 
 #[allow(cyclomatic_complexity)]
 fn main() {
@@ -91,6 +110,7 @@ fn main() {
             "idris" => includes::IDRIS_TEMPLATE,
             "julia" => includes::JULIA_TEMPLATE,
             "elm" => includes::ELM_TEMPLATE,
+            "miso" => includes::MISO_TEMPLATE,
             "plain" => includes::PLAIN_TEMPLATE,
             _ => {
                 println!("The requested template is not a built-in :(");
@@ -239,6 +259,24 @@ fn main() {
                 render_file(includes::ELM_PACKAGE, name, "elm-package.json", &hash);
             }
 
+            "miso" => {
+                write_file_plain(includes::MISO_SETUP_HS, name, "Setup.hs");
+                write_file_plain(includes::MISO_MAIN, name, "app/Main.hs");
+                write_file_plain(includes::MISO_LIB, name, "src/Lib.hs");
+                let mut cabal_path = name.to_string();
+                cabal_path.push_str(".cabal");
+                render_file(includes::MISO_CABAL, name, &cabal_path, &hash);
+                write_file_plain(includes::MISO_GITIGNORE, name, ".gitignore");
+                write_file_plain(includes::RELEASE_NIX, name, "release.nix");
+                write_file_plain(includes::MISO_STACK, name, "stack.yaml");
+                write_file_plain(includes::SHAKE_STACK, name, "stack-shake.yaml");
+                write_file_plain(includes::MISO_TRAVIS, name, ".travis.yml");
+                render_file(includes::MISO_SHAKE, name, "shake.hs", &hash);
+                let mut shake_path = name.to_string();
+                shake_path.push_str("/shake.hs");
+                mk_executable(shake_path);
+            }
+                
             "idris" => {
                 let mut pkg_path = name.to_string();
                 pkg_path.push_str(".ipkg");
@@ -460,7 +498,7 @@ fn main() {
         // create a list of files contained in the project, and create those files.
         // TODO should include templates/scripts/etc.
         let files = if let Some(files_pre) = parsed_dirs.files {
-            render_files(files_pre, &hash, name)
+            render_files(files_pre, &hash, name) // FIXME files need to have a newline insert in between them?
         } else {
             VecBuilder::new()
         };

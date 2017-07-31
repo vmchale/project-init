@@ -1,0 +1,17 @@
+license = "BSD3"
+with_readme = true
+website = "https://hackage.haskell.org/package/" # {{ project }}
+
+[files]
+files = []
+directories = ["src","app"]
+templates = ["src/Lib.hs","app/Main.hs","Setup.hs",
+    "{{ project }}.cabal", "stack.yaml", "stack-shake.yaml",
+    ".travis.yml", ".gitignore", "shake.hs"]
+
+[config]
+version = "0.1.0.0"
+version_control = "git"
+
+[[user]]
+license_file = "LICENSE"

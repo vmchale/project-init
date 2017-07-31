@@ -49,6 +49,18 @@ pub const ELM_VIEW: &'static str = include_str!("includes/elm/src/View.elm");
 pub const ELM_GITIGNORE: &'static str = include_str!("includes/elm/.gitignore");
 pub const ELM_TEMPLATE: &'static str = include_str!("includes/elm/template.toml");
 
+// Miso includes
+pub const MISO_SETUP_HS: &'static str = include_str!("includes/miso/Setup.hs");
+pub const MISO_MAIN: &'static str = include_str!("includes/miso/app/Main.hs");
+pub const MISO_STACK: &'static str = include_str!("includes/miso/stack.yaml");
+pub const SHAKE_STACK: &'static str = include_str!("includes/miso/stack-shake.yaml");
+pub const MISO_CABAL: &'static str = include_str!("includes/miso/{{ project }}.cabal");
+pub const MISO_LIB: &'static str = include_str!("includes/miso/src/Lib.hs");
+pub const MISO_GITIGNORE: &'static str = include_str!("includes/miso/.gitignore");
+pub const MISO_TRAVIS: &'static str = include_str!("includes/miso/.travis.yml");
+pub const MISO_TEMPLATE: &'static str = include_str!("includes/miso/template.toml");
+pub const MISO_SHAKE: &'static str = include_str!("includes/miso/shake.hs");
+
 // Haskell includes
 pub const SETUP_HS: &'static str = include_str!("includes/haskell/Setup.hs");
 pub const MAIN: &'static str = include_str!("includes/haskell/app/Main.hs");
