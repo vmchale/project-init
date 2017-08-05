@@ -27,6 +27,7 @@ pub fn render_dirs(dirs_pre: Vec<String>, hash: &HashBuilder, name: &str) {
         })
         .collect();
 
+
     // create directories
     dirs.create_dirs(name);
 }
@@ -72,7 +73,7 @@ impl<T: ToString> Create for Vec<T> {
                 let mut subdir = name.to_string();
                 subdir.push('/');
                 subdir.push_str(&dir.to_string());
-                fs::create_dir(subdir)
+                fs::create_dir(subdir).unwrap_or(());
             })
             .count();
     }

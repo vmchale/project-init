@@ -5,8 +5,7 @@ bugtracker = http://www.github.com/{{ github_username }}/{{ project }}/issues
 
 pkgs = specdris
 
-modules = {{ Project }}
-        , {{ Project }}.Lib
+modules = {{ Project }}.Lib
         , Test.Spec
 
 tests = Test.Spec.specSuite

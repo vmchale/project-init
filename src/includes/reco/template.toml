@@ -1,0 +1,11 @@
+license = "AllRightsReserved"
+with_readme = true
+website = "https://reconfigure.io/"
+
+[files]
+directories = ["cmd", "cmd/test-{{ project }}"]
+templates = [".gitignore", "main.go", "cmd/test-{{ project }}/main.go", "README.md"]
+
+[config]
+version = "0.1.0"
+version_control = "git"

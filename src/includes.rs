@@ -13,6 +13,12 @@ pub const README: &'static str = include_str!("includes/README.md");
 // Plain template
 pub const PLAIN_TEMPLATE: &'static str = include_str!("includes/plain.toml");
 
+// Reco template
+pub const RECO_TEMPLATE: &'static str = include_str!("includes/reco/template.toml");
+pub const RECO_MAIN: &'static str = include_str!("includes/reco/main.go");
+pub const RECO_README: &'static str = include_str!("includes/reco/README.md");
+pub const RECO_TEST_COMMAND: &'static str = include_str!("includes/reco/cmd/test-reco/main.go");
+
 // Rust includes
 pub const RUST_GITIGNORE: &'static str = include_str!("includes/rust/.gitignore");
 pub const CARGO_TOML: &'static str = include_str!("includes/rust/Cargo.toml.init");

@@ -32,10 +32,11 @@
   - [ ] Ruby
     - [ ] test
     - [ ] builtin
-  - [x] Go
-    - [ ] test
+  - [x] Reco
+    - [x] test
+    - [ ] command for something more interesting than "test"?
     - [ ] builtin
-    - [ ] test suite
+    - [x] test suite
   - [x] miso
     - [x] test
     - [x] builtin
@@ -77,3 +78,4 @@
 - [ ] bug w/ vimball.txt
 - [ ] nice CI for rust package
 - [ ] "scripts" section for templates that should be executable.
+- [ ] test "suite" in ion

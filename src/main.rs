@@ -108,6 +108,7 @@ fn main() {
             "python" => includes::PY_TEMPLATE,
             "haskell" => includes::HASK_TEMPLATE,
             "idris" => includes::IDRIS_TEMPLATE,
+            "reco" => includes::RECO_TEMPLATE,
             "julia" => includes::JULIA_TEMPLATE,
             "elm" => includes::ELM_TEMPLATE,
             "miso" => includes::MISO_TEMPLATE,
@@ -248,7 +249,7 @@ fn main() {
                 let mut bin_path = "bin/".to_string();
                 bin_path.push_str(name);
                 render_file(includes::PY_BIN, name, &bin_path, &hash);
-            }
+    }
 
             "elm" => {
                 write_file_plain(includes::ELM_GITIGNORE, name, ".gitignore");
@@ -275,7 +276,16 @@ fn main() {
                 shake_path.push_str("/shake.hs");
                 mk_executable(shake_path);
             }
-                
+            
+            "reco" => {
+                write_file_plain(includes::RECO_MAIN, name, "main.go");
+                let mut command_path = "cmd/test-".to_string();
+                command_path.push_str(name);
+                command_path.push_str("/main.go");
+                write_file_plain(includes::RECO_TEST_COMMAND, name, &command_path);
+                render_file(includes::RECO_README, name, "README.md", &hash);
+            }
+
             "idris" => {
                 let mut pkg_path = name.to_string();
                 pkg_path.push_str(".ipkg");
@@ -286,7 +296,7 @@ fn main() {
                 main_path.push_str(".idr");
                 render_file(includes::IPKG, name, &pkg_path, &hash);
                 render_file(includes::IPKG_TEST, name, &test_pkg_path, &hash);
-                render_file(includes::IDRIS_EXE, name, &main_path, &hash);
+                //render_file(includes::IDRIS_EXE, name, &main_path, &hash);
                 render_file(includes::IDRIS_TEST, name, "Test/Spec.idr", &hash);
                 let mut lib_path = name.to_capitalized();
                 lib_path.push('/');
