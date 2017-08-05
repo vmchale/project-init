@@ -18,7 +18,7 @@ func main() {
 	defer krnl.Release()
 
 	// Allocate a buffer on the FPGA to store the return value of our computation
-	// The output is a uint32, so we need 4 bytes to store it
+	// The output is a uint32, so we use 4 bytes to store it
 	buff := world.Malloc(xcl.WriteOnly, 4)
 	defer buff.Free()
 
@@ -34,14 +34,14 @@ func main() {
 	// Run the kernel with the supplied arguments
 	krnl.Run(1, 1, 1)
 
-	// Decode that byte slice into the uint32 we're expecting
+	// Decode the byte slice given by the FPGA into the uint32 we're expecting
 	var ret uint32
 	err := binary.Read(buff.Reader(), binary.LittleEndian, &ret)
 	if err != nil {
 		fmt.Println("binary.Read failed:", err)
 	}
 
-	// Print the value we got from the FPGA
+	// Print the value given by the FPGA
 	fmt.Printf("%d\n", ret)
 
 	// Exit with an error if the value is not correct
