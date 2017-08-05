@@ -35,7 +35,7 @@
   - [x] Reco
     - [x] test
     - [ ] command for something more interesting than "test"?
-    - [ ] builtin
+    - [x] builtin
     - [x] test suite
   - [x] miso
     - [x] test
