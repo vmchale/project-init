@@ -1,5 +1,0 @@
-# reco
-
-## Installation
-
-## Configuration
