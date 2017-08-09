@@ -15,6 +15,7 @@
   - [x] rust-bin
   - [x] nim/shake
   - [x] haskell
+    - [ ] .hlint.yaml
   - [x] python
   - [x] idris
     - [x] test

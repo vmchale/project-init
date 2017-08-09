@@ -10,4 +10,4 @@ templates = ["src/Lib.hs","app/Main.hs","test/Spec.hs","Setup.hs",
 
 [config]
 version = "0.1.0.0"
-version_control = "git"
+version_control = "darcs"
