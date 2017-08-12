@@ -14,6 +14,7 @@ pub const README: &'static str = include_str!("includes/README.md");
 pub const PLAIN_TEMPLATE: &'static str = include_str!("includes/plain.toml");
 
 // Reco template
+pub const RECO_RULES: &'static str = include_str!("includes/reco/default.rules");
 pub const RECO_TEMPLATE: &'static str = include_str!("includes/reco/template.toml");
 pub const RECO_MAIN: &'static str = include_str!("includes/reco/main.go");
 pub const RECO_README: &'static str = include_str!("includes/reco/README.md");

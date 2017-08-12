@@ -3,8 +3,8 @@ with_readme = true
 website = "https://reconfigure.io/"
 
 [files]
-directories = ["cmd", "cmd/test-{{ project }}"]
-templates = [".gitignore", "main.go", "cmd/test-{{ project }}/main.go", "README.md"]
+directories = ["cmd", "cmd/test-{{ project }}", "optim"]
+templates = [".gitignore", "main.go", "cmd/test-{{ project }}/main.go", "README.md", "optim/default.rules"]
 
 [config]
 version = "0.1.0"
