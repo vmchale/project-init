@@ -28,6 +28,9 @@ func Top(
 	memWriteData chan<- axiprotocol.WriteData,
 	memWriteResp <-chan axiprotocol.WriteResp) {
 
+	// Since we're not reading anything from memory, disable those reads
+	go axiprotocol.ReadDisable(memReadAddr, memReadData)
+
 	// Calculate the value
 	val := a + b
 
