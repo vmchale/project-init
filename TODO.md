@@ -16,6 +16,7 @@
   - [x] nim/shake
   - [x] haskell
     - [ ] .hlint.yaml
+      - [ ] should suggest unicode symbols as replacements
   - [x] python
   - [x] idris
     - [x] test
