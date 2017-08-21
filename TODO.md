@@ -17,6 +17,8 @@
   - [x] haskell
     - [ ] .hlint.yaml
       - [ ] should suggest unicode symbols as replacements
+    - [ ] cabal.project
+      - [ ] ability to initialize/name multiple projects simultaneously
   - [x] python
   - [x] idris
     - [x] test

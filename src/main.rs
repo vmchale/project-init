@@ -291,12 +291,10 @@ fn main() {
                 let mut pkg_path = name.to_string();
                 pkg_path.push_str(".ipkg");
                 write_file_plain(includes::IDRIS_GITIGNORE, name, ".gitignore");
-                let mut test_pkg_path = name.to_string();
-                test_pkg_path.push_str("_test.ipkg");
                 let mut main_path = name.to_capitalized();
                 main_path.push_str(".idr");
                 render_file(includes::IPKG, name, &pkg_path, &hash);
-                render_file(includes::IPKG_TEST, name, &test_pkg_path, &hash);
+                render_file(includes::IPKG_TEST, name, "test.ipkg", &hash);
                 //render_file(includes::IDRIS_EXE, name, &main_path, &hash);
                 render_file(includes::IDRIS_TEST, name, "Test/Spec.idr", &hash);
                 let mut lib_path = name.to_capitalized();
@@ -329,6 +327,7 @@ fn main() {
                 write_file_plain(includes::HASKELL_GITIGNORE, name, ".gitignore");
                 write_file_plain(includes::RELEASE_NIX, name, "release.nix");
                 render_file(includes::STACK_YAML, name, "stack.yaml", &hash);
+                //render_file(includes::CABAL_PROJECT, name, "cabal.project", &hash);
                 write_file_plain(includes::HASKELL_TRAVIS_CI, name, ".travis.yml");
             }
 
