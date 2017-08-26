@@ -249,7 +249,7 @@ fn main() {
                 let mut bin_path = "bin/".to_string();
                 bin_path.push_str(name);
                 render_file(includes::PY_BIN, name, &bin_path, &hash);
-    }
+            }
 
             "elm" => {
                 write_file_plain(includes::ELM_GITIGNORE, name, ".gitignore");
@@ -276,7 +276,7 @@ fn main() {
                 shake_path.push_str("/shake.hs");
                 mk_executable(shake_path);
             }
-            
+
             "reco" => {
                 write_file_plain(includes::RECO_RULES, name, "optim/default.rules");
                 write_file_plain(includes::RECO_MAIN, name, "main.go");
@@ -319,6 +319,7 @@ fn main() {
                 write_file_plain(includes::LIB, name, "src/Lib.hs");
                 write_file_plain(includes::BENCH, name, "bench/Bench.hs");
                 write_file_plain(includes::TEST, name, "test/Spec.hs");
+                write_file_plain(includes::HLINT_TEMPLATE, name, ".hlint.yaml");
                 render_file(includes::DEFAULT_NIX, name, "default.nix", &hash);
                 render_file(includes::RELEASE_NIX, name, "release.nix", &hash);
                 let mut cabal_path = name.to_string();

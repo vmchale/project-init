@@ -14,5 +14,8 @@ before_install:
 - chmod a+x ~/.local/bin/stack
 install:
 - stack --no-terminal --install-ghc test --only-dependencies
+- stack install hlint weeder
 script:
 - stack --no-terminal test --bench --haddock --no-haddock-deps
+- hlint .
+- weeder .

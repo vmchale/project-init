@@ -2,7 +2,8 @@ module Main where
 
 import Criterion.Main
 
-main = do
+main :: IO ()
+main =
     defaultMain [ bgroup "head"
                       [ bench "head" $ whnf head [1..] ]
                 ]
