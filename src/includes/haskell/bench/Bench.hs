@@ -4,5 +4,5 @@ import Criterion.Main
 
 main = do
     defaultMain [ bgroup "head"
-                      [ bench "fortune-teller" $ whnf head [1..] ]
+                      [ bench "head" $ whnf head [1..] ]
                 ]

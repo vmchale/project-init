@@ -41,6 +41,7 @@ main = version >>= \v -> shakeArgs shakeOptions { shakeFiles = ".shake", shakeLi
     ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/all.js" %> \out -> do
         need ["src/Lib.hs"]
         cmd ["stack", "build", "--stack-yaml", "stack.yaml", "--install-ghc"]
+        -- cmd [ Cwd ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/"] Shell "sed -i 2643,2644d all.js"
 
     ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/all.min.js" %> \out -> do
         need [".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/all.js"]
