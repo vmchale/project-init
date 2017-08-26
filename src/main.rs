@@ -25,6 +25,7 @@ use case::*;
 use toml::Value::Table;
 use std::fs::File;
 use std::fs::set_permissions;
+use std::process::Command;
 
 #[cfg(not(target_os = "windows"))]
 use std::os::unix::fs::PermissionsExt;
@@ -80,7 +81,20 @@ fn main() {
     let year = now.tm_year + 1900;
     let current_date = strftime("%m-%d-%Y", &now).unwrap();
 
-    if let Some(matches_init) = matches.subcommand_matches("new") {
+    if let Some(_) = matches.subcommand_matches("update") {
+
+        // TODO add a --force flag here.
+        let script = Command::new("bash")
+            .arg("-c")
+            .arg("curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git vmchale/project-init --force")
+            .output()
+            .expect("failed to execute update script.");
+
+        let script_string = String::from_utf8(script.stderr).unwrap();
+
+        println!("{}", script_string);
+
+    } else if let Some(matches_init) = matches.subcommand_matches("new") {
 
         let force: bool = matches_init.occurrences_of("force") == 1;
 
