@@ -7,6 +7,11 @@ subcommands:
     - update:
         visible_alias: "u"
         about: Update pi (only works on UNIX)
+        args:
+            - force:
+                short: f
+                long: force
+                help: Force installation even when binary already exists.
     - init:
         about: Use a template from a folder
         alias: "i"
