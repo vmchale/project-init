@@ -288,9 +288,11 @@ fn main() {
                 render_file(includes::MISO_CABAL, name, &cabal_path, &hash);
                 write_file_plain(includes::MISO_GITIGNORE, name, ".gitignore");
                 write_file_plain(includes::MISO_STACK, name, "stack.yaml");
+                write_file_plain(includes::HLINT_TEMPLATE, name, ".hlint.yaml");
                 write_file_plain(includes::SHAKE_STACK, name, "stack-shake.yaml");
                 write_file_plain(includes::MISO_TRAVIS, name, ".travis.yml");
                 render_file(includes::MISO_SHAKE, name, "shake.hs", &hash);
+                write_file_plain(includes::HASKELL_TRAVIS_CI, name, ".travis.yml");
                 let mut shake_path = name.to_string();
                 shake_path.push_str("/shake.hs");
                 mk_executable(shake_path);

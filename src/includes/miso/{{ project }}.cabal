@@ -15,12 +15,21 @@ extra-source-files:  README.md
                    , .travis.yml
 cabal-version:       >=1.10
 
+Flag development {
+  Description: Enable `-Werror`
+  manual: True
+  default: False
+}
+
 library
   hs-source-dirs:      src
   exposed-modules:     Lib
   build-depends:       base >= 4.7 && < 5
                      , miso == 0.4.*
   default-language:    Haskell2010
+  if flag(development)
+    ghc-options: -Werror
+  ghc-options:         -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates
 
 executable {{ project }}
   hs-source-dirs:      app
@@ -29,6 +38,9 @@ executable {{ project }}
   build-depends:       base
                      , {{ project }}
   default-language:    Haskell2010
+  if flag(development)
+    ghc-options: -Werror
+  ghc-options:         -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates
 
 source-repository head
   type:     git
