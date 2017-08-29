@@ -1,5 +1,8 @@
 packages:
 - '.'
+flags:
+    {{ project }}:
+        development: true
 extra-deps:
     - miso-0.4.0.0
 allow-newer: true

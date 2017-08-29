@@ -287,7 +287,7 @@ fn main() {
                 cabal_path.push_str(".cabal");
                 render_file(includes::MISO_CABAL, name, &cabal_path, &hash);
                 write_file_plain(includes::MISO_GITIGNORE, name, ".gitignore");
-                write_file_plain(includes::MISO_STACK, name, "stack.yaml");
+                render_file(includes::MISO_STACK, name, "stack.yaml", &hash);
                 write_file_plain(includes::HLINT_TEMPLATE, name, ".hlint.yaml");
                 write_file_plain(includes::SHAKE_STACK, name, "stack-shake.yaml");
                 write_file_plain(includes::MISO_TRAVIS, name, ".travis.yml");
