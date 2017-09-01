@@ -13,13 +13,12 @@ data Action
   = AddOne
   | SubtractOne
   | NoOp
-  | SayHelloWorld
   deriving (Show, Eq)
 
 exec :: IO ()
 exec = startApp App {..}
   where
-    initialAction = SayHelloWorld
+    initialAction = NoOp
     model  = 0
     update = updateModel
     view   = viewModel
@@ -30,8 +29,6 @@ updateModel :: Action -> Model -> Effect Model Action
 updateModel AddOne m = noEff (m + 1)
 updateModel SubtractOne m = noEff (m - 1)
 updateModel NoOp m = noEff m
-updateModel SayHelloWorld m = m <# do
-    putStrLn "Hello World" >> pure NoOp
 
 viewModel :: Model -> View Action
 viewModel x = div_ []
