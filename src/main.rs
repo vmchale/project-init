@@ -251,7 +251,7 @@ fn main() {
             "rust" => {
                 write_file_plain(includes::RUST_LIB, name, "src/lib.rs");
                 write_file_plain(includes::RUST_MAIN, name, "src/main.rs");
-                write_file_plain(includes::RUST_TRAVIS_CI, name, ".travis.tml");
+                write_file_plain(includes::RUST_TRAVIS_CI, name, ".travis.yml");
                 write_file_plain(includes::RUST_GITIGNORE, name, ".gitignore");
                 render_file(includes::CARGO_TOML, name, "Cargo.toml", &hash)
             }
