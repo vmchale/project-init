@@ -6,8 +6,6 @@
 #[macro_use]
 extern crate serde_derive;
 extern crate toml;
-extern crate time;
-extern crate core;
 extern crate colored;
 
 use std::fs::File;
