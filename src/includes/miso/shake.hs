@@ -45,7 +45,7 @@ main = version >>= \v -> shakeArgs shakeOptions { shakeFiles = ".shake", shakeLi
 
     ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/all.min.js" %> \out -> do
         need [".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/all.js"]
-        cmd (Cwd ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/") Shell "ccjs all.js --compilation_level=ADVANCED_OPTIMIZATIONS --externs=node --externs=all.js.externs > all.min.js"
+        cmd (Cwd ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/") Shell "ccjs all.js --externs=node --externs=all.js.externs > all.min.js"
 
     "target/index.html" %> \out -> do
         liftIO $ createDirectoryIfMissing True "target"
