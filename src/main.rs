@@ -317,8 +317,9 @@ fn main() {
                 render_file(includes::IPKG, name, &pkg_path, &hash);
                 render_file(includes::IPKG_TEST, name, "test.ipkg", &hash);
                 //render_file(includes::IDRIS_EXE, name, &main_path, &hash);
-                render_file(includes::IDRIS_TEST, name, "Test/Spec.idr", &hash);
-                let mut lib_path = name.to_capitalized();
+                render_file(includes::IDRIS_TEST, name, "src/Test/Spec.idr", &hash);
+                let mut lib_path = "src/".to_string();
+                lib_path.push_str(&name.to_capitalized());
                 lib_path.push('/');
                 lib_path.push_str("Lib.idr");
                 render_file(includes::IDRIS_LIB, name, &lib_path, &hash);

@@ -3,7 +3,7 @@ with_readme = true
 
 [files]
 files = []
-directories = ["{{ Project }}", "Test"]
+directories = ["src", "src/{{ Project }}", "src/Test"]
 templates = ["{{ Project }}/Lib.idr","Main.idr","{{ project }}.ipkg",".gitignore", "Test/Spec.hs"]
 
 [config]

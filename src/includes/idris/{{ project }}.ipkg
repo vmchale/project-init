@@ -1,5 +1,7 @@
 package {{ project }}
 
+sourcedir = src
+
 sourceloc  = git://git@github.com:{{ github_username }}/{{ project }}.git
 bugtracker = http://www.github.com/{{ github_username }}/{{ project }}/issues
 
