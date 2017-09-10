@@ -1,5 +1,10 @@
 package {{ project }}
 
+version = {{ version }}
+readme = README.md
+license = {{ license }}
+author = {{ name }}
+
 sourcedir = src
 
 sourceloc  = git://git@github.com:{{ github_username }}/{{ project }}.git
