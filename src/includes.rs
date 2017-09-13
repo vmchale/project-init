@@ -83,6 +83,7 @@ pub const HASKELL_TRAVIS_CI: &'static str = include_str!("includes/haskell/.trav
 pub const HASKELL_GITIGNORE: &'static str = include_str!("includes/haskell/.gitignore");
 pub const CABAL_PROJECT: &'static str = include_str!("includes/haskell/cabal.project");
 pub const HLINT_TEMPLATE: &'static str = include_str!("includes/haskell/.hlint.yaml");
+pub const STYLISH_HASKELL: &'static str = include_str!("includes/haskell/.stylish-haskell.yaml");
 
 // Idiris includes
 pub const IDRIS_TEMPLATE: &'static str = include_str!("includes/idris/template.toml");

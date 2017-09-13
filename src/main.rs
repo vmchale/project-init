@@ -342,6 +342,7 @@ fn main() {
                 write_file_plain(includes::BENCH, name, "bench/Bench.hs");
                 write_file_plain(includes::TEST, name, "test/Spec.hs");
                 write_file_plain(includes::HLINT_TEMPLATE, name, ".hlint.yaml");
+                write_file_plain(includes::STYLISH_HASKELL, name, ".stylish-haskell.yaml");
                 render_file(includes::DEFAULT_NIX, name, "default.nix", &hash);
                 render_file(includes::RELEASE_NIX, name, "release.nix", &hash);
                 let mut cabal_path = name.to_string();
