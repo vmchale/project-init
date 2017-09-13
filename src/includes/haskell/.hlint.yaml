@@ -34,6 +34,7 @@
  - error: {lhs: "do { a ; b }", rhs: "a >> b", name: "Avoid do-notation"}
  - error: {lhs: "concat", rhs: "join", name: "Generalize concat"}
  - error: {lhs: "concatMap", rhs: "(=<<)", name: "Generalize concatMap"}
+ - error: {lhs: "f >> pure ()", rhs: "void f", name: "Use void"}
 
 
 # Turn on hints that are off by default
