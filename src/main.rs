@@ -293,6 +293,7 @@ fn main() {
                 write_file_plain(includes::MISO_TRAVIS, name, ".travis.yml");
                 render_file(includes::MISO_SHAKE, name, "shake.hs", &hash);
                 write_file_plain(includes::HASKELL_TRAVIS_CI, name, ".travis.yml");
+                write_file_plain(includes::STYLISH_HASKELL, name, ".stylish-haskell.yaml");
                 let mut shake_path = name.to_string();
                 shake_path.push_str("/shake.hs");
                 mk_executable(shake_path);
