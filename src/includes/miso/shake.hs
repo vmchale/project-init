@@ -1,5 +1,5 @@
 #!/usr/bin/env stack
-{- stack --resolver lts-9.1 --install-ghc
+{- stack --resolver lts-9.3 --install-ghc
     runghc
     --package shake
     --package directory
@@ -41,18 +41,16 @@ main = version >>= \v -> shakeArgs shakeOptions { shakeFiles = ".shake", shakeLi
     ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/all.js" %> \out -> do
         need ["src/Lib.hs"]
         cmd ["stack", "build", "--stack-yaml", "stack.yaml", "--install-ghc"]
-        -- cmd [ Cwd ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/"] Shell "sed -i 2643,2644d all.js"
 
     ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/all.min.js" %> \out -> do
         need [".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/all.js"]
         cmd (Cwd ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/") Shell "ccjs all.js --externs=node --externs=all.js.externs > all.min.js"
 
+    "target/all.min.js" %> \out -> do
+        need [".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/all.min.js"]
+        cmd Shell "cp .stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/all.min.js target/all.min.js"
+
     "target/index.html" %> \out -> do
         liftIO $ createDirectoryIfMissing True "target"
-        need [".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/all.min.js"]
-        cmd ["ln","-sf","../.stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/{{ project }}/{{ project }}.jsexe/index.html","target/index.html"]
-
-    "target/{{ project }}" %> \out -> do
-        liftIO $ createDirectoryIfMissing True "target"
-        need [".stack-work/dist/x86_64-linux/Cabal-1.24.2.0/build/{{ project }}/{{ project }}"]
-        cmd ["ln","-sf","../.stack-work/dist/x86_64-linux/Cabal-1.24.2.0/build/{{ project }}/{{ project }}","target/{{ project }}"]
+        need ["target/all.min.js"]
+        cmd ["cp","web-src/index.html", "target/index.html"]

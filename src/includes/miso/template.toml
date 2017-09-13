@@ -4,7 +4,7 @@ website = "https://hackage.haskell.org/package/" # {{ project }}
 
 [files]
 files = []
-directories = ["src","app"]
+directories = ["src","app","web-src"]
 templates = ["src/Lib.hs","app/Main.hs","Setup.hs",
     "{{ project }}.cabal", "stack.yaml", "stack-shake.yaml",
     ".travis.yml", ".gitignore", "shake.hs"]

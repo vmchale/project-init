@@ -67,6 +67,7 @@ pub const MISO_GITIGNORE: &'static str = include_str!("includes/miso/.gitignore"
 pub const MISO_TRAVIS: &'static str = include_str!("includes/miso/.travis.yml");
 pub const MISO_TEMPLATE: &'static str = include_str!("includes/miso/template.toml");
 pub const MISO_SHAKE: &'static str = include_str!("includes/miso/shake.hs");
+pub const MISO_HTML: &'static str = include_str!("includes/miso/web-src/index.html");
 
 // Haskell includes
 pub const SETUP_HS: &'static str = include_str!("includes/haskell/Setup.hs");
