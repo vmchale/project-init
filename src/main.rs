@@ -316,7 +316,7 @@ fn main() {
                 if author.reco_developer != Some(true) {
                     let mut optim_path: String = name.to_string();
                     optim_path.push_str("/optim");
-                    std::fs::remove_dir(optim_path);
+                    std::fs::remove_dir(optim_path).unwrap();
                 }
             }
 
