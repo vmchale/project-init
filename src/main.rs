@@ -86,6 +86,8 @@ fn main() {
 
         let force = x.is_present("force");
 
+        println!("current version: {}", crate_version!());
+
         let s = if force {
             "curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git vmchale/project-init --force"
         } else {
