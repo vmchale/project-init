@@ -73,6 +73,7 @@ fn main() {
             name: nam,
             email: ema,
             github_username: None,
+            reco_developer: false,
         }
     };
 
@@ -301,7 +302,9 @@ fn main() {
             }
 
             "reco" => {
-                write_file_plain(includes::RECO_RULES, name, "optim/default.rules");
+                if author.reco_developer == true {
+                    write_file_plain(includes::RECO_RULES, name, "optim/default.rules");
+                }
                 write_file_plain(includes::RECO_MAIN, name, "main.go");
                 let mut command_path = "cmd/test-".to_string();
                 command_path.push_str(name);
