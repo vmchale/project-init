@@ -8,7 +8,7 @@ sudo: required
 
 env:
   global:
-    - CRATE_NAME=tin-summer
+    - CRATE_NAME=project-init
 
 matrix:
   include:
