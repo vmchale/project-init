@@ -340,7 +340,7 @@ fn main() {
             "haskell" | "kmett" => {
                 write_file_plain(includes::SETUP_HS, name, "Setup.hs");
                 write_file_plain(includes::MAIN, name, "app/Main.hs");
-                write_file_plain(includes::LIB, name, "src/Lib.hs");
+                render_file(includes::LIB, name, "src/Lib.hs", &hash);
                 write_file_plain(includes::BENCH, name, "bench/Bench.hs");
                 write_file_plain(includes::TEST, name, "test/Spec.hs");
                 write_file_plain(includes::HLINT_TEMPLATE, name, ".hlint.yaml");
