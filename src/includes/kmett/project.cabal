@@ -1,0 +1,70 @@
+name:                {{ project }}
+version:             {{ version }}
+-- synopsis:
+-- description:
+homepage:            https://github.com/{{ github_username }}/{{ project }}#readme
+license:             {{ license }}
+license-file:        LICENSE
+author:              {{ name }}
+maintainer:          {{ email }}
+copyright:           Copyright: (c) {{ year }} {{ name }}
+--category:            Web
+build-type:          Simple
+extra-source-files:  README.md
+                   , stack.yaml
+                   , .travis.yml
+cabal-version:       >=1.10
+
+Flag development {
+  Description: Enable `-Werror`
+  manual: True
+  default: False
+}
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Lib
+  build-depends:       base >= 4.7 && < 5
+                     , lens
+                     , recursion-schemes
+                     , free
+                     , comonad
+  default-language:    Haskell2010
+  if flag(development)
+    ghc-options: -Werror
+  ghc-options:         -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+
+executable {{ project }}
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , {{ project }}
+  default-language:    Haskell2010
+  if flag(development)
+    ghc-options: -Werror
+  ghc-options:         -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+
+test-suite {{ project }}-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                     , {{ project }}
+                     , hspec
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+  default-language:    Haskell2010
+
+benchmark {{ project }}-bench
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      bench
+  main-is:             Bench.hs
+  build-depends:       base
+                     , {{ project }}
+                     , criterion
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O3 -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/{{ github_username }}/{{ project }}

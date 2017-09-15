@@ -125,7 +125,7 @@ fn main() {
             "rust" => includes::RUST_TEMPLATE,
             "vim" | "vimscript" => includes::VIM_TEMPLATE,
             "python" => includes::PY_TEMPLATE,
-            "haskell" => includes::HASK_TEMPLATE,
+            "haskell" | "kmett" => includes::HASK_TEMPLATE,
             "idris" => includes::IDRIS_TEMPLATE,
             "reco" => includes::RECO_TEMPLATE,
             "julia" => includes::JULIA_TEMPLATE,
@@ -337,7 +337,7 @@ fn main() {
                 write_file_plain(includes::JULIA_TEST, name, "test/test.jl");
             }
 
-            "haskell" => {
+            "haskell" | "kmett" => {
                 write_file_plain(includes::SETUP_HS, name, "Setup.hs");
                 write_file_plain(includes::MAIN, name, "app/Main.hs");
                 write_file_plain(includes::LIB, name, "src/Lib.hs");
@@ -349,7 +349,11 @@ fn main() {
                 render_file(includes::RELEASE_NIX, name, "release.nix", &hash);
                 let mut cabal_path = name.to_string();
                 cabal_path.push_str(".cabal");
-                render_file(includes::CABAL, name, &cabal_path, &hash);
+                if template_str == "haskell" {
+                    render_file(includes::CABAL, name, &cabal_path, &hash);
+                } else {
+                    render_file(includes::KMETT, name, &cabal_path, &hash);
+                }
                 write_file_plain(includes::HASKELL_GITIGNORE, name, ".gitignore");
                 write_file_plain(includes::RELEASE_NIX, name, "release.nix");
                 render_file(includes::STACK_YAML, name, "stack.yaml", &hash);
