@@ -73,7 +73,7 @@ fn main() {
             name: nam,
             email: ema,
             github_username: None,
-            reco_developer: false,
+            reco_developer: None,
         }
     };
 
@@ -302,7 +302,7 @@ fn main() {
             }
 
             "reco" => {
-                if author.reco_developer == true {
+                if author.reco_developer == Some(true) {
                     write_file_plain(includes::RECO_RULES, name, "optim/default.rules");
                 }
                 write_file_plain(includes::RECO_MAIN, name, "main.go");
