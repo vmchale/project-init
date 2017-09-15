@@ -311,6 +311,11 @@ fn main() {
                 command_path.push_str("/main.go");
                 write_file_plain(includes::RECO_TEST_COMMAND, name, &command_path);
                 render_file(includes::RECO_README, name, "README.md", &hash);
+                if author.reco_developer != Some(true) {
+                    let mut optim_path: String = name.to_string();
+                    optim_path.push_str("/optim");
+                    std::fs::remove_dir(optim_path);
+                }
             }
 
             "idris" => {
