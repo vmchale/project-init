@@ -83,3 +83,4 @@
 - [ ] nice CI for rust package
 - [ ] "scripts" section for templates that should be executable.
 - [ ] test "suite" in ion
+- [x] update command
