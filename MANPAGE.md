@@ -14,8 +14,7 @@ pi - initialize projects from mustache templates
 # DESCRIPTION
 
 **pi** is a command-line tool that helps you start new projects. It can generate
-new projects either from mustache templates or from the builtin templates for
-Julia, Rust, Haskell, Idris, Elm, Vimscript, and Python.
+new projects either from mustache templates or from the builtin templates.
 
 # OPTIONS
 
@@ -55,6 +54,12 @@ user's $HOME/.pi_templates will be available to her anywhere.
 For sample templates, see:
 
   https://github.com/vmchale/pi-templates
+
+# BUILTIN TEMPLATES
+
+Project templates for Julia, Rust, Idris, Elm, Vimscript, Python, Haskell, Miso
+are included by default. There is also a 'plain' templates which just contains a
+license and a readme.
 
 # EXAMPLES
 

@@ -3,7 +3,7 @@ echo 'generating manpages...'
 pandoc MANPAGE.md -s -t man -o pi.1
 echo 'installing manpages...'
 mkdir -p ~/.local/share/man/man1/
-printf "\nexport MANPATH=~/.local/share:$MANPATH\n" >> ~/.bashrc
+#printf "\nexport MANPATH=~/.local/share:$MANPATH\n" >> ~/.bashrc
 export MANPATH=~/.local/share:$MANPATH
 cp pi.1 ~/.local/share/man/man1/
 mandb >> /dev/null
