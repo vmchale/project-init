@@ -19,6 +19,7 @@ pub const RECO_TEMPLATE: &'static str = include_str!("includes/reco/template.tom
 pub const RECO_MAIN: &'static str = include_str!("includes/reco/main.go");
 pub const RECO_README: &'static str = include_str!("includes/reco/README.md");
 pub const RECO_TEST_COMMAND: &'static str = include_str!("includes/reco/cmd/test-reco/main.go");
+pub const RECO_JUSTFILE: &'static str = include_str!("includes/reco/Justfile");
 
 // Rust includes
 pub const RUST_GITIGNORE: &'static str = include_str!("includes/rust/.gitignore");

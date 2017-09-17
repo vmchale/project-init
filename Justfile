@@ -22,3 +22,6 @@ manpages:
     cp pi.1 ~/.local/share/man/man1/
     mandb >> /dev/null
     rm pi.1
+
+patch:
+    cargo release -l patch --no-dev-version
