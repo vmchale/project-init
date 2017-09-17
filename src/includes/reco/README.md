@@ -10,7 +10,7 @@ The test command is located at `cmd/test-{{ project }}/main.go`.
 To test:
 
 ```
-reco test {{ project }}
+reco test run test-{{ project }}
 ```
 
 This will simulate the kernel using a hardware simulator, and test it
@@ -19,7 +19,7 @@ using the `test-{{ project }}` command.
 ## Building
 
 ```
-reco build
+reco build run test-{{ project }}
 ```
 
 This will build your commands and kernel.
