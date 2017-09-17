@@ -15,6 +15,9 @@ test:
     cargo run -- new rust project
     cd project/ && cargo build
     rm -rf project/
+    cargo run -- new reco project
+    cd project && reco check
+    rm -rf project
 
 manpages:
     pandoc MANPAGE.md -s -t man -o pi.1
