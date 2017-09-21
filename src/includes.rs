@@ -84,7 +84,7 @@ pub const STACK_YAML: &'static str = include_str!("includes/haskell/stack.yaml")
 pub const HASK_TEMPLATE: &'static str = include_str!("includes/haskell/template.toml");
 pub const HASKELL_TRAVIS_CI: &'static str = include_str!("includes/haskell/.travis.yml");
 pub const HASKELL_GITIGNORE: &'static str = include_str!("includes/haskell/.gitignore");
-pub const CABAL_PROJECT: &'static str = include_str!("includes/haskell/cabal.project");
+pub const CABAL_PROJECT: &'static str = include_str!("includes/haskell/cabal.project.local");
 pub const HLINT_TEMPLATE: &'static str = include_str!("includes/haskell/.hlint.yaml");
 pub const STYLISH_HASKELL: &'static str = include_str!("includes/haskell/.stylish-haskell.yaml");
 

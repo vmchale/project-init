@@ -368,7 +368,7 @@ fn main() {
                 write_file_plain(includes::HASKELL_GITIGNORE, name, ".gitignore");
                 write_file_plain(includes::RELEASE_NIX, name, "release.nix");
                 render_file(includes::STACK_YAML, name, "stack.yaml", &hash);
-                //render_file(includes::CABAL_PROJECT, name, "cabal.project", &hash);
+                render_file(includes::CABAL_PROJECT, name, "cabal.project", &hash);
                 write_file_plain(includes::HASKELL_TRAVIS_CI, name, ".travis.yml");
             }
 

@@ -1,0 +1,2 @@
+constraints: {{ project }} +development
+with-compiler: ghc-8.0.2
