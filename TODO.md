@@ -84,3 +84,5 @@
 - [ ] "scripts" section for templates that should be executable.
 - [ ] test "suite" in ion
 - [x] update command
+- [ ] command to prompt users through, and generate a `$HOME/.pi.toml`
+  automatically.

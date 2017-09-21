@@ -26,7 +26,7 @@ manpages:
     mandb >> /dev/null
     rm pi.1
 
-chekc:
+check:
     git diff master origin/master
 
 patch:
