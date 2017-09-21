@@ -26,5 +26,8 @@ manpages:
     mandb >> /dev/null
     rm pi.1
 
+chekc:
+    git diff master origin/master
+
 patch:
     cargo release -l patch --no-dev-version
