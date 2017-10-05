@@ -40,7 +40,7 @@ fn mk_executable<P: AsRef<Path>>(p: P) -> () {
 }
 
 #[cfg(target_os = "windows")]
-fn mk_executable(_: P) -> () {
+fn mk_executable<P: AsRef<Path>>(_: P) -> () {
     ()
 }
 
