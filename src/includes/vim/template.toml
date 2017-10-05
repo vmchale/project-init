@@ -4,7 +4,7 @@ with_readme = true
 [files]
 files = ["syntax/{{ project }}.vim","plugin/{{ project }}.vim","doc/{{ project }}.txt"]
 directories = ["doc","syntax","plugin"]
-templates = ["vimball.txt"]
+templates = ["vimball.txt", ".travis.yml"]
 
 [config]
 version = "0.1.0"

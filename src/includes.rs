@@ -33,6 +33,7 @@ pub const RUST_TRAVIS_CI: &'static str = include_str!("includes/rust/.travis.yml
 pub const VIM_GITIGNORE: &'static str = include_str!("includes/vim/.gitignore");
 pub const VIMBALL: &'static str = include_str!("includes/vim/vimball.txt");
 pub const VIM_TEMPLATE: &'static str = include_str!("includes/vim/template.toml");
+pub const VIM_TRAVIS: &'static str = include_str!("includes/vim/.travis.yml");
 
 // Python includes
 pub const PY_GITIGNORE: &'static str = include_str!("includes/python/.gitignore");

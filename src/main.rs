@@ -304,6 +304,7 @@ fn main() {
 
             "vim" | "vimscript" => {
                 write_file_plain(includes::VIM_GITIGNORE, name, ".gitignore");
+                render_file(includes::VIM_TRAVIS, name, ".travis.yml", &hash_with_files);
                 render_file(includes::VIMBALL, name, "vimball.txt", &hash_with_files)
             }
 
