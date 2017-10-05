@@ -1,2 +1,7 @@
 constraints: {{ project }} +development
 with-compiler: ghc-8.2.1
+tests: True
+benchmarks: True
+documentation: True
+haddock-hoogle: True
+haddock-internal: True
