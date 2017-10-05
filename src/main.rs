@@ -102,6 +102,49 @@ fn main() {
 
         println!("{}", script_string);
 
+    } else if let Some(_) = matches.subcommand_matches("list") {
+        let builtin = vec![
+            "rust",
+            "vim",
+            "python",
+            "haskell",
+            "idris",
+            "reco",
+            "julia",
+            "elm",
+            "miso",
+            "plain",
+            "kmett",
+        ];
+        println!("{}", "Builtin Templates:".cyan());
+        for b in builtin {
+            println!("  - {}", b);
+        }
+        let mut p = home;
+        p.push(".pi_templates");
+        println!("{}", "\nUser Templates:".cyan());
+        let iter = std::fs::read_dir(&p);
+        match iter {
+            Ok(x) => {
+                for dir in x {
+                    match dir {
+                        Ok(x) => {
+                            if x.path().is_dir() &&
+                                x.file_name().to_str().map(|c| c.chars().nth(0).unwrap()) !=
+                                    Some('.') &&
+                                x.file_name().to_str().map(|c| c.chars().nth(0).unwrap()) !=
+                                    Some('_')
+                            {
+                                println!("  - {}", x.file_name().to_string_lossy());
+                            }
+                        }
+                        _ => (),
+                    }
+                }
+            }
+            _ => (),
+        }
+
     } else if let Some(matches_init) = matches.subcommand_matches("new") {
 
         let force: bool = matches_init.occurrences_of("force") == 1;
