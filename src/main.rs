@@ -142,7 +142,7 @@ fn main() {
                     }
                 }
             }
-            _ => (),
+            _ => eprintln!("{}: Could not access {}", "Warning".yellow(), p.display()),
         }
 
     } else if let Some(matches_init) = matches.subcommand_matches("new") {
