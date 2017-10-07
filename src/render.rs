@@ -149,7 +149,7 @@ pub fn render_templates(
             .into_iter()
             .map(|file| {
                 let mut o = Cursor::new(Vec::new());
-                hash.render(&file, &o).unwrap();
+                hash.render(&file, &mut o).unwrap();
                 String::from_utf8(o.into_inner()).unwrap()
             })
             .collect();
