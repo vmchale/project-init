@@ -18,6 +18,9 @@ test:
     cargo run -- new reco project
     cd project && reco check
     rm -rf project
+    cargo run -- new mad story
+    cd story && madlang run src/story.mad
+    rm -rf story
 
 manpages:
     pandoc MANPAGE.md -s -t man -o pi.1

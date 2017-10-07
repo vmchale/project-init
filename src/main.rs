@@ -115,6 +115,7 @@ fn main() {
             "miso",
             "plain",
             "kmett",
+            "madlang",
         ];
         println!("{}", "Builtin Templates:".cyan());
         for b in builtin {
@@ -172,6 +173,7 @@ fn main() {
             "vim" | "vimscript" => includes::VIM_TEMPLATE,
             "python" => includes::PY_TEMPLATE,
             "haskell" | "kmett" => includes::HASK_TEMPLATE,
+            "mad" | "madlang" => includes::MADLANG_TEMPLATE,
             "idris" => includes::IDRIS_TEMPLATE,
             "reco" => includes::RECO_TEMPLATE,
             "julia" => includes::JULIA_TEMPLATE,
@@ -363,6 +365,13 @@ fn main() {
                     optim_path.push_str("/optim");
                     std::fs::remove_dir(optim_path).unwrap();
                 }
+            }
+
+            "madlang" | "mad" => {
+                let mut src_path = "src/".to_string();
+                src_path.push_str(name);
+                src_path.push_str(".mad");
+                render_file(includes::MADLANG_SRC, name, &src_path, &hash);
             }
 
             "idris" => {
