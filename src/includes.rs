@@ -13,6 +13,10 @@ pub const README: &'static str = include_str!("includes/README.md");
 // Plain template
 pub const PLAIN_TEMPLATE: &'static str = include_str!("includes/plain.toml");
 
+// Madlang
+pub const MADLANG_TEMPLATE: &'static str = include_str!("includes/madlang/template.toml");
+pub const MADLANG_SRC: &'static str = include_str!("includes/madlang/gambling.mad");
+
 // Reco template
 //pub const RECO_RULES: &'static str = include_str!("includes/reco/default.rules");
 pub const RECO_TEMPLATE: &'static str = include_str!("includes/reco/template.toml");

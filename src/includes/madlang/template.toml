@@ -1,0 +1,10 @@
+license = "BSD3"
+with_readme = true
+
+[files]
+directories = ["src"]
+templates = ["src/gambling.mad"]
+
+[config]
+version = "0.1.0"
+version_control = "darcs"
