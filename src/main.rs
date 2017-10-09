@@ -325,6 +325,7 @@ fn main() {
                 write_file_plain(includes::ELM_STATE, name, "src/State.elm");
                 write_file_plain(includes::ELM_UPDATE, name, "src/Update.elm");
                 write_file_plain(includes::ELM_VIEW, name, "src/View.elm");
+                write_file_plain(includes::ELM_CTAGS, name, ".ctags");
                 render_file(includes::ELM_PACKAGE, name, "elm-package.json", &hash);
             }
 

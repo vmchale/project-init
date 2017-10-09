@@ -61,6 +61,7 @@ pub const ELM_UPDATE: &'static str = include_str!("includes/elm/src/Update.elm")
 pub const ELM_VIEW: &'static str = include_str!("includes/elm/src/View.elm");
 pub const ELM_GITIGNORE: &'static str = include_str!("includes/elm/.gitignore");
 pub const ELM_TEMPLATE: &'static str = include_str!("includes/elm/template.toml");
+pub const ELM_CTAGS: &'static str = include_str!("includes/elm/.ctags");
 
 // Miso includes
 pub const MISO_SETUP_HS: &'static str = include_str!("includes/miso/Setup.hs");
