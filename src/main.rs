@@ -67,8 +67,10 @@ fn main() {
     let author = if let Some(aut) = decoded.author {
         aut
     } else {
-        let nam: String = read!("Enter your name: {}!");
-        let ema: String = read!("Enter your email: {}!");
+        println!("Enter your name");
+        let nam: String = read!("{}");
+        println!("Enter your email");
+        let ema: String = read!("{}");
         Author {
             name: nam,
             email: ema,

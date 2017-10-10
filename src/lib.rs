@@ -62,16 +62,18 @@ pub fn read_toml_str(template: &str, template_path: &str) -> types::Project {
 /// Given a `PathBuf`, read the .toml file there as a configuration file.
 pub fn read_toml_config(config_path: &std::path::PathBuf) -> types::Config {
     let mut file = if let Ok(f) = File::open(&config_path) {
-        f
+        Some(f)
     } else {
         println!(
-            "File {:?} could not be opened. Check that it exists.",
+            "{}: File {:?} could not be opened. Check that it exists.",
+            "Warning".yellow(),
             config_path
         );
-        std::process::exit(0x0f00);
+        None
     };
     let mut toml_str = String::new();
-    if file.read_to_string(&mut toml_str).is_ok() {
+    let maybe_file = file.map(|mut x| x.read_to_string(&mut toml_str));
+    if maybe_file.is_some() && maybe_file.unwrap().is_ok() {
         if let Ok(t) = toml::from_str(&toml_str) {
             t
         } else if let Err(e) = toml::from_str(&toml_str): Result<String, de::Error> {
