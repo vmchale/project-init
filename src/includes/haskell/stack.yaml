@@ -1,8 +1,10 @@
+---
+
 resolver: lts-9.6
 packages:
-- '.'
+  - '.'
 extra-deps: []
 flags:
-    {{ project }}:
-        development: false
+  {{ project }}:
+    development: false
 extra-package-dbs: []

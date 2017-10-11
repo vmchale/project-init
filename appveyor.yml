@@ -1,5 +1,4 @@
-# Based on the "trust" template v0.1.1
-# https://github.com/japaric/trust/tree/v0.1.1
+---
 
 environment:
   global:
@@ -36,9 +35,9 @@ test_script:
       cargo build --target %TARGET% --release &&
       cargo test --target %TARGET% &&
       cargo test --target %TARGET% --release
-      #cargo run --target %TARGET% -- all &&
-      #cargo run --target %TARGET% --release -- all
     )
+  # cargo run --target %TARGET% -- all &&
+  # cargo run --target %TARGET% --release -- all
 
 before_deploy:
   - cargo rustc --target %TARGET% --release --bin pi -- -C lto
@@ -47,7 +46,7 @@ before_deploy:
 deploy:
   artifact: /.*\.zip/
   auth_token:
-      secure: GmKAQNxSIcdI6rigCu6DZmYt6tSNR62cQdcogvhItCE5ONoG69Uhdm5s6g5ROOsA
+    secure: GmKAQNxSIcdI6rigCu6DZmYt6tSNR62cQdcogvhItCE5ONoG69Uhdm5s6g5ROOsA
   description: ''
   on:
     RUST_VERSION: nightly
