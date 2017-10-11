@@ -102,3 +102,4 @@ pub const IPKG: &'static str = include_str!("includes/idris/{{ project }}.ipkg")
 pub const IPKG_TEST: &'static str = include_str!("includes/idris/{{ project }}_test.ipkg");
 pub const IDRIS_TEST: &'static str = include_str!("includes/idris/Spec.idr");
 pub const IDRIS_GITIGNORE: &'static str = include_str!("includes/idris/.gitignore");
+pub const IDRIS_CTAGS: &'static str = include_str!("includes/idris/.ctags");

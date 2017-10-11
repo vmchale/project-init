@@ -381,6 +381,7 @@ fn main() {
                 let mut pkg_path = name.to_string();
                 pkg_path.push_str(".ipkg");
                 write_file_plain(includes::IDRIS_GITIGNORE, name, ".gitignore");
+                write_file_plain(includes::IDRIS_CTAGS, name, ".ctags");
                 let mut main_path = name.to_capitalized();
                 main_path.push_str(".idr");
                 render_file(includes::IPKG, name, &pkg_path, &hash);

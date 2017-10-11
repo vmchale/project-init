@@ -88,3 +88,4 @@
 - [x] update command
 - [ ] command to prompt users through, and generate a `$HOME/.pi.toml`
   automatically.
+- [ ] madlang for release names
