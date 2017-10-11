@@ -39,7 +39,7 @@ script:
   - stack --no-terminal build --haddock --no-haddock-deps
   - hlint .
   - weeder .
-  - export BINPATH="$(find -name {{ project }} -executable | tail -n2 | head -n1)"
+  - export BINPATH="$(find , -name {{ project }} | tail -n1)"
   - mv $BINPATH {{ project }}-$TARGET
 
 deploy:
