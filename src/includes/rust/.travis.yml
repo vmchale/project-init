@@ -1,3 +1,5 @@
+---
+
 language: rust
 sudo: false
 
@@ -6,12 +8,19 @@ cache: cargo
 os:
   - linux
   - osx
-  - windows
+  # FIXME wtf??
+  # - windows
 
 rust:
   - nightly
   - stable
 
+before_install:
+  - wget https://github.com/vmchale/tomlcheck/releases/download/0.1.0.0/tomlcheck-x86_64-unkown-linux-gnu
+  - chmod a+x tomlcheck-x86_64-unkown-linux-gnu
+
 script:
+  # TODO verify this works + make it lint on linux
+  - if [ `uname` = "Linux" ]; then ./tomlcheck-x86_64-unkown-linux-gnu --file Cargo.toml ; fi
   - cargo build
   - cargo doc
