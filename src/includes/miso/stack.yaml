@@ -1,10 +1,12 @@
+---
+
 packages:
-- '.'
+  - '.'
 flags:
-    {{ project }}:
-        development: true
+  {{ project }}:
+    development: true
 extra-deps:
-    - miso-0.4.0.0
+  - miso-0.4.0.0
 allow-newer: true
 resolver: lts-8.11
 compiler: ghcjs-0.2.1.9008011_ghc-8.0.2
