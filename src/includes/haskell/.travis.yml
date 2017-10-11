@@ -1,21 +1,57 @@
+---
+
 sudo: false
 language: default
 cache:
   directories:
-  - $HOME/.stack
+    - $HOME/.stack
 addons:
-    apt:
-        packages:
-            - libgmp3-dev
+  apt:
+    packages:
+      - libgmp3-dev
+matrix:
+  include:
+
+    # Linux
+    - env: TARGET=x86_64-unkown-linux-gnu
+
+    # OS X
+    - env: TARGET=x86_64-apple-darwin
+      os: osx
+
 before_install:
-- mkdir -p ~/.local/bin
-- export PATH=$HOME/.local/bin:$PATH
-- travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
-- chmod a+x ~/.local/bin/stack
+  - mkdir -p ~/.local/bin
+  - export PATH=$HOME/.local/bin:$PATH
+  - |
+    if [ `uname` = "Darwin" ]
+    then
+      curl --insecure -L https://www.stackage.org/stack/osx-x86_64 | tar xz --strip-components=1 --include '*/stack' -C ~/.local/bin
+    else
+      curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
+    fi
+  - chmod a+x ~/.local/bin/stack
+
 install:
-- stack --no-terminal --install-ghc test --only-dependencies
-- stack install hlint weeder
+  - stack --no-terminal --install-ghc test --only-dependencies
+  - stack install hlint weeder
+
 script:
-- stack --no-terminal test --bench --haddock --no-haddock-deps
-- hlint .
-- weeder .
+  - stack --no-terminal build --haddock --no-haddock-deps
+  - hlint .
+  - weeder .
+  - export BINPATH="$(find -name {{ project }} -executable | tail -n2 | head -n1)"
+  - mv $BINPATH {{ project }}-$TARGET
+
+deploy:
+  api_key:
+    secure: "j9WeKTBKsnRmrUqBEVfX1itilQ2bfrBb7yIVir4BsBksmwkozc7eNpBFvBi+nAVyZrEouJUi3RSU4UMoO3otIqKPsRpC1pV5+GlNV1Q0yrVQn9+Xi4wzrinzWJuLrFUn3c1yhUAue/XTTBDS7IZHUYRus9Fukr+QAIHjTWxXXX53n1r1OaKR/rcsN84yTFG71UjL60hV/99YE6GLtXvcOCaOgkrkK6N2xutvVYUyTB6U9n2UW8GruiWzB18gvC0TBYg3Sn/311U1gcmxCE0OUdD07grRTaTHnbC3btpaAEWnw8CAZeBQDbulEIFcmtoBeXN9rtx5Q+u6MRzQxGAh9p2ZbItdlm9Bg7PkCTWbPR+soNcw599CGTVLXipfnmkAExT+oo08MIp4qKj4IohHQhMRaUGr0z3aeubrRiVZA85KKB2SzQdYYY6vRDeisduCszlZ90odygvJ9DVcH9YtFY75nj8Vbdpgldzh7IjIgO1WaAizxy9IZZysh9NSRXdfzwixtwJ8p9qskwrg0qapa7t+tOk4GqFJFhcHhjDorFACsDSfayoJ50kbPCwMD3ZsXNFnPtFtQjOLgj8tXVz1EovrMIuj6oFXu6wFK9He5CUa8S9fgmR+GWOKE+GgGgWziC8CSZO3xr9KtwIUYT4Jw7zdX1ODDmJW39Hm6Mi+8AQ="
+  file: {{ project }}-$TARGET
+  on:
+    tags: true
+  provider: releases
+  skip_cleanup: true
+
+branches:
+  only:
+    - master
+    - /\d+\.\d+\.\d+\.\d+.*$/
