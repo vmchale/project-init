@@ -39,8 +39,16 @@ script:
   - stack --no-terminal build --haddock --no-haddock-deps
   - hlint .
   - weeder .
-  - export BINPATH="$(find , -name {{ project }} | tail -n1)"
+  - |
+    if [ `uname` = "Darwin" ]
+    then
+      export BINPATH="$(find . -name {{ project }} -perm 755 | tail -n1)"
+    else
+      export BINPATH="$(find -name {{ project }} -executable | tail -n2 | head -n1)"
+    fi
+  - echo $BINPATH
   - mv $BINPATH {{ project }}-$TARGET
+  - ls {{ project }}-$TARGET
 
 deploy:
   api_key:
@@ -53,5 +61,4 @@ deploy:
 
 branches:
   only:
-    - master
     - /\d+\.\d+\.\d+\.\d+.*$/

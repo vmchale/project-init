@@ -1,3 +1,4 @@
+- [ ] ci for haskell!!
 - [x] rewrite readme
 - [x] document global templates nicely
 - [x] warning if ~/.pi.toml doesn't exist
