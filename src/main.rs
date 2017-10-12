@@ -426,7 +426,8 @@ fn main() {
                 write_file_plain(includes::RELEASE_NIX, name, "release.nix");
                 render_file(includes::STACK_YAML, name, "stack.yaml", &hash);
                 render_file(includes::CABAL_PROJECT, name, "cabal.project.local", &hash);
-                write_file_plain(includes::HASKELL_TRAVIS_CI, name, ".travis.yml");
+                render_file(includes::HASKELL_TRAVIS_CI, name, ".travis.yml", &hash);
+                render_file(includes::HASKELL_APPVEYOR, name, "appveyor.yml", &hash);
             }
 
             _ => std::process::exit(0x0f01),
