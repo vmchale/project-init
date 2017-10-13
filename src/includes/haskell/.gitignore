@@ -15,5 +15,4 @@ cabal.sandbox.config
 *.tix
 *.eventlog
 .stack-work/
-cabal.project.local
 .HTF/
