@@ -10,10 +10,11 @@ maintainer:          {{ email }}
 copyright:           Copyright: (c) {{ year }} {{ name }}
 --category:            Web
 build-type:          Simple
-extra-source-files:  README.md
-                   , stack.yaml
-                   , .travis.yml
-cabal-version:       >=1.10
+extra-doc-files:     README.md
+data-files:          .travis.yml
+                   , appveyor.yml
+extra-source-files:  stack.yaml
+cabal-version:       >=1.18
 
 Flag development {
   Description: Enable `-Werror`
