@@ -1,6 +1,4 @@
-# Based on the "trust" template v0.1.1
-# https://github.com/japaric/trust/tree/v0.1.1
-
+---
 dist: trusty
 language: rust
 services: docker
@@ -44,7 +42,8 @@ matrix:
       rust: nightly
     - env: TARGET=arm-unknown-linux-musleabi
       rust: nightly
-  allow_failures: 
+
+  allow_failures:
     - env: TARGET=x86_64-pc-windows-gnu
     - env: TARGET=x86_64-pc-windows-msvc DISABLE_TESTS=1
     - env: TARGET=arm-unknown-linux-musleabi
@@ -73,7 +72,7 @@ deploy:
   # - Encrypt it: `travis encrypt 0123456789012345678901234567890123456789
   # - Paste the output down here
   api_key:
-      secure: "iKJ1+jKV0BnmqhDHJVLFoILv1JYHl/Zs9Hgoi6CpeLexeHkI/oratGdrJLKdOewwsVy7CbtmBUCc1ISp4n/7QkjlnTYWfe1NTRgkcoWNS/qpF1IyLl/njmhDIQ+o//3XBskozCBZSIviBPJs030EoX3jQHVk6Jz/nQ4RrI2VqhRVZF30Ar3WHZuEBvF54haLErVj93SHF6JhRMPysHhJpmzJGlYIOfbdKqSHIWEx9Eg9DxFJWDeVe63Rn94cVDV0l5F47vuEFjTGtyJYDCR4kLsljG49NfUzxUeu7uk0HZqZfuQi5QdUkx8pV3Is+O+K/UQAUMYEbkRhMmrfmvL2TXM/tcxSkajlT5bRXg/X/Cw/kVZ57gC9ZR5T/AKz+BLJXUO3NvvhXuNKNj/nx+oH5/ZHaM36/5aUHWiXbYb3/TH3TrdKrE/nhunI9onD5Z8nvAGpMN5gU4uDXm85kfl4sRI3t9d1ZmKVAwuoqJh88gjvBB2PRi1MpqulTV7RJNzSSbl9pxC2/zuQuDXXPYjOHLFOTr5DRpLnft9RDLjxa8Ln18lKmUZA83cZ+4oecENZuGPYkpGGOSyDcXv6c3sx1dusjY1Vlbv5/JI9JmD4tcYvoPzgXBlx2emS1yNbJtxUp54/tV6ManF73oiU19uGbwiSkO0qnCsfBEjc+/nsjww="
+    secure: "iKJ1+jKV0BnmqhDHJVLFoILv1JYHl/Zs9Hgoi6CpeLexeHkI/oratGdrJLKdOewwsVy7CbtmBUCc1ISp4n/7QkjlnTYWfe1NTRgkcoWNS/qpF1IyLl/njmhDIQ+o//3XBskozCBZSIviBPJs030EoX3jQHVk6Jz/nQ4RrI2VqhRVZF30Ar3WHZuEBvF54haLErVj93SHF6JhRMPysHhJpmzJGlYIOfbdKqSHIWEx9Eg9DxFJWDeVe63Rn94cVDV0l5F47vuEFjTGtyJYDCR4kLsljG49NfUzxUeu7uk0HZqZfuQi5QdUkx8pV3Is+O+K/UQAUMYEbkRhMmrfmvL2TXM/tcxSkajlT5bRXg/X/Cw/kVZ57gC9ZR5T/AKz+BLJXUO3NvvhXuNKNj/nx+oH5/ZHaM36/5aUHWiXbYb3/TH3TrdKrE/nhunI9onD5Z8nvAGpMN5gU4uDXm85kfl4sRI3t9d1ZmKVAwuoqJh88gjvBB2PRi1MpqulTV7RJNzSSbl9pxC2/zuQuDXXPYjOHLFOTr5DRpLnft9RDLjxa8Ln18lKmUZA83cZ+4oecENZuGPYkpGGOSyDcXv6c3sx1dusjY1Vlbv5/JI9JmD4tcYvoPzgXBlx2emS1yNbJtxUp54/tV6ManF73oiU19uGbwiSkO0qnCsfBEjc+/nsjww="
   file_glob: true
   file: $CRATE_NAME-$TRAVIS_TAG-$TARGET.*
   on:

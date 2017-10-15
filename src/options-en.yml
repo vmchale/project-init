@@ -1,57 +1,58 @@
+---
 name: Project Init (pi)
 author: Vanessa McHale <vanessa.mchale@reconfigure.io>
-about: Initialize projects from a template (using rust). 
+about: Initialize projects from a template (using rust).
 after_help: >
     pi is a tool to initialize projects written in Rust. It's fast and extensible via mustache templates.
 subcommands:
-    - list:
-        visible_alias: "l"
-        about: List available templates. User templates can be added by placing them in ~/.pi_templates
-    - update:
-        visible_alias: "u"
-        about: Update pi (only works on UNIX)
-        args:
-            - force:
-                short: f
-                long: force
-                help: Force installation even when binary already exists.
-    - init:
-        about: Use a template from a folder
-        alias: "i"
-        args:
-            - directory:
-                value_name: TEMPLATE_DIR
-                help: Directory containing your template, either in the current directory or in $HOME/.pi_templates/
-                index: 1
-                takes_value: true
-                required: true
-            - name:
-                value_name: NAME
-                help: Project name to be used for project directory
-                index: 2
-                takes_value: true
-                required: true
-            - force:
-                short: f
-                long: force
-                help: Initialize project even if directory already exists.
-    - new:
-        about: Use a built-in template
-        alias: "n"
-        args:
-            - template:
-                index: 1
-                takes_value: true
-                required: true
-                help: Template to be used
-                long_help: Template to used. Currently supported are Rust, Haskell, Idris, Elm, Python, Vimscript, Miso, and Julia.
-            - name:
-                value_name: NAME
-                help: Project name to be used for project directory
-                index: 2
-                takes_value: true
-                required: true
-            - force:
-                short: f
-                long: force
-                help: Initialize project even if directory already exists.
+  - list:
+      visible_alias: "l"
+      about: List available templates. User templates can be added by placing them in ~/.pi_templates
+  - update:
+      visible_alias: "u"
+      about: Update pi (only works on UNIX)
+      args:
+        - force:
+            short: f
+            long: force
+            help: Force installation even when binary already exists.
+  - init:
+      about: Use a template from a folder
+      alias: "i"
+      args:
+        - directory:
+            value_name: TEMPLATE_DIR
+            help: Directory containing your template, either in the current directory or in $HOME/.pi_templates/
+            index: 1
+            takes_value: true
+            required: true
+        - name:
+            value_name: NAME
+            help: Project name to be used for project directory
+            index: 2
+            takes_value: true
+            required: true
+        - force:
+            short: f
+            long: force
+            help: Initialize project even if directory already exists.
+  - new:
+      about: Use a built-in template
+      alias: "n"
+      args:
+        - template:
+            index: 1
+            takes_value: true
+            required: true
+            help: Template to be used
+            long_help: Template to used. Currently supported are Rust, Haskell, Idris, Elm, Python, Vimscript, Miso, and Julia.
+        - name:
+            value_name: NAME
+            help: Project name to be used for project directory
+            index: 2
+            takes_value: true
+            required: true
+        - force:
+            short: f
+            long: force
+            help: Initialize project even if directory already exists.
