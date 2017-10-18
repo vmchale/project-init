@@ -1,6 +1,6 @@
 [package]
 name = "project_init"
-version = "2.9.17"
+version = "2.9.18"
 authors = ["Vanessa McHale <vanessa.mchale@reconfigure.io>"]
 description = "Initialize projects from a template. Fast."
 license-file = "LICENSE"
