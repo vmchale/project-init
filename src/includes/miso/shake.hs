@@ -1,5 +1,5 @@
 #!/usr/bin/env stack
-{- stack --resolver lts-9.4 --install-ghc
+{- stack --install-ghc
     runghc
     --package shake
     --package directory
