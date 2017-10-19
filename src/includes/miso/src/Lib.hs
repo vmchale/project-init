@@ -1,4 +1,5 @@
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
 
 module Lib
     ( exec
@@ -6,6 +7,7 @@ module Lib
 
 
 import           Miso
+import           Miso.String
 
 type Model = Int
 
@@ -25,15 +27,15 @@ exec = startApp App {..}
     events = defaultEvents
     subs   = []
 
-updateModel :: Action -> Model -> Effect Model Action
-updateModel AddOne m = noEff (m + 1)
+updateModel :: Action -> Model -> Effect Action Model
+updateModel AddOne m      = noEff (m + 1)
 updateModel SubtractOne m = noEff (m - 1)
-updateModel NoOp m = noEff m
+updateModel NoOp m        = noEff m
 
 viewModel :: Model -> View Action
 viewModel x = div_ []
     [
       button_ [ onClick AddOne ] [ text "+" ]
-    , text (show x)
+    , text (toMisoString (show x))
     , button_ [ onClick SubtractOne ] [ text "-" ]
     ]
