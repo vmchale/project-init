@@ -62,13 +62,13 @@ install:
 script:
   - bash ci/script.sh
   - |
-    if [ `uname` = "Darwin" ]
+    if [ `uname` = "Linux" ]
     then
-      echo 'skipping tomlcheck download...'
-    else
       wget https://github.com/vmchale/tomlcheck/releases/download/0.1.0.8/tomlcheck-x86_64-unkown-linux-gnu -O tomlcheck
       chmod a+x tomlcheck
       ./tomlcheck --file Cargo.toml
+    else
+      echo 'skipping tomlcheck download...'
     fi
 
 after_script: set +e
