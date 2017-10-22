@@ -1,3 +1,6 @@
+name:
+    github-release edit -s $(cat .git-token) -u vmchale -r project-init -n "$(madlang run ~/programming/madlang/releases/releases.mad)" -t "$(grep -P -o '\d+\.\d+\.\d+' Cargo.toml | head -n1)"
+
 test:
     rm -rf project/
     cargo run -- new miso project
