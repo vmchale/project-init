@@ -62,7 +62,7 @@ install:
 script:
   - bash ci/script.sh
   - |
-    if [ `uname` = "Linux" ]
+    if [ `echo $TARGET` = "x86_64-unknown-linux-gnu" ]
     then
       wget https://github.com/vmchale/tomlcheck/releases/download/0.1.0.8/tomlcheck-x86_64-unkown-linux-gnu -O tomlcheck
       chmod a+x tomlcheck
