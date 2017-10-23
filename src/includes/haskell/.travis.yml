@@ -1,7 +1,5 @@
 ---
-
 sudo: false
-language: default
 cache:
   directories:
     - $HOME/.stack
@@ -14,10 +12,12 @@ matrix:
 
     # Linux
     - env: TARGET=x86_64-unkown-linux-gnu
+      language: python
 
     # OS X
     - env: TARGET=x86_64-apple-darwin
       os: osx
+      language: default
 
 before_install:
   - mkdir -p ~/.local/bin
@@ -30,6 +30,13 @@ before_install:
       curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
     fi
   - chmod a+x ~/.local/bin/stack
+  - |
+    if [ `uname` = "Linux" ]
+    then
+      pip install yamllint
+    else
+      echo "skipping yaml verification..."
+    fi
 
 install:
   - stack --no-terminal --install-ghc test --only-dependencies
@@ -37,6 +44,17 @@ install:
 
 script:
   - stack --no-terminal build --haddock --no-haddock-deps
+  - stack test --no-run-tests
+  - |
+    if [ `uname` = "Linux" ]
+    then
+      yamllint stack.yaml
+      yamllint appveyor.yml
+      yamllint .travis.yml
+    else
+      echo "skipping yaml verification..."
+    fi
+  - stack bench --no-bench
   - hlint .
   - weeder .
   - |
@@ -52,7 +70,7 @@ script:
 
 deploy:
   api_key:
-    secure: "j9WeKTBKsnRmrUqBEVfX1itilQ2bfrBb7yIVir4BsBksmwkozc7eNpBFvBi+nAVyZrEouJUi3RSU4UMoO3otIqKPsRpC1pV5+GlNV1Q0yrVQn9+Xi4wzrinzWJuLrFUn3c1yhUAue/XTTBDS7IZHUYRus9Fukr+QAIHjTWxXXX53n1r1OaKR/rcsN84yTFG71UjL60hV/99YE6GLtXvcOCaOgkrkK6N2xutvVYUyTB6U9n2UW8GruiWzB18gvC0TBYg3Sn/311U1gcmxCE0OUdD07grRTaTHnbC3btpaAEWnw8CAZeBQDbulEIFcmtoBeXN9rtx5Q+u6MRzQxGAh9p2ZbItdlm9Bg7PkCTWbPR+soNcw599CGTVLXipfnmkAExT+oo08MIp4qKj4IohHQhMRaUGr0z3aeubrRiVZA85KKB2SzQdYYY6vRDeisduCszlZ90odygvJ9DVcH9YtFY75nj8Vbdpgldzh7IjIgO1WaAizxy9IZZysh9NSRXdfzwixtwJ8p9qskwrg0qapa7t+tOk4GqFJFhcHhjDorFACsDSfayoJ50kbPCwMD3ZsXNFnPtFtQjOLgj8tXVz1EovrMIuj6oFXu6wFK9He5CUa8S9fgmR+GWOKE+GgGgWziC8CSZO3xr9KtwIUYT4Jw7zdX1ODDmJW39Hm6Mi+8AQ="
+    secure: "bdJVbM9pdNqkeQb9O4mUocyA+zLAHupCLUYMPyi5jZVXF5hDPQeB93C7bMb+G4DzfYdDhDvy/VACYSGWnV2JwbSDObtAi8//wiN4Ir/AjK6aELEF8oVuoPOr4geIOMpjcUbT5JZhqqTF4Ogtd0jW97eg6LnkOZj/Nmirk7NL9FV85r3iw1MEIWBsLdHbpHKgyItOo2YKh0dM3QTZ3tjaeEhEVgd4VQQlEB2SAtueOu/lJhbjT6Y7ztGLW+UXE6ITXuG623ewA8tXt8oyeDx0HES04RVnfkDN7QIDC7Crcx7Q7Kb+yCc1cRe9QQ/9/kaeloCYd0XAKf+Bd1kyH2MIm+/Pnriz5pkM+2z1xEUhTXqXM6Wm1cXHVXRUHJQWayii1TSDp8DhVVoz8N0L3GMEIIJi1rdkO4qA84JcZkQFnH4NhvVK9Bkd/a++h6vh2WOg/nvwnOUBooNLkKik78PrIgpgTapW8yFyXrOlVqtQ9sdCmhrpQGn7Ja1P2z3tNmZgSvIcyhx/SLgHegPae5EJ9roFWRNJ9A/tlgyqNbxBdr5hLWSo3zqyJXj51cqd68tp09lloXLlC9Q2HlAejenfWYQ4KEwT1A8u+cK9lJ7pN+hgmlbQFCz9aYzokD6CCzsdJo01yQMCW2LtlKEeWiUVuA3MrWZ3l+oFQ6/npGQoOQY="
   file: {{ project }}-$TARGET
   on:
     tags: true
