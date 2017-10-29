@@ -1,0 +1,8 @@
+comment_width = 80
+normalize_comments = true
+reorder_imported_names = true
+reorder_imports = true
+reorder_imports_in_group = true
+struct_field_align_threshold = 30
+wrap_comments = true
+write_mode = "overwrite"

@@ -67,6 +67,7 @@ script:
       wget https://github.com/vmchale/tomlcheck/releases/download/0.1.0.8/tomlcheck-x86_64-unkown-linux-gnu -O tomlcheck
       chmod a+x tomlcheck
       ./tomlcheck --file Cargo.toml
+      ./tomlcheck --file rustfmt.toml
     else
       echo 'skipping tomlcheck download...'
     fi
