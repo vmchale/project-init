@@ -1,0 +1,4 @@
+--langdef=Idris
+--langmap=Idris:.idr
+--regex-Idris=/^ *([[:lower:]][[:alnum:]_]+)[[:blank:]]*:[^:].*->.*/\1/f,function,functions/
+--regex-Idris=/^ *([[:lower:]][[:alnum:]_]+)[[:blank:]]*:[^:][^-]+$/\1/c,constant,constants/
