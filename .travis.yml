@@ -54,6 +54,8 @@ matrix:
       rust: nightly
     - env: TARGET=x86_64-pc-windows-msvc DISABLE_TESTS=1
       rust: nightly
+    - env: TARGET=x86_64-pc-windows-gnu
+      rust: nightly
 
   allow_failures:
     - env: TARGET=x86_64-unknown-linux-steed DISABLE_TESTS=1
