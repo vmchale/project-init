@@ -1,5 +1,5 @@
 constraints: {{ project }} +development
-with-compiler: ghc-8.2.1
+with-compiler: ghc-8.2.2
 tests: True
 benchmarks: True
 documentation: True
