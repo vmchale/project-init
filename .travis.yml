@@ -54,6 +54,8 @@ matrix:
       rust: nightly
     - env: TARGET=x86_64-pc-windows-gnu
       rust: nightly
+    - env: TARGET=x86_64-unknown-redox DISABLE_TESTS=1
+      rust: nightly
 
   allow_failures:
     - env: TARGET=x86_64-unknown-linux-steed DISABLE_TESTS=1
@@ -70,6 +72,7 @@ matrix:
     - env: TARGET=s390x-unknown-linux-gnu DISABLE_TESTS=1
     - env: TARGET=sparcv9-sun-solaris DISABLE_TESTS=1
     - env: TARGET=x86_64-sun-solaris DISABLE_TESTS=1
+    - env: TARGET=x86_64-unknown-redox DISABLE_TESTS=1
 
 before_install: set -e
 
