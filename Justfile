@@ -44,4 +44,5 @@ check:
     git diff master origin/master
 
 patch:
+    @rm -f tags
     cargo release -l patch --no-dev-version
