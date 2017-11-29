@@ -408,7 +408,8 @@ fn main() {
 
             "ats" => {
                 render_file(includes::ATS_CTAGS, name, ".ctags", &hash);
-                let mut src_path = name.to_string();
+                let mut src_path = "src".to_string();
+                src_path.push_str(name);
                 src_path.push_str(".dats");
                 render_file(includes::ATS_SRC, name, &src_path, &hash);
                 render_file(includes::ATS_SHAKE, name, "shake.hs", &hash);
