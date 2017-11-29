@@ -29,6 +29,9 @@ test:
     cargo run -- new mad story
     cd story && madlang run src/story.mad
     rm -rf story
+    cargo run -- new ats sample
+    cd sample && ./shake.hs run
+    rm -rf sample
 
 manpages:
     pandoc MANPAGE.md -s -t man -o pi.1

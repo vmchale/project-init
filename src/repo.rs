@@ -1,6 +1,7 @@
-use std::process::Command;
-use std;
+
 use colored::*;
+use std;
+use std::process::Command;
 
 pub fn git_init(name: &str) -> () {
     let mut cmd = "cd ".to_string();

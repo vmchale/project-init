@@ -12,20 +12,20 @@ extern crate project_init;
 extern crate case;
 extern crate colored;
 
+use case::*;
+use clap::{App, AppSettings};
 use colored::*;
+use project_init::*;
+use project_init::render::*;
+use project_init::types::*;
 use rustache::*;
 use std::fs;
-use clap::{App, AppSettings};
-use project_init::types::*;
-use project_init::render::*;
-use project_init::*;
-use std::path::Path;
-use time::strftime;
-use case::*;
-use toml::Value::Table;
 use std::fs::File;
 use std::fs::set_permissions;
+use std::path::Path;
 use std::process::Command;
+use time::strftime;
+use toml::Value::Table;
 
 #[cfg(not(target_os = "windows"))]
 use std::os::unix::fs::PermissionsExt;
@@ -79,7 +79,7 @@ fn main() {
         }
     };
 
-    //get year
+    // get year
     let now = time::now();
     let year = now.tm_year + 1900;
     let current_date = strftime("%m-%d-%Y", &now).unwrap();
@@ -182,6 +182,7 @@ fn main() {
             "elm" => includes::ELM_TEMPLATE,
             "miso" => includes::MISO_TEMPLATE,
             "plain" => includes::PLAIN_TEMPLATE,
+            "ats" => includes::ATS_TEMPLATE,
             _ => {
                 println!("The requested template is not a built-in :(");
                 std::process::exit(0x0f00)
@@ -353,10 +354,10 @@ fn main() {
             }
 
             "reco" => {
-                /*if author.reco_developer == Some(true) {
-                    write_file_plain(includes::RECO_RULES, name, "optim/default.rules");
-                    write_file_plain(includes::RECO_JUSTFILE, name, "Justfile");
-                }*/
+                // if author.reco_developer == Some(true) {
+                // write_file_plain(includes::RECO_RULES, name, "optim/default.rules");
+                // write_file_plain(includes::RECO_JUSTFILE, name, "Justfile");
+                // }
                 write_file_plain(includes::RECO_MAIN, name, "main.go");
                 let mut command_path = "cmd/test-".to_string();
                 command_path.push_str(name);
@@ -386,7 +387,7 @@ fn main() {
                 main_path.push_str(".idr");
                 render_file(includes::IPKG, name, &pkg_path, &hash);
                 render_file(includes::IPKG_TEST, name, "test.ipkg", &hash);
-                //render_file(includes::IDRIS_EXE, name, &main_path, &hash);
+                // render_file(includes::IDRIS_EXE, name, &main_path, &hash);
                 render_file(includes::IDRIS_TEST, name, "src/Test/Spec.idr", &hash);
                 let mut lib_path = "src/".to_string();
                 lib_path.push_str(&name.to_capitalized());
@@ -403,6 +404,17 @@ fn main() {
                 write_file_plain(includes::JULIA_GITIGNORE, name, ".gitignore");
                 write_file_plain(includes::JULIA_SRC, name, &project_path);
                 write_file_plain(includes::JULIA_TEST, name, "test/test.jl");
+            }
+
+            "ats" => {
+                render_file(includes::ATS_CTAGS, name, ".ctags", &hash);
+                let mut src_path = name.to_string();
+                src_path.push_str(".dats");
+                render_file(includes::ATS_SRC, name, &src_path, &hash);
+                render_file(includes::ATS_SHAKE, name, "shake.hs", &hash);
+                let mut shake_path = name.to_string();
+                shake_path.push_str("/shake.hs");
+                mk_executable(shake_path);
             }
 
             "haskell" | "kmett" => {

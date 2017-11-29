@@ -1,0 +1,11 @@
+license = "BSD3"
+with_readme = true
+
+[files]
+files = []
+directories = ["src"]
+templates = [ "src/{{ project }}.dats" , ".ctags" ]
+
+[config]
+version = "0.1.0"
+version_control = "git"

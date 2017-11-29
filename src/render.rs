@@ -1,10 +1,10 @@
 //! Module containing functions for rendering templates
 extern crate rustache;
 
+use self::rustache::*;
 use std::fs;
 use std::fs::File;
 use std::io::Cursor;
-use self::rustache::*;
 use std::io::prelude::*;
 #[cfg(not(target_os = "windows"))]
 use std::os::unix::fs::PermissionsExt;
@@ -32,7 +32,8 @@ pub fn render_dirs(dirs_pre: Vec<String>, hash: &HashBuilder, name: &str) {
     dirs.create_dirs(name);
 }
 
-/// Create all the files, and return a list of files that have been created suitable for insertion
+/// Create all the files, and return a list of files that have been created
+/// suitable for insertion
 /// into a `HashBuilder`
 pub fn render_files<'a>(files_pre: Vec<String>, hash: &HashBuilder, name: &str) -> VecBuilder<'a> {
 

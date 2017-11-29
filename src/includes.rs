@@ -13,17 +13,25 @@ pub const README: &'static str = include_str!("includes/README.md");
 // Plain template
 pub const PLAIN_TEMPLATE: &'static str = include_str!("includes/plain.toml");
 
+// ATS
+pub const ATS_SRC: &'static str = include_str!("includes/ats/project.dats");
+pub const ATS_SHAKE: &'static str = include_str!("includes/ats/shake.hs");
+pub const ATS_CTAGS: &'static str = include_str!("includes/ats/.ctags");
+pub const ATS_TEMPLATE: &'static str = include_str!("includes/ats/template.toml");
+
 // Madlang
 pub const MADLANG_TEMPLATE: &'static str = include_str!("includes/madlang/template.toml");
 pub const MADLANG_SRC: &'static str = include_str!("includes/madlang/gambling.mad");
 
 // Reco template
-//pub const RECO_RULES: &'static str = include_str!("includes/reco/default.rules");
+// pub const RECO_RULES: &'static str =
+// include_str!("includes/reco/default.rules");
 pub const RECO_TEMPLATE: &'static str = include_str!("includes/reco/template.toml");
 pub const RECO_MAIN: &'static str = include_str!("includes/reco/main.go");
 pub const RECO_README: &'static str = include_str!("includes/reco/README.md");
 pub const RECO_TEST_COMMAND: &'static str = include_str!("includes/reco/cmd/test-reco/main.go");
-//pub const RECO_JUSTFILE: &'static str = include_str!("includes/reco/Justfile");
+// pub const RECO_JUSTFILE: &'static str =
+// include_str!("includes/reco/Justfile");
 
 // Rust includes
 pub const RUST_GITIGNORE: &'static str = include_str!("includes/rust/.gitignore");

@@ -1,4 +1,5 @@
-//! This library provides the functions/structs/methods used by the main binary. They are included
+//! This library provides the functions/structs/methods used by the main
+//! binary. They are included
 //! here in the hopes that they can be illuminating to users.
 
 #![feature(type_ascription)]
@@ -8,19 +9,21 @@ extern crate serde_derive;
 extern crate toml;
 extern crate colored;
 
+use colored::*;
 use std::fs::File;
 use std::io::prelude::*;
-use toml::de;
-use colored::*;
 use std::path::PathBuf;
+use toml::de;
 
 pub mod types;
 pub mod repo;
 pub mod includes;
 pub mod render;
 
-/// Given a filepath, read the .toml file there as containing the directories/templates.
-/// If no such file is found, read from global template directory in `$HOME/.pi_templates/`.
+/// Given a filepath, read the .toml file there as containing the
+/// directories/templates.
+/// If no such file is found, read from global template directory in
+/// `$HOME/.pi_templates/`.
 pub fn read_toml_dir(template_path: &str, home: PathBuf) -> (types::Project, bool) {
     let (mut template_file, is_global_template) = if let Ok(f) = File::open(&template_path) {
         (f, false)
@@ -61,7 +64,7 @@ pub fn read_toml_str(template: &str, template_path: &str) -> types::Project {
 
 /// Given a `PathBuf`, read the .toml file there as a configuration file.
 pub fn read_toml_config(config_path: &std::path::PathBuf) -> types::Config {
-    let mut file = if let Ok(f) = File::open(&config_path) {
+    let file = if let Ok(f) = File::open(&config_path) {
         Some(f)
     } else {
         println!(
