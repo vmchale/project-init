@@ -1,0 +1,4 @@
+--langdef=Madlang
+--langmap=Madlang:.mad
+--regex-Madlang=/^:define *([[:lower:]][[:alnum:]_]+)[[:blank:]]*/\1/f,function/
+--regex-Madlang=/^:category *([[:lower:]][[:alnum:]_]+)[[:blank:]]*/\1/c,category/
