@@ -63,6 +63,7 @@ before_install: set -e
 
 install:
   - sh ci/install.sh
+  - cp .pi.toml $HOME/.pi.toml
   - source ~/.cargo/env || true
 
 script:

@@ -21,6 +21,9 @@ main() {
         cross test --target "$TARGET"
         cross test --target "$TARGET" --release
 
+        cross run --target "$TARGET" -- new haskell project
+        cross run --target "$TARGET" --release -- new haskell project -f
+
     fi
 }
 
