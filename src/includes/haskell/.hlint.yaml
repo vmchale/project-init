@@ -1,3 +1,4 @@
+---
 # Specify additional command line arguments
 #
 # - arguments: [--color, --cpp-simple, -XQuasiQuotes]
@@ -16,29 +17,29 @@
 # - modules:
 #   - {name: Control.Arrow, within: []} # Certain modules are banned entirely
 #
- - functions:
-   - {name: unsafePerformIO, within: []} # unsafePerformIO can appear nowhere
-   - {name: error, within: []} # throw real errors
-   - {name: undefined, within: []}
-   - {name: fromJust, within: []} # this is hell to track down
-   - {name: foldl, within: []} # foldl has bad properties
+- functions:
+  - {name: unsafePerformIO, within: []}  # unsafePerformIO can appear nowhere
+  - {name: error, within: []}  # throw real errors
+  - {name: undefined, within: []}
+  - {name: fromJust, within: []}  # this is hell to track down
+  - {name: foldl, within: []}  # foldl has bad properties
 
 
 # Add custom hints for this project
 #
- - error: {lhs: "hylo embed", rhs: "ana", name: "Use anamorphism"}
- - error: {lhs: "hylo f project", rhs: "cata f", name: "Use catamorphism"}
- - error: {lhs: "do { x <- y ; pure (f x) }", rhs: "f =<< f", name: "Avoid do-notation"}
-   # - error: {lhs: "do { a ; b }", rhs: "a >> b", name: "Avoid do-notation"}
- - error: {lhs: "concat", rhs: "join", name: "Generalize concat"}
- - error: {lhs: "concatMap", rhs: "(=<<)", name: "Generalize concatMap"}
- - error: {lhs: "f >> pure ()", rhs: "void f", name: "Use void"}
+- error: {lhs: "hylo embed", rhs: "ana", name: "Use anamorphism"}
+- error: {lhs: "hylo f project", rhs: "cata f", name: "Use catamorphism"}
+- error: {lhs: "do { x <- y ; pure (f x) }", rhs: "f =<< f", name: "Avoid do-notation"}
+# - error: {lhs: "do { a ; b }", rhs: "a >> b", name: "Avoid do-notation"}
+- error: {lhs: "concat", rhs: "join", name: "Generalize concat"}
+- error: {lhs: "concatMap", rhs: "(=<<)", name: "Generalize concatMap"}
+- error: {lhs: "f >> pure ()", rhs: "void f", name: "Use void"}
 
 
 # Turn on hints that are off by default
 #
 # Generalise map to fmap, ++ to <>
- - group: {name: generalise, enabled: true}
+# - group: {name: generalise, enabled: true}
 
 
 # Ignore some builtin hints

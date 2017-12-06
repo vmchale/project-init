@@ -12,7 +12,7 @@ test:
     cd project/ && ./shake.hs
     rm -rf project/
     cargo run -- new haskell project
-    cd project/ && stack build --test --bench && hlint .
+    cd project/ && cabal new-build && hlint .
     rm -rf project/
     cargo run -- new idris project
     cd project/ && idris --testpkg test.ipkg
