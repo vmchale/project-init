@@ -136,6 +136,11 @@ vim-plugin
 └── vimball.txt
 ```
 
+For a more in-depth example, see
+[here](https://github.com/vmchale/madlang-miso). This is a template based off
+the [recursion schemes
+generator](http://vmchale.com/recursion-scheme-generator/index.html).
+
 ### Templates
 
 `pi` uses [mustache](https://mustache.github.io/) for templating, via the
