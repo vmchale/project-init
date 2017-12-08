@@ -407,12 +407,13 @@ fn main() {
             }
 
             "ats" => {
-                render_file(includes::ATS_CTAGS, name, ".ctags", &hash);
+                write_file_plain(includes::ATS_CTAGS, name, ".ctags");
                 let mut src_path = "src/".to_string();
                 src_path.push_str(name);
                 src_path.push_str(".dats");
                 render_file(includes::ATS_SRC, name, &src_path, &hash);
                 render_file(includes::ATS_SHAKE, name, "shake.hs", &hash);
+                write_file_plain(includes::ATS_FORMAT, name, ".atsfmt.toml");
                 let mut shake_path = name.to_string();
                 shake_path.push_str("/shake.hs");
                 mk_executable(shake_path);

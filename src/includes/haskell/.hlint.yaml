@@ -34,6 +34,8 @@
 - error: {lhs: "concat", rhs: "join", name: "Generalize concat"}
 - error: {lhs: "concatMap", rhs: "(=<<)", name: "Generalize concatMap"}
 - error: {lhs: "f >> pure ()", rhs: "void f", name: "Use void"}
+- error: {lhs: "over _1 f x", rhs: "first f x", name: "Use arrows"}
+- error: {lhs: "over _2 f x", rhs: "second f x", name: "Use arrows"}
 
 
 # Turn on hints that are off by default
