@@ -14,3 +14,4 @@
 --regex-ATS=/^datavtype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^dataprop *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,proof/
 --regex-ATS=/^dataviewprop *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,proof/
+--regex-ATS=/^absvtype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,proof/
