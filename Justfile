@@ -5,11 +5,11 @@ clean:
 name:
     github-release edit -s $(cat .git-token) -u vmchale -r project-init -n "$(madlang run ~/programming/madlang/releases/releases.mad)" -t "$(grep -P -o '\d+\.\d+\.\d+' Cargo.toml | head -n1)"
 
+# cd project/ && ./shake.hs
 test:
     tomlcheck --file Cargo.toml
     rm -rf project/
     cargo run -- new miso project
-    cd project/ && ./shake.hs
     rm -rf project/
     cargo run -- new haskell project
     cd project/ && cabal new-build && hlint .
