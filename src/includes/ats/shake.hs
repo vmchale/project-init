@@ -29,9 +29,13 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         home <- getEnv "HOME"
         cmd ["cp", "target/{{ project }}", fromMaybe "" home ++ "/.local/bin"]
 
+    "valgrind" ~> do
+        need ["target/{{ project }}"]
+        cmd ["valgrind", "./target/{{ project }}"]
+
     "run" ~> do
         need ["target/{{ project }}"]
-        cmd ["./target/{{ project }}", "."]
+        cmd ["./target/{{ project }}"]
 
     "clean" ~> do
         cmd_ ["sn", "c"]
