@@ -4,10 +4,10 @@
 
 #![feature(type_ascription)]
 
+extern crate colored;
 #[macro_use]
 extern crate serde_derive;
 extern crate toml;
-extern crate colored;
 
 use colored::*;
 use std::fs::File;
@@ -28,12 +28,11 @@ pub fn read_toml_dir(template_path: &str, home: PathBuf) -> (types::Project, boo
     let (mut template_file, is_global_template) = if let Ok(f) = File::open(&template_path) {
         (f, false)
     } else if let Ok(f) = {
-               let mut p = home;
-               p.push(".pi_templates/");
-               p.push(template_path);
-               File::open(p)
-           }
-    {
+        let mut p = home;
+        p.push(".pi_templates/");
+        p.push(template_path);
+        File::open(p)
+    } {
         (f, true)
     } else {
         println!(
@@ -44,9 +43,9 @@ pub fn read_toml_dir(template_path: &str, home: PathBuf) -> (types::Project, boo
         std::process::exit(0x0f00);
     };
     let mut template = String::new();
-    template_file.read_to_string(&mut template).expect(
-        "Failed to read file",
-    ); // we can panic because we already errored if the file didn't exist.
+    template_file
+        .read_to_string(&mut template)
+        .expect("Failed to read file"); // we can panic because we already errored if the file didn't exist.
     (read_toml_str(&template, template_path), is_global_template)
 }
 
@@ -92,9 +91,9 @@ pub fn read_toml_config(config_path: &std::path::PathBuf) -> types::Config {
         );
         types::Config {
             version_control: None,
-            author: None,
-            license: None,
-            user: None,
+            author:          None,
+            license:         None,
+            user:            None,
         }
     }
 }

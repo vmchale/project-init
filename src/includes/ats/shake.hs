@@ -1,5 +1,5 @@
 #!/usr/bin/env stack
--- stack runghc --resolver nightly-2017-12-18 --package shake --install-ghc
+-- stack runghc --resolver lts-10.0 --package shake --install-ghc
 
 import           Data.Maybe        (fromMaybe)
 import           Data.Monoid

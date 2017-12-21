@@ -1,4 +1,3 @@
-
 use colored::*;
 use std;
 use std::process::Command;

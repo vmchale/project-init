@@ -27,7 +27,6 @@ pub fn render_dirs(dirs_pre: Vec<String>, hash: &HashBuilder, name: &str) {
         })
         .collect();
 
-
     // create directories
     dirs.create_dirs(name);
 }
@@ -36,7 +35,6 @@ pub fn render_dirs(dirs_pre: Vec<String>, hash: &HashBuilder, name: &str) {
 /// suitable for insertion
 /// into a `HashBuilder`
 pub fn render_files<'a>(files_pre: Vec<String>, hash: &HashBuilder, name: &str) -> VecBuilder<'a> {
-
     // render filenames
     let substitutions: Vec<String> = files_pre
         .into_iter()
@@ -90,7 +88,6 @@ pub fn render_templates(
     executable: bool,
 ) -> () {
     if let Some(t) = templates_pre {
-
         // create Vec<T> of paths to templates
         let templates: Vec<String> = t.clone()
             .into_iter()
@@ -117,9 +114,9 @@ pub fn render_templates(
                     eprintln!("Failed to open file: {:?}", p);
                     exit(0x0f00);
                 };
-                template_f.read_to_string(&mut t).expect(
-                    "File read failed.",
-                ); // ok to panic because we already errored.
+                template_f
+                    .read_to_string(&mut t)
+                    .expect("File read failed."); // ok to panic because we already errored.
                 t
             })
             .collect();
@@ -157,18 +154,18 @@ pub fn render_templates(
 
         // write the rendered templates
         let files_to_write = templates_named.iter().zip(s.iter());
-        let _ = files_to_write.into_iter()
-            .map(|(path, contents)| { 
+        let _ = files_to_write
+            .into_iter()
+            .map(|(path, contents)| {
                 let c = File::create(&path);
                 if let Ok(mut f) = c {
                     let _ = f.write(contents.as_bytes());
-                }
-                else {
+                } else {
                     eprintln!("Failed to create file: {:?}. Check that the directory is included in your template.toml", path);
                     exit(0x0f01);
                 };
-            }
-            ).count();
+            })
+            .count();
     }
 }
 
@@ -182,7 +179,6 @@ pub fn render_templates(
     executable: bool,
 ) -> () {
     if let Some(t) = templates_pre {
-
         // create Vec<T> of paths to templates
         let templates: Vec<String> = t.clone()
             .into_iter()
@@ -206,9 +202,9 @@ pub fn render_templates(
                     eprintln!("Failed to open file: {:?}", p);
                     exit(0x0f01);
                 };
-                template_f.read_to_string(&mut t).expect(
-                    "File read failed.",
-                ); // ok to panic because we already errored.
+                template_f
+                    .read_to_string(&mut t)
+                    .expect("File read failed."); // ok to panic because we already errored.
                 t
             })
             .collect();
@@ -246,26 +242,26 @@ pub fn render_templates(
 
         // write the rendered templates
         let files_to_write = templates_named.iter().zip(s.iter());
-        let _ = files_to_write.into_iter()
-            .map(|(path, contents)| { 
+        let _ = files_to_write
+            .into_iter()
+            .map(|(path, contents)| {
                 let c = File::create(&path);
                 if let Ok(mut f) = c {
                     let _ = f.write(contents.as_bytes());
-                }
-                else {
+                } else {
                     eprintln!("Failed to create file: {:?}. Check that the directory is included in your template.toml", path);
                     exit(0x0f01);
                 };
 
                 if executable {
-                        let mut p = fs::metadata(path)
-                            .expect("failed to read file metadata")
-                            .permissions();
-                        p.set_mode(0o755);
-                        let _ = fs::set_permissions(path, p);
+                    let mut p = fs::metadata(path)
+                        .expect("failed to read file metadata")
+                        .permissions();
+                    p.set_mode(0o755);
+                    let _ = fs::set_permissions(path, p);
                 };
-            }
-            ).count();
+            })
+            .count();
     }
 }
 
@@ -288,7 +284,6 @@ pub fn write_file_plain(static_contents: &'static str, name: &str, filename: &st
     // write the rendered template
     let mut c = File::create(p).expect("File creation failed."); // ok to panic because this is for built-ins.
     let _ = c.write(static_contents.as_bytes());
-
 }
 
 /// Render a static string and write it to file
