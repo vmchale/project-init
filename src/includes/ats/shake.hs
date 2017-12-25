@@ -10,6 +10,12 @@ main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
     want [ "target/{{ project }}" ]
 
+    "build" %> \_ -> do
+        need ["shake.hs"]
+        cmd_ ["cp", "shake.hs", ".shake/shake.hs"]
+        command_ [Cwd ".shake"] "ghc-8.2.2" ["-O", "shake.hs", "-o", "build"]
+        cmd ["cp", ".shake/build", "."]
+
     "target/{{ project }}" %> \_ -> do
         dats <- getDirectoryFiles "" ["//*.dats"]
         sats <- getDirectoryFiles "" ["//*.sats"]

@@ -29,6 +29,12 @@ main :: IO ()
 main = version >>= \v -> shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasic, shakeVersion = v } $ do
     want [ "target/index.html" ]
 
+    "build" %> \_ -> do
+        need ["shake.hs"]
+        cmd_ ["cp", "shake.hs", ".shake/shake.hs"]
+        command_ [Cwd ".shake"] "ghc-8.2.2" ["-O", "shake.hs", "-o", "build"]
+        cmd ["cp", ".shake/build", "."]
+
     "clean" ~> do
         putNormal "cleaning files..."
         cmd ["stack", "clean"]
