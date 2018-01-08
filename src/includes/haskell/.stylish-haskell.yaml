@@ -1,3 +1,4 @@
+---
 steps:
   - simple_align:
       cases: true
