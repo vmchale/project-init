@@ -39,7 +39,7 @@ test:
     cd sample && ./shake.hs run
     rm -rf sample
     cargo run -- git vmchale/madlang-miso project
-    cd project && chmod +x shake.hs && ./shake.hs
+    cd project && just script && ./build
     rm -rf project
 
 manpages:
