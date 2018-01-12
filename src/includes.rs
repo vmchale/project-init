@@ -25,14 +25,10 @@ pub const MADLANG_TEMPLATE: &'static str = include_str!("includes/madlang/templa
 pub const MADLANG_SRC: &'static str = include_str!("includes/madlang/gambling.mad");
 
 // Reco template
-// pub const RECO_RULES: &'static str =
-// include_str!("includes/reco/default.rules");
 pub const RECO_TEMPLATE: &'static str = include_str!("includes/reco/template.toml");
 pub const RECO_MAIN: &'static str = include_str!("includes/reco/main.go");
 pub const RECO_README: &'static str = include_str!("includes/reco/README.md");
 pub const RECO_TEST_COMMAND: &'static str = include_str!("includes/reco/cmd/test-reco/main.go");
-// pub const RECO_JUSTFILE: &'static str =
-// include_str!("includes/reco/Justfile");
 
 // Rust includes
 pub const RUST_GITIGNORE: &'static str = include_str!("includes/rust/.gitignore");
@@ -41,6 +37,7 @@ pub const RUST_TEMPLATE: &'static str = include_str!("includes/rust/template.tom
 pub const RUST_LIB: &'static str = include_str!("includes/rust/lib.rs.init");
 pub const RUST_MAIN: &'static str = include_str!("includes/rust/main.rs.init");
 pub const RUST_TRAVIS_CI: &'static str = include_str!("includes/rust/.travis.yml");
+pub const RUST_BENCHMARKS: &'static str = include_str!("includes/rust/benches.rs.init");
 
 // Vim includes
 pub const VIM_GITIGNORE: &'static str = include_str!("includes/vim/.gitignore");

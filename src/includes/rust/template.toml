@@ -2,8 +2,8 @@ license = "BSD3"
 with_readme = true
 
 [files]
-directories = ["src"]
-templates = ["Cargo.toml","src/lib.rs", "src/main.rs"]
+directories = ["src", "benches"]
+templates = ["Cargo.toml","src/lib.rs", "src/main.rs", "benches/ {{ project }}.rs"]
 
 [config]
 version = "0.1.0"

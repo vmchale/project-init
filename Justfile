@@ -1,3 +1,9 @@
+check:
+    @tomlcheck --file rustfmt.toml
+    @tomlcheck --file Cargo.toml
+    @yamllint .travis.yml
+    @yamllint appveyor.yml
+
 clean:
     rm -f tags
     sn c .
@@ -40,7 +46,7 @@ manpages:
     mandb >> /dev/null
     rm pi.1
 
-check:
+diff:
     git diff master origin/master
 
 patch:
