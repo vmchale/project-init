@@ -23,6 +23,8 @@ rustache-lists = "0.1.0"
 serde_derive = "1.0"
 serde = "1.0"
 text_io = "<= 0.1.6"
+git2 = "0.6"
+tempdir = "0.3"
 
 [[bin]]
 name = "pi"

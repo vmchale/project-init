@@ -5,6 +5,26 @@ about: Initialize projects from a template (using rust).
 after_help: >
     pi is a tool to initialize projects written in Rust. It's fast and extensible via mustache templates.
 subcommands:
+  - git:
+      visible_alias: "g"
+      about: Fetch a template from github.
+      args:
+        - repo:
+            index: 1
+            value_name: USER/REPO
+            help: User and repository name where the template is located
+            takes_value: true
+            required: true
+        - name:
+            value_name: NAME
+            help: Project name to be used for project directory
+            index: 2
+            takes_value: true
+            required: true
+        - force:
+            short: f
+            long: force
+            help: Initialize project even if directory already exists.
   - list:
       visible_alias: "l"
       about: List available templates. User templates can be added by placing them in ~/.pi_templates

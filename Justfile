@@ -38,6 +38,9 @@ test:
     cargo run -- new ats sample
     cd sample && ./shake.hs run
     rm -rf sample
+    cargo run -- git vmchale/madlang-miso project
+    cd project && chmod +x shake.hs && ./shake.hs
+    rm -rf project
 
 manpages:
     pandoc MANPAGE.md -s -t man -o pi.1

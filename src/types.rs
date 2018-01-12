@@ -4,7 +4,7 @@ use toml::value::Value;
 
 /// Struct for the author. This is read from the global
 /// configuration that resides at $HOME/.pi.toml
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct Author {
     pub name:            String,
     pub email:           String,
@@ -13,7 +13,7 @@ pub struct Author {
 }
 
 /// Struct for the global configuration at $HOME/.pi.toml
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct Config {
     pub version_control: Option<String>,
     pub author:          Option<Author>,
