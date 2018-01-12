@@ -300,10 +300,14 @@ fn main() {
             "plain" => (),
 
             "rust" => {
+                let mut bench_path = "benches/".to_string();
+                bench_path.push_str(name);
+                bench_path.push_str(".rs");
                 write_file_plain(includes::RUST_LIB, name, "src/lib.rs");
                 write_file_plain(includes::RUST_MAIN, name, "src/main.rs");
                 write_file_plain(includes::RUST_TRAVIS_CI, name, ".travis.yml");
                 write_file_plain(includes::RUST_GITIGNORE, name, ".gitignore");
+                write_file_plain(includes::RUST_BENCHMARKS, name, &bench_path);
                 render_file(includes::CARGO_TOML, name, "Cargo.toml", &hash)
             }
 

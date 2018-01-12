@@ -27,7 +27,7 @@ test:
     cd project/ && elm-make --yes src/main.elm
     rm -rf project/
     cargo run -- new rust project
-    cd project/ && cargo build
+    cd project/ && cargo bench
     rm -rf project/
     cargo run -- new reco project
     cd project && reco check

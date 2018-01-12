@@ -22,7 +22,7 @@ time = "0.1"
 rustache-lists = "0.1.0"
 serde_derive = "1.0"
 serde = "1.0"
-text_io = "0.1"
+text_io = "<= 0.1.6"
 
 [[bin]]
 name = "pi"

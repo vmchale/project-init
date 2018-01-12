@@ -7,8 +7,15 @@ exclude = [ ".gitignore" ]
 [profile.release]
 lto = true
 
+[dev-dependencies]
+criterion = { git = "https://github.com/japaric/criterion.rs.git" }
+
 [[bin]]
 name = "{{ project }}"
 path = "src/main.rs"
+
+[[bench]]
+name = "{{ project }}"
+harness = false
 
 [dependencies]
