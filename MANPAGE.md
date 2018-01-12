@@ -11,6 +11,8 @@ pi - initialize projects from mustache templates
 
   pi init \<template\> \<directory\> [--force]
 
+  pi git \<username\>/\<repo\> [--force]
+
 # DESCRIPTION
 
 **pi** is a command-line tool that helps you start new projects. It can generate
@@ -63,6 +65,14 @@ license and a readme.
 
 # EXAMPLES
 
+```
 pi new idris permutations
+```
 
+```
 pi init ruby blog
+```
+
+```
+pi git vmchale/haskell-ats fast-package
+```

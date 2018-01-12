@@ -41,6 +41,9 @@ test:
     cargo run -- git vmchale/madlang-miso project
     cd project && just script && ./build
     rm -rf project
+    cargo run -- git vmchale/haskell-ats
+    cd project && ./shake.hs && cabal new-build
+    rm -rf project
 
 manpages:
     pandoc MANPAGE.md -s -t man -o pi.1
