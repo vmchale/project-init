@@ -1,9 +1,10 @@
 module Main where
 
-import Criterion.Main
+import           Criterion.Main
+import           Lib
 
 main :: IO ()
 main =
     defaultMain [ bgroup "head"
-                      [ bench "head" $ whnf head [1..] ]
+                      [ bench "head" $ whnf head' [(1 :: Integer)..] ]
                 ]

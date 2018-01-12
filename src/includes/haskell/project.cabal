@@ -11,9 +11,8 @@ copyright:           Copyright: (c) {{ year }} {{ name }}
 --category:            Web
 build-type:          Simple
 extra-doc-files:     README.md
-data-files:          .travis.yml
-                   , appveyor.yml
 extra-source-files:  stack.yaml
+                   , cabal.project.local
 cabal-version:       >=1.18
 
 Flag development {
@@ -28,8 +27,10 @@ library
   build-depends:       base >= 4.7 && < 5
   default-language:    Haskell2010
   if flag(development)
-    ghc-options: -Werror
-  ghc-options:         -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+    ghc-options:       -Werror
+  if impl(ghc >= 8.0)
+    ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+  ghc-options:         -Wall
 
 executable {{ project }}
   hs-source-dirs:      app
@@ -39,8 +40,10 @@ executable {{ project }}
                      , {{ project }}
   default-language:    Haskell2010
   if flag(development)
-    ghc-options: -Werror
-  ghc-options:         -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+    ghc-options:       -Werror
+  if impl(ghc >= 8.0)
+    ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+  ghc-options:         -Wall
 
 test-suite {{ project }}-test
   type:                exitcode-stdio-1.0
@@ -49,7 +52,11 @@ test-suite {{ project }}-test
   build-depends:       base
                      , {{ project }}
                      , hspec
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+  if flag(development)
+    ghc-options:       -Werror
+  if impl(ghc >= 8.0)
+    ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall
   default-language:    Haskell2010
 
 benchmark {{ project }}-bench
@@ -59,7 +66,11 @@ benchmark {{ project }}-bench
   build-depends:       base
                      , {{ project }}
                      , criterion
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O3 -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+  if flag(development)
+    ghc-options:       -Werror
+  if impl(ghc >= 8.0)
+    ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O3 -Wall
   default-language:    Haskell2010
 
 source-repository head
