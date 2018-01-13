@@ -2,5 +2,4 @@
 target
 Cargo.lock
 src/includes/reco/Justfile
-*.1
 *.rules

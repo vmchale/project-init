@@ -37,14 +37,14 @@ test:
     cd sample && ./shake.hs run
     rm -rf sample
     cargo run -- git vmchale/madlang-miso project
-    cd project && just script && ./build
     rm -rf project
     cargo run -- git vmchale/haskell-ats
     cd project && ./shake.hs && cabal new-build
     rm -rf project
 
+# cd project && just script && ./build
 manpages:
-    pandoc MANPAGE.md -s -t man -o man/pi.1
+    pandoc man/MANPAGE.md -s -t man -o man/pi.1
 
 diff:
     git diff master origin/master
