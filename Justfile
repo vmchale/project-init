@@ -38,7 +38,7 @@ test:
     rm -rf sample
     cargo run -- git vmchale/madlang-miso project
     rm -rf project
-    cargo run -- git vmchale/haskell-ats
+    cargo run -- git vmchale/haskell-ats project
     cd project && ./shake.hs && cabal new-build
     rm -rf project
 
