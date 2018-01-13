@@ -1,6 +1,6 @@
 [package]
 name = "project_init"
-version = "2.9.38"
+version = "3.0.0"
 authors = ["Vanessa McHale <vamchale@gmail.com>"]
 description = "Quickly initialize projects from a template."
 license-file = "LICENSE"
