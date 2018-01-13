@@ -23,7 +23,6 @@ Reasons to use pi over cookiecutter:
   - pi is extensible in Rust
 
 Reasons to not use pi over cookiecutter:
-  - pi cannot fetch templates remotely.
   - cookiecutter uses [jinja](http://jinja.pocoo.org/) templates, which are far more sophisticated.
   - pi is newer and presumably more buggy
   - cookiecutter is extensible in Python
