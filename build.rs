@@ -22,11 +22,15 @@ fn main() {
     man_path.push("pi");
     man_path.set_extension("1");
 
-    let mut f = File::create(man_path).unwrap();
+    let pre_f = File::create(man_path);
+    match pre_f {
+        Ok(mut f) => {
     let res = f.write(MAN_PI.as_bytes());
-
     match res {
         Ok(_) => (),
+        Err(_) => (),
+    }
+        },
         Err(_) => (),
     }
 
