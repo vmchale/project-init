@@ -1,9 +1,3 @@
-check:
-    @tomlcheck --file rustfmt.toml
-    @tomlcheck --file Cargo.toml
-    @yamllint .travis.yml
-    @yamllint appveyor.yml
-
 clean:
     rm -f tags
     sn c .
@@ -13,7 +7,11 @@ name:
 
 # cd project/ && ./shake.hs
 test:
-    tomlcheck --file Cargo.toml
+    @cabal update
+    @tomlcheck --file rustfmt.toml
+    @tomlcheck --file Cargo.toml
+    @yamllint .travis.yml
+    @yamllint appveyor.yml
     rm -rf project/
     cargo run -- new miso project
     rm -rf project/
@@ -46,11 +44,7 @@ test:
     rm -rf project
 
 manpages:
-    pandoc MANPAGE.md -s -t man -o pi.1
-    mkdir -p ~/.local/share/man/man1/
-    cp pi.1 ~/.local/share/man/man1/
-    mandb >> /dev/null
-    rm pi.1
+    pandoc MANPAGE.md -s -t man -o man/pi.1
 
 diff:
     git diff master origin/master

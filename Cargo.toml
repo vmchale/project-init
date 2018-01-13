@@ -1,6 +1,6 @@
 [package]
 name = "project_init"
-version = "3.0.0"
+version = "2.9.38"
 authors = ["Vanessa McHale <vamchale@gmail.com>"]
 description = "Quickly initialize projects from a template."
 license-file = "LICENSE"
@@ -9,6 +9,7 @@ readme = "README.md"
 repository = "https://github.com/vmchale/project-init"
 documentation = "https://github.com/vmchale/project-init#README"
 homepage = "https://github.com/vmchale/project-init"
+build = "build.rs"
 
 [profile.release]
 lto = true

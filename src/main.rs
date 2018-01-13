@@ -107,6 +107,10 @@ fn main() {
         println!("{}", script_string);
 
     } else if let Some(_) = matches.subcommand_matches("list") {
+        let remote = vec![
+            "vmchale/haskell-ats",
+            "vmchale/madlang-miso",
+        ];
         let builtin = vec![
             "rust",
             "vim",
@@ -121,6 +125,11 @@ fn main() {
             "kmett",
             "madlang",
         ];
+        println!("{}", "Remote Templates:".cyan());
+        for b in remote {
+            println!("  - {}", b);
+        }
+        println!("");
         println!("{}", "Builtin Templates:".cyan());
         for b in builtin {
             println!("  - {}", b);
