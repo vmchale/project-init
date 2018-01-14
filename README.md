@@ -64,7 +64,7 @@ place a template in the `$HOME/.pi_templates/idris/`, you can initialize a
 project *anywhere* with
 
 ```bash
-pi init idris treesod
+ $ pi init idris treesod
 ```
 
 There is a repo containing pi templates
@@ -73,12 +73,15 @@ There is a repo containing pi templates
 You can also use pi with built-in templates, viz. 
 
 ```bash
-$ pi new haskell really-good-project
+ $ pi new haskell really-good-project
 Finished initializing project in really-good-project/
 ```
 
-Currently pi has Rust, Haskell,
-Vimscript, Idris, Julia, Elm, and Python templates built-in.
+Or to fetch a template from github:
+
+```bash
+ $ pi git vmchale/haskell-ats ambitious-insane-project
+```
 
 ### Configuration
 
