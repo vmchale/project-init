@@ -12,7 +12,7 @@ homepage = "https://github.com/vmchale/project-init"
 build = "build.rs"
 
 [build-dependencies]
-cli-setup = "0.1.0"
+cli-setup = "0.1"
 
 [profile.release]
 lto = true
