@@ -14,19 +14,19 @@ fn main() {
     bashrc.push(".bashrc");
     let _ = match File::open(&bashrc) {
         Ok(mut f) => {
-    let mut contents = String::new();
-    f.read_to_string(&mut contents).unwrap();
-    let mut contents_saved = contents.clone();
+            let mut contents = String::new();
+            f.read_to_string(&mut contents).expect("File read failed");
+            let mut contents_saved = contents.clone();
 
-    let should_write: bool = contents.lines().fold(true, |acc, next| acc && (next != "\n#manpath updated by cli-setup") );
+            let should_write: bool = contents.lines().fold(true, |acc, next| acc && (next != "\n#manpath updated by cli-setup") );
 
-    if !should_write {
-        contents_saved.push_str("\n#manpath updated by cli-setup\nexport MANPATH=~/.local/share:$MANPATH");
-        let _ = match File::create(&bashrc) {
-            Ok(mut file) => { file.write(contents_saved.as_bytes()).expect("File write failed") ; },
-            _ => (),
-        };
-    }}
+            if !should_write {
+                contents_saved.push_str("\n#manpath updated by cli-setup\nexport MANPATH=~/.local/share:$MANPATH");
+                let _ = match File::create(&bashrc) {
+                    Ok(mut file) => { file.write(contents_saved.as_bytes()).expect("File write failed") ; },
+                    _ => (),
+                };
+            }}
         _ => (),
     };
 
