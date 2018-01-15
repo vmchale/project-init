@@ -83,6 +83,14 @@ Or to fetch a template from github:
  $ pi git vmchale/haskell-ats ambitious-insane-project
 ```
 
+### Examples
+
+  * [haskell-ats](https://github.com/vmchale/haskell-ats) - a template for
+    Haskell/ATS polyglot projects.
+  * [madlang-miso](https://github.com/vmchale/madlang-miso) - a template for
+    frontend using [Miso](https://haskell-miso.org/) and
+    [Madlang](https://hub.darcs.net/vmchale/madlang).
+
 ### Configuration
 
 Global configuration is via the `$HOME/.pi.toml` file. The following is an example:
