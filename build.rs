@@ -6,10 +6,11 @@ use std::fs::create_dir_all;
 
 pub const MAN_PI: &'static str = include_str!("man/pi.1");
 
-// #manpath updated by madlang
+// #manpath updated by cli-setup
 // export MANPATH=~/.local/share:$MANPATH
 
 fn main() {
+
     let mut man_dir = match home_dir() { Some(p) => p, None => PathBuf::from("."), };
     man_dir.push(".local");
     man_dir.push("share");

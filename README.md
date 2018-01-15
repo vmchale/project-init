@@ -15,7 +15,7 @@ Reasons to use pi:
 
 Reasons to use pi over cookiecutter:
   - Templates are smaller. Define files you need in a `.toml`.
-  - *Fast*. pi **30x faster** than cookiecutter when rendering the sample vim
+  - *Fast*. pi is **30x faster** than cookiecutter when rendering the sample vim
     plugin template.
   - pi uses mustache, a logic-less language, for templates.
   - pi can initialize a darcs, pijul, mercurial, or git repository inside your projects

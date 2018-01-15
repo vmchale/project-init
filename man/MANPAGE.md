@@ -60,7 +60,7 @@ For sample templates, see:
 # BUILTIN TEMPLATES
 
 Project templates for Julia, Rust, Idris, Elm, Vimscript, Python, Haskell, Miso
-are included by default. There is also a 'plain' templates which just contains a
+are included by default. There is also a 'plain' template which just contains a
 license and a readme.
 
 # EXAMPLES
