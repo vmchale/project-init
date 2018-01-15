@@ -6,12 +6,31 @@ use std::fs::create_dir_all;
 
 pub const MAN_PI: &'static str = include_str!("man/pi.1");
 
-// #manpath updated by cli-setup
-// export MANPATH=~/.local/share:$MANPATH
-
 fn main() {
 
-    let mut man_dir = match home_dir() { Some(p) => p, None => PathBuf::from("."), };
+    let home_dir = match home_dir() { Some(p) => p, None => PathBuf::from("."), };
+
+    let mut bashrc = home_dir.clone();
+    bashrc.push(".bashrc");
+    let _ = match File::open(&bashrc) {
+        Ok(mut f) => {
+    let mut contents = String::new();
+    f.read_to_string(&mut contents).unwrap();
+    let mut contents_saved = contents.clone();
+
+    let should_write: bool = contents.lines().fold(true, |acc, next| acc && (next != "\n#manpath updated by cli-setup") );
+
+    if !should_write {
+        contents_saved.push_str("\n#manpath updated by cli-setup\nexport MANPATH=~/.local/share:$MANPATH");
+        let _ = match File::create(&bashrc) {
+            Ok(mut file) => { file.write(contents_saved.as_bytes()).expect("File write failed") ; },
+            _ => (),
+        };
+    }}
+        _ => (),
+    };
+
+    let mut man_dir = home_dir.clone();
     man_dir.push(".local");
     man_dir.push("share");
     man_dir.push("man");
