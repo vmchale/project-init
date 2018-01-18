@@ -4,27 +4,27 @@
 
 #![feature(type_ascription)]
 
+extern crate case;
 extern crate clap;
 extern crate colored;
+extern crate git2;
+extern crate rustache;
 #[macro_use]
 extern crate serde_derive;
-extern crate toml;
-extern crate time;
-extern crate rustache;
-extern crate case;
-extern crate git2;
 extern crate tempdir;
+extern crate time;
+extern crate toml;
 
-use colored::*;
-use std::io::prelude::*;
-use std::path::PathBuf;
-use toml::de;
 use case::*;
+use colored::*;
 use rustache::{HashBuilder, VecBuilder};
 use std::fs;
 use std::fs::File;
+use std::io::prelude::*;
 use std::path::Path;
+use std::path::PathBuf;
 use toml::Value::Table;
+use toml::de;
 
 pub mod types;
 pub mod repo;
@@ -109,8 +109,18 @@ pub fn read_toml_config(config_path: &std::path::PathBuf) -> types::Config {
     }
 }
 
-pub fn init_helper(home: PathBuf, project_dir: &str, decoded: types::Config, author: types::Author, name: &str, year: i32, current_date: &str, force: bool, parsed_toml: types::Project, is_global_project: bool) -> () {
-
+pub fn init_helper(
+    home: PathBuf,
+    project_dir: &str,
+    decoded: types::Config,
+    author: types::Author,
+    name: &str,
+    year: i32,
+    current_date: &str,
+    force: bool,
+    parsed_toml: types::Project,
+    is_global_project: bool,
+) -> () {
     let project = if is_global_project {
         let mut p = home;
         p.push(".pi_templates/");
@@ -196,7 +206,6 @@ pub fn init_helper(home: PathBuf, project_dir: &str, decoded: types::Config, aut
     } else {
         None
     };
-
 
     // Make a hash for inserting stuff into templates.
     let mut hash = HashBuilder::new();
@@ -306,5 +315,4 @@ pub fn init_helper(home: PathBuf, project_dir: &str, decoded: types::Config, aut
 
     // Print that we're done
     println!("Finished initializing project in {}/", name);
-
 }
