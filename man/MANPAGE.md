@@ -50,7 +50,7 @@ Configuration files are located in $HOME/.pi.toml and are configured using TOML.
 
 # USER TEMPLATES
 
-Templates are configured using the mustache language. Templates placed in a
+Templates are configured using mustache. Templates placed in a
 user's $HOME/.pi_templates will be available to her anywhere.
 
 For sample templates, see:

@@ -6,7 +6,8 @@ files = []
 directories = ["src","bench","app","test"]
 templates = ["src/Lib.hs","app/Main.hs","test/Spec.hs","Setup.hs",
     "{{ project }}.cabal", "stack.yaml", "test/Spec.hs", "bench/Bench.hs",
-    ".travis.yml", "default.nix", "release.nix"]
+    ".travis.yml", "default.nix", "release.nix",
+    ".hspec"]
 
 [config]
 version = "0.1.0.0"

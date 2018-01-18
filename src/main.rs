@@ -4,19 +4,19 @@ extern crate clap;
 #[macro_use]
 extern crate text_io;
 
-extern crate time;
-extern crate toml;
-extern crate rustache;
-extern crate project_init;
 extern crate case;
 extern crate colored;
 extern crate git2;
+extern crate project_init;
+extern crate rustache;
 extern crate tempdir;
+extern crate time;
+extern crate toml;
 
-use git2::Repository;
 use case::*;
 use clap::{App, AppSettings};
 use colored::*;
+use git2::Repository;
 use project_init::*;
 use project_init::render::*;
 use project_init::types::*;
@@ -27,8 +27,8 @@ use std::fs::set_permissions;
 use std::path::Path;
 use std::path::PathBuf;
 use std::process::Command;
-use time::strftime;
 use tempdir::TempDir;
+use time::strftime;
 
 #[cfg(not(target_os = "windows"))]
 use std::os::unix::fs::PermissionsExt;
@@ -48,7 +48,6 @@ fn mk_executable<P: AsRef<Path>>(_: P) -> () {
 }
 
 fn main() {
-
     // command-line parser
     let yaml = load_yaml!("options-en.yml");
     let matches = App::from_yaml(yaml)
@@ -74,10 +73,10 @@ fn main() {
         println!("Enter your email");
         let ema: String = read!("{}");
         Author {
-            name: nam,
-            email: ema,
+            name:            nam,
+            email:           ema,
             github_username: None,
-            reco_developer: None,
+            reco_developer:  None,
         }
     };
 
@@ -87,7 +86,6 @@ fn main() {
     let current_date = strftime("%m-%d-%Y", &now).unwrap();
 
     if let Some(x) = matches.subcommand_matches("update") {
-
         let force = x.is_present("force");
 
         println!("current version: {}", crate_version!());
@@ -98,32 +96,20 @@ fn main() {
             "curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git vmchale/project-init"
         };
 
-        let script = Command::new("bash").arg("-c").arg(s).output().expect(
-            "failed to execute update script.",
-        );
+        let script = Command::new("bash")
+            .arg("-c")
+            .arg(s)
+            .output()
+            .expect("failed to execute update script.");
 
         let script_string = String::from_utf8(script.stderr).unwrap();
 
         println!("{}", script_string);
-
     } else if let Some(_) = matches.subcommand_matches("list") {
-        let remote = vec![
-            "vmchale/haskell-ats",
-            "vmchale/madlang-miso",
-        ];
+        let remote = vec!["vmchale/haskell-ats", "vmchale/madlang-miso"];
         let builtin = vec![
-            "rust",
-            "vim",
-            "python",
-            "haskell",
-            "idris",
-            "reco",
-            "julia",
-            "elm",
-            "miso",
-            "plain",
-            "kmett",
-            "madlang",
+            "rust", "vim", "python", "haskell", "idris", "reco", "julia", "elm", "miso", "plain",
+            "kmett", "madlang",
         ];
         println!("{}", "Remote Templates:".cyan());
         for b in remote {
@@ -139,38 +125,36 @@ fn main() {
         println!("{}", "\nUser Templates:".cyan());
         let iter = std::fs::read_dir(&p);
         match iter {
-            Ok(x) => {
-                for dir in x {
-                    match dir {
-                        Ok(x) => {
-                            if x.path().is_dir() &&
-                                x.file_name().to_str().map(|c| c.chars().nth(0).unwrap()) !=
-                                    Some('.') &&
-                                x.file_name().to_str().map(|c| c.chars().nth(0).unwrap()) !=
-                                    Some('_')
-                            {
-                                println!("  - {}", x.file_name().to_string_lossy());
-                            }
+            Ok(x) => for dir in x {
+                match dir {
+                    Ok(x) => {
+                        if x.path().is_dir()
+                            && x.file_name().to_str().map(|c| c.chars().nth(0).unwrap())
+                                != Some('.')
+                            && x.file_name().to_str().map(|c| c.chars().nth(0).unwrap())
+                                != Some('_')
+                        {
+                            println!("  - {}", x.file_name().to_string_lossy());
                         }
-                        _ => (),
                     }
+                    _ => (),
                 }
-            }
+            },
             _ => eprintln!("{}: Could not access {}", "Warning".yellow(), p.display()),
         }
-
     } else if let Some(matches_init) = matches.subcommand_matches("git") {
-
         // whether to overwrite
         let force = matches_init.is_present("force");
 
         // get repository name
-        let repo = matches_init.value_of("repo").expect("Clap failed to supply repository name");
+        let repo = matches_init
+            .value_of("repo")
+            .expect("Clap failed to supply repository name");
 
         // get project name
-        let name = matches_init.value_of("name").expect(
-            "Clap failed to supply project name",
-        );
+        let name = matches_init
+            .value_of("name")
+            .expect("Clap failed to supply project name");
 
         // form the URL
         let mut url = "https://github.com/".to_string();
@@ -181,14 +165,20 @@ fn main() {
         let tmp_dir = TempDir::new(&dir_name);
         let file = match tmp_dir {
             Ok(t) => t,
-            Err(_) => {eprintln!("{}: failed to create temporary directory", "Error".red()) ; std::process::exit(1)},
+            Err(_) => {
+                eprintln!("{}: failed to create temporary directory", "Error".red());
+                std::process::exit(1)
+            }
         };
 
         // clone into the temporary directory
         let file_path = file.path();
         let _ = match Repository::clone(&url, file_path) {
             Ok(_) => (),
-            Err(_) => {eprintln!("{}: failed to clone repo at {}", "Error".red(), url) ; std::process::exit(1)},
+            Err(_) => {
+                eprintln!("{}: failed to clone repo at {}", "Error".red(), url);
+                std::process::exit(1)
+            }
         };
 
         let string_dir = file_path.to_string_lossy().to_string();
@@ -199,16 +189,25 @@ fn main() {
         let (parsed_toml, _) = read_toml_dir(&toml_string, PathBuf::from("."));
 
         // initialize the project
-        init_helper(home, &string_dir, decoded, author, name, year, &current_date, force, parsed_toml, false)
-
+        init_helper(
+            home,
+            &string_dir,
+            decoded,
+            author,
+            name,
+            year,
+            &current_date,
+            force,
+            parsed_toml,
+            false,
+        )
     } else if let Some(matches_init) = matches.subcommand_matches("new") {
-
         let force: bool = matches_init.occurrences_of("force") == 1;
 
         // get project name
-        let name = matches_init.value_of("name").expect(
-            "Clap failed to supply project name",
-        );
+        let name = matches_init
+            .value_of("name")
+            .expect("Clap failed to supply project name");
 
         // get project template type
         let template_str_lower: String = matches_init
@@ -495,6 +494,7 @@ fn main() {
                 }
                 write_file_plain(includes::HASKELL_GITIGNORE, name, ".gitignore");
                 write_file_plain(includes::RELEASE_NIX, name, "release.nix");
+                write_file_plain(includes::HSPEC, name, ".hspec");
                 render_file(includes::STACK_YAML, name, "stack.yaml", &hash);
                 render_file(includes::CABAL_PROJECT, name, "cabal.project.local", &hash);
                 render_file(includes::HASKELL_TRAVIS_CI, name, ".travis.yml", &hash);
@@ -523,26 +523,35 @@ fn main() {
 
         // Print that we're done
         println!("Finished initializing project in {}/", name);
-
     } else if let Some(matches_init) = matches.subcommand_matches("init") {
-
         let force: bool = matches_init.occurrences_of("force") == 1;
 
         // get project name
-        let name = matches_init.value_of("name").expect(
-            "Failed to supply project name",
-        );
+        let name = matches_init
+            .value_of("name")
+            .expect("Failed to supply project name");
 
         // get project directory
-        let project_dir = matches_init.value_of("directory").expect(
-            "Failed to supply project directory",
-        );
+        let project_dir = matches_init
+            .value_of("directory")
+            .expect("Failed to supply project directory");
 
         // read template.toml for template
         let mut template_path = project_dir.to_string();
         template_path.push_str("/template.toml");
         let (parsed_toml, is_global_project) = read_toml_dir(&template_path, home.clone());
 
-        init_helper(home, project_dir, decoded, author, name, year, &current_date, force, parsed_toml, is_global_project)
+        init_helper(
+            home,
+            project_dir,
+            decoded,
+            author,
+            name,
+            year,
+            &current_date,
+            force,
+            parsed_toml,
+            is_global_project,
+        )
     }
 }
