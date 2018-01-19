@@ -13,6 +13,13 @@ matrix:
     # Linux
     - env: TARGET=x86_64-unkown-linux-gnu
       language: python
+      addons:
+        apt:
+          sources:
+            - hvr-ghc
+          packages:
+            - ghc-8.2.1
+            - cabal-install-head
 
     # OS X
     - env: TARGET=x86_64-apple-darwin
