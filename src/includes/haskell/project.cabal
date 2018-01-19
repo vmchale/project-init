@@ -13,7 +13,7 @@ build-type:          Simple
 extra-doc-files:     README.md
 extra-source-files:  stack.yaml
                    , cabal.project.local
-cabal-version:       >=1.18
+cabal-version:       1.18
 
 Flag development {
   Description: Enable `-Werror`
