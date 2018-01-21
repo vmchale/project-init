@@ -15,7 +15,7 @@ pub const PLAIN_TEMPLATE: &'static str = include_str!("includes/plain.toml");
 
 // ATS
 pub const ATS_SRC: &'static str = include_str!("includes/ats/project.dats");
-pub const ATS_SHAKE: &'static str = include_str!("includes/ats/shake.hs");
+pub const ATS_PKG: &'static str = include_str!("includes/ats/atspkg.dhall");
 pub const ATS_CTAGS: &'static str = include_str!("includes/ats/.ctags");
 pub const ATS_TEMPLATE: &'static str = include_str!("includes/ats/template.toml");
 pub const ATS_FORMAT: &'static str = include_str!("includes/ats/.atsfmt.toml");
