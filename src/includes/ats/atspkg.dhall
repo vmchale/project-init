@@ -2,7 +2,7 @@ let pkg
   = { bin = 
       [
         { src = "src/{{ project }}.dats"
-        , target = "target/poly" 
+        , target = "target/{{ project }}" 
         , libs = [ "pthread" ]
         , gc = False
         }

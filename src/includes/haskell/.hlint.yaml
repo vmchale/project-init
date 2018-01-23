@@ -36,6 +36,7 @@
 - error: {lhs: "f >> pure ()", rhs: "void f", name: "Use void"}
 - error: {lhs: "over _1 f x", rhs: "first f x", name: "Use arrows"}
 - error: {lhs: "over _2 f x", rhs: "second f x", name: "Use arrows"}
+- error: {lhs: "bool x x p", rhs: "x", name: "Avoid bool"}
 
 
 # Turn on hints that are off by default
