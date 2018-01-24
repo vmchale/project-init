@@ -1,16 +1,12 @@
-let pkg
-  = { bin = 
-      [
-        { src = "src/{{ project }}.dats"
-        , target = "target/{{ project }}" 
-        , libs = [ "pthread" ]
-        , gc = False
-        }
-      ]
-    , test = [] 
-        : List { src : Text, target : Text, libs : List Text, gc : Bool }
-    , man = ([] : Optional Text)
-    , version = [0,3,9]
-    }
+let pkg = https://raw.githubusercontent.com/vmchale/atspkg/master/atspkg.dhall
 
-in pkg
+in pkg //
+  { bin = 
+    [
+      { src = "src/{{ project }}.dats"
+      , target = "target/{{ project }}" 
+      , libs = [ "pthread" ]
+      , gc = False
+      }
+    ]
+  }
