@@ -11,7 +11,7 @@ matrix:
   include:
 
     # Linux
-    - env: TARGET=x86_64-unkown-linux-gnu
+    - env: TARGET=x86_64-unkown-linux
       language: python
       addons:
       # apt:
