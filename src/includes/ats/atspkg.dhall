@@ -5,7 +5,7 @@ in pkg //
     [
       { src = "src/{{ project }}.dats"
       , target = "target/{{ project }}" 
-      , libs = [ "pthread" ]
+      , libs = ([] : List Text)
       , gc = False
       }
     ]
