@@ -68,7 +68,7 @@ script:
     then
       export BINPATH="$(find . -name {{ project }} -perm 755 | tail -n1)"
     else
-      export BINPATH="$(find -name {{ project }} -executable | tail -n2 | head -n1)"
+      export BINPATH="$(find -name {{ project }} -executable | tail -n4 | head -n1)"
     fi
   - echo $BINPATH
   - mv $BINPATH {{ project }}-$TARGET
