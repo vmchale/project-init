@@ -32,7 +32,7 @@ test:
     cd story && madlang run src/story.mad
     rm -rf story
     cargo run -- new ats sample
-    cd sample && atspkg && ./target/sample
+    cd sample && atspkg build target/sample && ./target/sample
     rm -rf sample
     cargo run -- git vmchale/madlang-miso project
     rm -rf project
