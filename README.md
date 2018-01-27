@@ -90,6 +90,8 @@ Or to fetch a template from github:
   * [madlang-miso](https://github.com/vmchale/madlang-miso) - a template for
     frontend using [Miso](https://haskell-miso.org/) and
     [Madlang](https://hub.darcs.net/vmchale/madlang).
+  * [ats-makefile](https://github.com/vmchale/ats-makefile) - a template for ATS
+    projects that uses a plain `Makefile`.
 
 ### Configuration
 
