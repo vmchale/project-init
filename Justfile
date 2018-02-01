@@ -17,6 +17,7 @@ test:
     cd project/ && cabal new-build && hlint .
     rm -rf project/
     cargo run -- new idris project
+    cd ~/programming/idris/depends/specdris/ && idris --install specdris.ipkg
     cd project/ && idris --testpkg test.ipkg
     rm -rf project/
     cargo run -- new elm project
@@ -37,7 +38,7 @@ test:
     cargo run -- git vmchale/madlang-miso project
     rm -rf project
     cargo run -- git vmchale/haskell-ats project
-    cd project && ./shake.hs && cabal new-build
+    cd project && atspkg build && cabal new-build
     rm -rf project
 
 # cd project && just script && ./build

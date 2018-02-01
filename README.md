@@ -37,6 +37,14 @@ Benchmarks (with Haskell's [bench](https://github.com/Gabriel439/bench)):
 
 ## Installation
 
+### Script
+
+Enter the following in a command prompt:
+
+```
+curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git vmchale/project-init
+```
+
 ### Binary releases
 
 The easiest way for most users is simply to download the prebuilt binaries.
