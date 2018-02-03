@@ -19,6 +19,7 @@ pub const ATS_PKG: &'static str = include_str!("includes/ats/atspkg.dhall");
 pub const ATS_CTAGS: &'static str = include_str!("includes/ats/.ctags");
 pub const ATS_TEMPLATE: &'static str = include_str!("includes/ats/template.toml");
 pub const ATS_FORMAT: &'static str = include_str!("includes/ats/.atsfmt.toml");
+pub const ATS_TRAVIS: &'static str = include_str!("includes/ats/.travis.yml");
 
 // Madlang
 pub const MADLANG_TEMPLATE: &'static str = include_str!("includes/madlang/template.toml");
