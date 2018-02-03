@@ -470,6 +470,7 @@ fn main() {
                 render_file(includes::ATS_SRC, name, &src_path, &hash);
                 write_file_plain(includes::ATS_FORMAT, name, ".atsfmt.toml");
                 render_file(includes::ATS_PKG, name, "atspkg.dhall", &hash);
+                render_file(includes::ATS_TRAVIS, name, ".travis.yml", &hash);
             }
 
             "haskell" | "kmett" => {
