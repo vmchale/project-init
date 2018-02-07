@@ -18,6 +18,7 @@ cli-setup = "0.1"
 lto = true
 
 [dependencies]
+heck = "0.3"
 case = "0.1"
 toml = "0.4"
 colored = "1.6"

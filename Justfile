@@ -10,6 +10,9 @@ test:
     @tomlcheck --file Cargo.toml
     @yamllint .travis.yml
     @yamllint appveyor.yml
+    cargo run -- git vmchale/ats-haskell project
+    cd project && atspkg build
+    rm -rf project
     rm -rf project/
     cargo run -- new miso project
     rm -rf project/
@@ -24,17 +27,17 @@ test:
     cd project/ && elm-make --yes src/main.elm
     rm -rf project/
     cargo run -- new rust project
-    cd project/ && cargo bench
+    cd project/ && cargo build --benches
     rm -rf project/
     cargo run -- new reco project
     cd project && reco check
     rm -rf project
-    cargo run -- new mad story
-    cd story && madlang run src/story.mad
-    rm -rf story
-    cargo run -- new ats sample
-    cd sample && atspkg build target/sample && ./target/sample
-    rm -rf sample
+    cargo run -- new mad project
+    cd project && madlang run src/project.mad
+    rm -rf project
+    cargo run -- new ats project
+    cd project && atspkg build target/project && ./target/project
+    rm -rf project
     cargo run -- git vmchale/madlang-miso project
     rm -rf project
     cargo run -- git vmchale/haskell-ats project
@@ -51,3 +54,7 @@ diff:
 patch:
     @rm -f tags
     cargo release -l patch --no-dev-version
+
+minor:
+    @rm -f tags
+    cargo release -l minor --no-dev-version

@@ -8,6 +8,7 @@ extern crate case;
 extern crate clap;
 extern crate colored;
 extern crate git2;
+extern crate heck;
 extern crate rustache;
 #[macro_use]
 extern crate serde_derive;
@@ -17,6 +18,7 @@ extern crate toml;
 
 use case::*;
 use colored::*;
+use heck::*;
 use rustache::{HashBuilder, VecBuilder};
 use std::fs;
 use std::fs::File;
@@ -228,6 +230,7 @@ pub fn init_helper(
     // add the normal stuff
     hash = hash.insert("project", name)
         .insert("Project", name.to_capitalized())
+        .insert("ProjectCamelCase", name.to_camel_case())
         .insert("year", year)
         .insert("name", author.name)
         .insert("version", version)
