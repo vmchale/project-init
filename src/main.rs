@@ -471,6 +471,7 @@ fn main() {
                 write_file_plain(includes::ATS_FORMAT, name, ".atsfmt.toml");
                 render_file(includes::ATS_PKG, name, "atspkg.dhall", &hash);
                 render_file(includes::ATS_TRAVIS, name, ".travis.yml", &hash);
+                render_file(includes::ATS_GITIGNORE, name, ".gitignore", &hash);
             }
 
             "haskell" | "kmett" => {
