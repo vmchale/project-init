@@ -10,9 +10,9 @@ test:
     @tomlcheck --file Cargo.toml
     @yamllint .travis.yml
     @yamllint appveyor.yml
+    rm -rf project/
     cargo run -- git vmchale/ats-haskell project
     cd project && atspkg build
-    rm -rf project
     rm -rf project/
     cargo run -- new miso project
     rm -rf project/
