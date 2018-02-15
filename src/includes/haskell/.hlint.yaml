@@ -38,6 +38,7 @@
 - error: {lhs: "over _2 f x", rhs: "second f x", name: "Use arrows"}
 - error: {lhs: "bool x x p", rhs: "x", name: "Avoid bool"}
 - error: {lhs: "const f", rhs: "pure f", name: "Generalize const"}
+- error: {lhs: "maybe mempty", rhs: "foldMap", name: "Use foldMap"}
 
 
 # Turn on hints that are off by default

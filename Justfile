@@ -36,7 +36,7 @@ test:
     cd project && madlang run src/project.mad
     rm -rf project
     cargo run -- new ats project
-    cd project && atspkg build target/project && ./target/project
+    cd project && atspkg build target/project && ac pkg.dhall | dhall && ./target/project
     rm -rf project
     cargo run -- git vmchale/madlang-miso project
     rm -rf project

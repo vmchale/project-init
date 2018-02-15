@@ -8,6 +8,6 @@ in λ(x : List Integer) →
   dep //
     { libName = "{{ project }}"
     , dir = ".atspkg/contrib/{{ project }}"
-    , url = concat [ "https://github.com/{{ github_username }}/{{ project }}/archive/", showVersion x, ".tar.gz"
+    , url = concat [ "https://github.com/{{ github_username }}/{{ project }}/archive/", showVersion x, ".tar.gz" ]
     , libVersion = x
     }
