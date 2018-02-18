@@ -1,6 +1,6 @@
-let pkg = https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/default.dhall
+let pkg = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/default.dhall
 in
-let dbin = https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/default-bin.dhall
+let dbin = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/default-bin.dhall
 
 in pkg //
   { bin = 
