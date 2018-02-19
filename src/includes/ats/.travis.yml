@@ -7,9 +7,8 @@ install:
   - mkdir -p $HOME/.local/bin
   - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
   - export PATH=$HOME/.local/bin:$PATH
-  - atspkg -v
+  - atspkg -V
 script:
   - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
   - atspkg test
-  - atspkg build
-  - ./target/{{ project }}
+  - atspkg run
