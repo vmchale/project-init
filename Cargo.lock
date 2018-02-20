@@ -282,7 +282,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "project_init"
-version = "3.1.4"
+version = "3.1.5"
 dependencies = [
  "case 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "clap 2.30.0 (registry+https://github.com/rust-lang/crates.io-index)",
