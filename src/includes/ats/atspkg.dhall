@@ -1,10 +1,8 @@
-let pkg = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/default.dhall
-in
-let dbin = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/default-bin.dhall
+let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/atspkg-prelude.dhall
 
-in pkg //
+in prelude.default //
   { bin = 
-    [ dbin //
+    [ prelude.bin //
       { src = "src/{{ project }}.dats"
       , target = "target/{{ project }}" 
       }
