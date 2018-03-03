@@ -1,4 +1,4 @@
-let makePkg = https://raw.githubusercontent.com/vmchale/atspkg/master/dhall/make-pkg.dhall
+let makePkg = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
 
 in λ(x : List Integer) → 
-  makePkg { x = x, name = "{{ project }}", githubUsername = "{{ github_username }}" }
+  prelude.makePkg { x = x, name = "{{ project }}", githubUsername = "{{ github_username }}" }
