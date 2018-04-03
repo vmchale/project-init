@@ -48,6 +48,7 @@ matrix:
       rust: nightly
 
   allow_failures:
+    - env: TARGET=x86_64-unknown-netbsd DISABLE_TESTS=1
     - env: TARGET=x86_64-unknown-linux-musl
     - env: TARGET=arm-unknown-linux-musleabi
     - env: TARGET=arm-unknown-linux-gnueabi
