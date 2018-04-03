@@ -53,7 +53,7 @@ diff:
 
 patch:
     @rm -f tags
-    cargo release -l patch --no-dev-version
+    cargo release --no-dev-version patch 
 
 minor:
     @rm -f tags
