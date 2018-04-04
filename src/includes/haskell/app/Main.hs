@@ -1,6 +1,6 @@
-module Main where
+module Main (main) where
 
-import Lib (exec)
+import           Lib (exec)
 
 main :: IO ()
 main = exec
