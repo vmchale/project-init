@@ -8,7 +8,7 @@ license-file:        LICENSE
 author:              {{ name }}
 maintainer:          {{ email }}
 copyright:           Copyright: (c) {{ year }} {{ name }}
---category:            Web
+--category:            Data
 build-type:          Simple
 extra-doc-files:     README.md
 extra-source-files:  stack.yaml
