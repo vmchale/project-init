@@ -5,6 +5,9 @@ clean:
 name:
     github-release edit -s $(cat .git-token) -u vmchale -r project-init -n "$(madlang run ~/programming/madlang/releases/releases.mad)" -t "$(grep -P -o '\d+\.\d+\.\d+' Cargo.toml | head -n1)"
 
+# cargo run -- git vmchale/ats-haskell project
+# cd project && atspkg build
+# rm -rf project/
 test:
     @tomlcheck --file rustfmt.toml
     @tomlcheck --file Cargo.toml
@@ -13,9 +16,6 @@ test:
     rm -rf project/
     cargo run -- git vmchale/haskell-ats project
     cd project && cabal new-build
-    rm -rf project/
-    cargo run -- git vmchale/ats-haskell project
-    cd project && atspkg build
     rm -rf project/
     cargo run -- new miso project
     rm -rf project/
@@ -44,7 +44,6 @@ test:
     cargo run -- git vmchale/madlang-miso project
     rm -rf project
 
-# cd project && just script && ./build
 manpages:
     pandoc man/MANPAGE.md -s -t man -o man/pi.1
 
