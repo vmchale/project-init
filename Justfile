@@ -5,17 +5,17 @@ clean:
 name:
     github-release edit -s $(cat .git-token) -u vmchale -r project-init -n "$(madlang run ~/programming/madlang/releases/releases.mad)" -t "$(grep -P -o '\d+\.\d+\.\d+' Cargo.toml | head -n1)"
 
-# cargo run -- git vmchale/haskell-ats project
-#    cd project && atspkg build && cabal new-build
-#    rm -rf project
-# rm -rf project/
-# cargo run -- git vmchale/ats-haskell project
-# cd project && atspkg build
 test:
     @tomlcheck --file rustfmt.toml
     @tomlcheck --file Cargo.toml
     @yamllint .travis.yml
     @yamllint appveyor.yml
+    rm -rf project/
+    cargo run -- git vmchale/haskell-ats project
+    cd project && cabal new-build
+    rm -rf project/
+    cargo run -- git vmchale/ats-haskell project
+    cd project && atspkg build
     rm -rf project/
     cargo run -- new miso project
     rm -rf project/
