@@ -39,7 +39,7 @@ test:
     cd project && madlang run src/project.mad
     rm -rf project
     cargo run -- new ats project
-    cd project && atspkg build target/project && ac pkg.dhall | dhall && ./target/project
+    cd project && atspkg build target/project && atspkg check pkg.dhall
     rm -rf project
     cargo run -- git vmchale/madlang-miso project
     rm -rf project
