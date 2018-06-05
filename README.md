@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/vmchale/project-init.svg?branch=master)](https://travis-ci.org/vmchale/project-init)
 [![](https://img.shields.io/crates/d/project-init.svg)](https://crates.io/crates/project-init)
+[![Windows build status](https://ci.appveyor.com/api/projects/status/github/vmchale/project-init?svg=true)](https://ci.appveyor.com/project/vmchale/project-init)
 
 `pi` is a command-line utility to initialize projects. It is written in rust.
 
