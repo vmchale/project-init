@@ -4,7 +4,7 @@ environment:
   global:
     RUST_VERSION: nightly
 
-    CRATE_NAME: tin-summer
+    CRATE_NAME: project_init
 
   matrix:
     # MinGW
