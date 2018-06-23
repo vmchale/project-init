@@ -76,7 +76,6 @@ fn main() {
             name:            nam,
             email:           ema,
             github_username: None,
-            reco_developer:  None,
         }
     };
 
@@ -108,7 +107,7 @@ fn main() {
     } else if let Some(_) = matches.subcommand_matches("list") {
         let remote = vec!["vmchale/haskell-ats", "vmchale/madlang-miso"];
         let builtin = vec![
-            "rust", "vim", "python", "haskell", "idris", "reco", "julia", "elm", "miso", "plain",
+            "rust", "vim", "python", "haskell", "idris", "julia", "elm", "miso", "plain",
             "kmett", "madlang",
         ];
         println!("{}", "Remote Templates:".cyan());
@@ -229,7 +228,6 @@ fn main() {
             "haskell" | "kmett" => includes::HASK_TEMPLATE,
             "mad" | "madlang" => includes::MADLANG_TEMPLATE,
             "idris" => includes::IDRIS_TEMPLATE,
-            "reco" => includes::RECO_TEMPLATE,
             "julia" => includes::JULIA_TEMPLATE,
             "elm" => includes::ELM_TEMPLATE,
             "miso" => includes::MISO_TEMPLATE,
@@ -407,24 +405,6 @@ fn main() {
                 let mut shake_path = name.to_string();
                 shake_path.push_str("/shake.hs");
                 mk_executable(shake_path);
-            }
-
-            "reco" => {
-                // if author.reco_developer == Some(true) {
-                // write_file_plain(includes::RECO_RULES, name, "optim/default.rules");
-                // write_file_plain(includes::RECO_JUSTFILE, name, "Justfile");
-                // }
-                write_file_plain(includes::RECO_MAIN, name, "main.go");
-                let mut command_path = "cmd/test-".to_string();
-                command_path.push_str(name);
-                command_path.push_str("/main.go");
-                write_file_plain(includes::RECO_TEST_COMMAND, name, &command_path);
-                render_file(includes::RECO_README, name, "README.md", &hash);
-                if author.reco_developer != Some(true) {
-                    let mut optim_path: String = name.to_string();
-                    optim_path.push_str("/optim");
-                    std::fs::remove_dir(optim_path).unwrap();
-                }
             }
 
             "madlang" | "mad" => {

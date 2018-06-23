@@ -9,7 +9,6 @@ pub struct Author {
     pub name:            String,
     pub email:           String,
     pub github_username: Option<String>,
-    pub reco_developer:  Option<bool>,
 }
 
 /// Struct for the global configuration at $HOME/.pi.toml
