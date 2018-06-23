@@ -40,6 +40,9 @@ test:
     rm -rf project
     cargo run -- git vmchale/madlang-miso project
     rm -rf project
+    cargo run -- git vmchale/dhall-template project
+    cd project && dhall <<< cat project.dhall
+    rm -rf project
 
 manpages:
     pandoc man/MANPAGE.md -s -t man -o man/pi.1
