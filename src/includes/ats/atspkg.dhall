@@ -1,4 +1,4 @@
-let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
+let prelude = https://hackage.haskell.org/package/ats-pkg/src/dhall/atspkg-prelude.dhall
 
 in prelude.default ⫽
   { bin =
