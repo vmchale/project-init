@@ -475,6 +475,7 @@ fn main() {
                 write_file_plain(includes::HASKELL_GITIGNORE, name, ".gitignore");
                 write_file_plain(includes::RELEASE_NIX, name, "release.nix");
                 write_file_plain(includes::HSPEC, name, ".hspec");
+                write_file_plain(includes::HS_GITATTRIBUTES, name, ".gitattributes");
                 render_file(includes::STACK_YAML, name, "stack.yaml", &hash);
                 render_file(includes::CABAL_PROJECT, name, "cabal.project.local", &hash);
                 render_file(includes::HASKELL_TRAVIS_CI, name, ".travis.yml", &hash);

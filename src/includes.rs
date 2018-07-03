@@ -99,6 +99,7 @@ pub const HLINT_TEMPLATE: &'static str = include_str!("includes/haskell/.hlint.y
 pub const HASKELL_APPVEYOR: &'static str = include_str!("includes/haskell/appveyor.yml");
 pub const STYLISH_HASKELL: &'static str = include_str!("includes/haskell/.stylish-haskell.yaml");
 pub const HSPEC: &'static str = include_str!("includes/haskell/.hspec");
+pub const HS_GITATTRIBUTES: &'static str = include_str!("includes/haskell/.gitattributes");
 
 // Idiris includes
 pub const IDRIS_TEMPLATE: &'static str = include_str!("includes/idris/template.toml");
