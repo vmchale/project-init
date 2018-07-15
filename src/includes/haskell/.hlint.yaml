@@ -18,6 +18,8 @@
 - error: {lhs: "const f", rhs: "pure f", name: "Generalize const"}
 - error: {lhs: "maybe mempty", rhs: "foldMap", name: "Use foldMap"}
 - error: {lhs: "mconcat", rhs: "fold", name: "Generalize mconcat"}
+- error: {lhs: "sequence", rhs: "sequenceA", name: "Generalize sequence"}
+- error: {lhs: "sequence_", rhs: "sequenceA_", name: "Generalize sequence_"}
 
 - fixity: infixr 3 ***
 - fixity: infixr 3 &&&
