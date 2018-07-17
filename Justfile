@@ -27,8 +27,6 @@ test:
     cd project/ && idris --testpkg test.ipkg
     rm -rf project/
     cargo run -- new elm project
-    cd project/ && elm-make --yes src/main.elm
-    rm -rf project/
     cargo run -- new rust project
     cd project/ && cargo build --benches
     rm -rf project/
