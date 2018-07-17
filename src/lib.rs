@@ -3,6 +3,8 @@
 //! here in the hopes that they can be illuminating to users.
 
 #![feature(type_ascription)]
+#![allow(too_many_arguments)]
+#![allow(cyclomatic_complexity)]
 
 extern crate case;
 extern crate clap;
@@ -25,13 +27,13 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
 use std::path::PathBuf;
-use toml::Value::Table;
 use toml::de;
+use toml::Value::Table;
 
-pub mod types;
-pub mod repo;
 pub mod includes;
 pub mod render;
+pub mod repo;
+pub mod types;
 
 /// Given a filepath, read the .toml file there as containing the
 /// directories/templates.
@@ -228,7 +230,8 @@ pub fn init_helper(
         }
     }
     // add the normal stuff
-    hash = hash.insert("project", name)
+    hash = hash
+        .insert("project", name)
         .insert("Project", name.to_capitalized())
         .insert("ProjectCamelCase", name.to_camel_case())
         .insert("year", year)

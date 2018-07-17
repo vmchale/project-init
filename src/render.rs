@@ -4,8 +4,8 @@ extern crate rustache;
 use self::rustache::*;
 use std::fs;
 use std::fs::File;
-use std::io::Cursor;
 use std::io::prelude::*;
+use std::io::Cursor;
 #[cfg(not(target_os = "windows"))]
 use std::os::unix::fs::PermissionsExt;
 use std::process::*;
@@ -89,7 +89,8 @@ pub fn render_templates(
 ) -> () {
     if let Some(t) = templates_pre {
         // create Vec<T> of paths to templates
-        let templates: Vec<String> = t.clone()
+        let templates: Vec<String> = t
+            .clone()
             .into_iter()
             .map(|file| {
                 let mut p = project.to_string();
@@ -122,7 +123,8 @@ pub fn render_templates(
             .collect();
 
         // create Vec<T> of paths to rendered templates
-        let templates_new: Vec<String> = t.into_iter()
+        let templates_new: Vec<String> = t
+            .into_iter()
             .map(|file| {
                 let mut p = name.to_string();
                 p.push('/');
@@ -180,7 +182,8 @@ pub fn render_templates(
 ) -> () {
     if let Some(t) = templates_pre {
         // create Vec<T> of paths to templates
-        let templates: Vec<String> = t.clone()
+        let templates: Vec<String> = t
+            .clone()
             .into_iter()
             .map(|file| {
                 let mut p = project.to_string();
@@ -210,7 +213,8 @@ pub fn render_templates(
             .collect();
 
         // create Vec<T> of paths to rendered templates
-        let templates_new: Vec<String> = t.into_iter()
+        let templates_new: Vec<String> = t
+            .into_iter()
             .map(|file| {
                 let mut p = name.to_string();
                 p.push('/');

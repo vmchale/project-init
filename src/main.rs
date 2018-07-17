@@ -6,6 +6,7 @@ extern crate text_io;
 
 extern crate case;
 extern crate colored;
+extern crate dirs;
 extern crate git2;
 extern crate project_init;
 extern crate rustache;
@@ -17,13 +18,13 @@ use case::*;
 use clap::{App, AppSettings};
 use colored::*;
 use git2::Repository;
-use project_init::*;
 use project_init::render::*;
 use project_init::types::*;
+use project_init::*;
 use rustache::*;
 use std::fs;
-use std::fs::File;
 use std::fs::set_permissions;
+use std::fs::File;
 use std::path::Path;
 use std::path::PathBuf;
 use std::process::Command;
@@ -47,6 +48,8 @@ fn mk_executable<P: AsRef<Path>>(_: P) -> () {
     ()
 }
 
+#[allow(cyclomatic_complexity)]
+#[allow(print_literal)]
 fn main() {
     // command-line parser
     let yaml = load_yaml!("options-en.yml");
@@ -57,7 +60,7 @@ fn main() {
         .get_matches();
 
     // set path to .pi.toml
-    let home = std::env::home_dir().expect("Couldn't determine home directory.");
+    let home = dirs::home_dir().expect("Couldn't determine home directory.");
     let mut path = home.clone();
     path.push(".pi.toml");
 
@@ -104,17 +107,17 @@ fn main() {
         let script_string = String::from_utf8(script.stderr).unwrap();
 
         println!("{}", script_string);
-    } else if let Some(_) = matches.subcommand_matches("list") {
+    } else if matches.subcommand_matches("list").is_some() {
         let remote = vec!["vmchale/haskell-ats", "vmchale/madlang-miso"];
         let builtin = vec![
-            "rust", "vim", "python", "haskell", "idris", "julia", "elm", "miso", "plain",
-            "kmett", "madlang",
+            "rust", "vim", "python", "haskell", "idris", "julia", "elm", "miso", "plain", "kmett",
+            "madlang",
         ];
         println!("{}", "Remote Templates:".cyan());
         for b in remote {
             println!("  - {}", b);
         }
-        println!("");
+        println!();
         println!("{}", "Builtin Templates:".cyan());
         for b in builtin {
             println!("  - {}", b);
@@ -125,18 +128,15 @@ fn main() {
         let iter = std::fs::read_dir(&p);
         match iter {
             Ok(x) => for dir in x {
-                match dir {
-                    Ok(x) => {
-                        if x.path().is_dir()
-                            && x.file_name().to_str().map(|c| c.chars().nth(0).unwrap())
-                                != Some('.')
-                            && x.file_name().to_str().map(|c| c.chars().nth(0).unwrap())
-                                != Some('_')
-                        {
-                            println!("  - {}", x.file_name().to_string_lossy());
-                        }
+                if let Ok(x) = dir {
+                    if x.path().is_dir()
+                        && x.file_name().to_str().map(|c| c.chars().nth(0).unwrap()) != Some('.')
+                        && x.file_name().to_str().map(|c| c.chars().nth(0).unwrap()) != Some('_')
+                    {
+                        println!("  - {}", x.file_name().to_string_lossy());
                     }
-                    _ => (),
+                } else {
+                    ()
                 }
             },
             _ => eprintln!("{}: Could not access {}", "Warning".yellow(), p.display()),
@@ -172,7 +172,7 @@ fn main() {
 
         // clone into the temporary directory
         let file_path = file.path();
-        let _ = match Repository::clone(&url, file_path) {
+        match Repository::clone(&url, file_path) {
             Ok(_) => (),
             Err(_) => {
                 eprintln!("{}: failed to clone repo at {}", "Error".red(), url);
