@@ -5,7 +5,7 @@ cache:
     - $HOME/.atspkg
 install:
   - mkdir -p $HOME/.local/bin
-  - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
+  - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | sh -s
   - export PATH=$HOME/.local/bin:$PATH
   - atspkg -V
 script:
