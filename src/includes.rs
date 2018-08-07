@@ -100,6 +100,7 @@ pub const HASKELL_APPVEYOR: &str = include_str!("includes/haskell/appveyor.yml")
 pub const STYLISH_HASKELL: &str = include_str!("includes/haskell/.stylish-haskell.yaml");
 pub const HSPEC: &str = include_str!("includes/haskell/.hspec");
 pub const HS_GITATTRIBUTES: &str = include_str!("includes/haskell/.gitattributes");
+pub const HS_CHANGELOG: &str = include_str!("includes/haskell/CHANGELOG.md"); // TODO: make this generic
 
 // Idiris includes
 pub const IDRIS_TEMPLATE: &str = include_str!("includes/idris/template.toml");

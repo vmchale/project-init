@@ -11,6 +11,7 @@ copyright:           Copyright: (c) {{ year }} {{ name }}
 --category:            Data
 build-type:          Simple
 extra-doc-files:     README.md
+                     CHANGELOG.md
 extra-source-files:  stack.yaml
                    , cabal.project.local
 cabal-version:       1.18

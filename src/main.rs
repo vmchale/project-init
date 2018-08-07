@@ -480,6 +480,7 @@ fn main() {
                 render_file(includes::CABAL_PROJECT, name, "cabal.project.local", &hash);
                 render_file(includes::HASKELL_TRAVIS_CI, name, ".travis.yml", &hash);
                 render_file(includes::HASKELL_APPVEYOR, name, "appveyor.yml", &hash);
+                render_file(includes::HS_CHANGELOG, name, "CHANGELOG.md", &hash);
             }
 
             _ => std::process::exit(0x0f01),
