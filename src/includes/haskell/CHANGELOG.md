@@ -1,0 +1,5 @@
+# {{ project }}
+
+## {{ version }}
+
+Initial release
