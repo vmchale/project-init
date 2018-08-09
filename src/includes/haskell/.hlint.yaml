@@ -20,6 +20,10 @@
 - error: {lhs: "mconcat", rhs: "fold", name: "Generalize mconcat"}
 - error: {lhs: "sequence", rhs: "sequenceA", name: "Generalize sequence"}
 - error: {lhs: "sequence_", rhs: "sequenceA_", name: "Generalize sequence_"}
+- error: {lhs: "if p then x else pure mempty", rhs: "when p x"}
+- error: {lhs: "if p then pure mempty else x", rhs: "when (not p) x"}
+- error: {lhs: "if p then x else return mempty", rhs: "when p x"}
+- error: {lhs: "if p then return mempty else x", rhs: "when (not p) x"}
 
 - fixity: infixr 3 ***
 - fixity: infixr 3 &&&
