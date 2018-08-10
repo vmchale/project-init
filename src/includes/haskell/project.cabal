@@ -30,7 +30,7 @@ library
   if flag(development)
     ghc-options:       -Werror
   if impl(ghc >= 8.0)
-    ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -Wnoncanonical-monad-instances
+    ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -Widentities
   if impl(ghc >= 8.4)
     ghc-options:       -Wmissing-export-lists
   ghc-options:         -Wall
@@ -45,7 +45,7 @@ executable {{ project }}
   if flag(development)
     ghc-options:       -Werror
   if impl(ghc >= 8.0)
-    ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -Wnoncanonical-monad-instances
+    ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -Widentities
   if impl(ghc >= 8.4)
     ghc-options:       -Wmissing-export-lists
   ghc-options:         -Wall
@@ -60,7 +60,7 @@ test-suite {{ project }}-test
   if flag(development)
     ghc-options:       -Werror
   if impl(ghc >= 8.0)
-    ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -Wnoncanonical-monad-instances
+    ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -Widentities
   if impl(ghc >= 8.4)
     ghc-options:       -Wmissing-export-lists
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall
@@ -76,7 +76,7 @@ benchmark {{ project }}-bench
   if flag(development)
     ghc-options:       -Werror
   if impl(ghc >= 8.0)
-    ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -Wnoncanonical-monad-instances
+    ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -Widentities
   if impl(ghc >= 8.4)
     ghc-options:       -Wmissing-export-lists
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O3 -Wall
