@@ -3,6 +3,7 @@
 --langmap=ATS:+.sats
 --regex-ATS=/^fun *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
 --regex-ATS=/^fn *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
+--regex-ATS=/^castfn *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
 --regex-ATS=/^prfun *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
 --regex-ATS=/^prfn *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
 --regex-ATS=/^fnx *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
