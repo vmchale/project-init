@@ -4,7 +4,7 @@ in prelude.default ⫽
   { bin =
     [ prelude.bin ⫽
       { src = "src/{{ project }}.dats"
-      , target = "target/{{ project }}"
+      , target = "${prelude.atsProject}/{{ project }}"
       }
     ]
   }
