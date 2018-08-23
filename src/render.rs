@@ -24,8 +24,7 @@ pub fn render_dirs(dirs_pre: Vec<String>, hash: &HashBuilder, name: &str) {
             let mut o = Cursor::new(Vec::new());
             hash.render(&file, &mut o).unwrap();
             String::from_utf8(o.into_inner()).unwrap()
-        })
-        .collect();
+        }).collect();
 
     // create directories
     dirs.create_dirs(name);
@@ -42,8 +41,7 @@ pub fn render_files<'a>(files_pre: Vec<String>, hash: &HashBuilder, name: &str) 
             let mut o = Cursor::new(Vec::new());
             hash.render(&file, &mut o).unwrap();
             String::from_utf8(o.into_inner()).unwrap()
-        })
-        .collect();
+        }).collect();
 
     // write files
     let _ = substitutions
@@ -54,8 +52,7 @@ pub fn render_files<'a>(files_pre: Vec<String>, hash: &HashBuilder, name: &str) 
             full_path.push('/');
             full_path.push_str(&path);
             File::create(full_path)
-        })
-        .count();
+        }).count();
 
     // collect filenames
     let s: Vec<Data> = substitutions.into_iter().map(Data::from).collect();
@@ -73,8 +70,7 @@ impl<T: ToString> Create for Vec<T> {
                 subdir.push('/');
                 subdir.push_str(&dir.to_string());
                 fs::create_dir(subdir).unwrap_or(());
-            })
-            .count();
+            }).count();
     }
 }
 
@@ -100,8 +96,7 @@ pub fn render_templates(
                     p.push_str(".bat");
                 }
                 p
-            })
-            .collect();
+            }).collect();
 
         // read all the template files
         let template_files: Vec<String> = templates
@@ -119,8 +114,7 @@ pub fn render_templates(
                     .read_to_string(&mut t)
                     .expect("File read failed."); // ok to panic because we already errored.
                 t
-            })
-            .collect();
+            }).collect();
 
         // create Vec<T> of paths to rendered templates
         let templates_new: Vec<String> = t
@@ -130,8 +124,7 @@ pub fn render_templates(
                 p.push('/');
                 p.push_str(&file);
                 p
-            })
-            .collect();
+            }).collect();
 
         // subtitute into template names
         let templates_named: Vec<String> = templates_new
@@ -140,8 +133,7 @@ pub fn render_templates(
                 let mut o = Cursor::new(Vec::new());
                 hash.render(&n, &mut o).unwrap();
                 String::from_utf8(o.into_inner()).unwrap()
-            })
-            .collect();
+            }).collect();
 
         // render all the template files
         let s: Vec<String> = template_files
@@ -151,8 +143,7 @@ pub fn render_templates(
                 let mut o = Cursor::new(Vec::new());
                 hash.render(&file, &mut o).unwrap();
                 String::from_utf8(o.into_inner()).unwrap()
-            })
-            .collect();
+            }).collect();
 
         // write the rendered templates
         let files_to_write = templates_named.iter().zip(s.iter());
@@ -190,8 +181,7 @@ pub fn render_templates(
                 p.push('/');
                 p.push_str(&file);
                 p
-            })
-            .collect();
+            }).collect();
 
         // read all the template files
         let template_files: Vec<String> = templates
@@ -209,8 +199,7 @@ pub fn render_templates(
                     .read_to_string(&mut t)
                     .expect("File read failed."); // ok to panic because we already errored.
                 t
-            })
-            .collect();
+            }).collect();
 
         // create Vec<T> of paths to rendered templates
         let templates_new: Vec<String> = t
@@ -220,8 +209,7 @@ pub fn render_templates(
                 p.push('/');
                 p.push_str(&file);
                 p
-            })
-            .collect();
+            }).collect();
 
         // subtitute into template names
         let templates_named: Vec<String> = templates_new
@@ -230,8 +218,7 @@ pub fn render_templates(
                 let mut o = Cursor::new(Vec::new());
                 hash.render(&n, &mut o).unwrap();
                 String::from_utf8(o.into_inner()).unwrap()
-            })
-            .collect();
+            }).collect();
 
         // render all the template files
         let s: Vec<String> = template_files
@@ -241,13 +228,11 @@ pub fn render_templates(
                 let mut o = Cursor::new(Vec::new());
                 hash.render(&file, &mut o).unwrap();
                 String::from_utf8(o.into_inner()).unwrap()
-            })
-            .collect();
+            }).collect();
 
         // write the rendered templates
         let files_to_write = templates_named.iter().zip(s.iter());
         let _ = files_to_write
-            .into_iter()
             .map(|(path, contents)| {
                 let c = File::create(&path);
                 if let Ok(mut f) = c {
