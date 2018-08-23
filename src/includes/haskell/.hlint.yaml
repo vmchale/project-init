@@ -24,7 +24,7 @@
 - error: {lhs: "sequence_", rhs: "sequenceA_", name: "Generalize sequence_"}
 - error: {lhs: "if p then x else pure ()", rhs: "when p x"}
 - error: {lhs: "if p then pure () else x", rhs: "when (not p) x"}
-- error: {lhs: ">>", rhs: "*>", name: "Generalize >>"}
+- error: {lhs: "(>>)", rhs: "(*>)", name: "Generalize >>"}
 - error: {lhs: "fmap (pure ())", rhs: "void", name: "Use void"}
 
 - fixity: infixr 3 ***
