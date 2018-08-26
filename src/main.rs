@@ -229,7 +229,6 @@ fn main() {
             "mad" | "madlang" => includes::MADLANG_TEMPLATE,
             "idris" => includes::IDRIS_TEMPLATE,
             "julia" => includes::JULIA_TEMPLATE,
-            "elm" => includes::ELM_TEMPLATE,
             "miso" => includes::MISO_TEMPLATE,
             "plain" => includes::PLAIN_TEMPLATE,
             "ats" => includes::ATS_TEMPLATE,
@@ -374,16 +373,6 @@ fn main() {
                 let mut bin_path = "bin/".to_string();
                 bin_path.push_str(name);
                 render_file(includes::PY_BIN, name, &bin_path, &hash);
-            }
-
-            "elm" => {
-                write_file_plain(includes::ELM_GITIGNORE, name, ".gitignore");
-                write_file_plain(includes::ELM_MAIN, name, "src/main.elm");
-                write_file_plain(includes::ELM_STATE, name, "src/State.elm");
-                write_file_plain(includes::ELM_UPDATE, name, "src/Update.elm");
-                write_file_plain(includes::ELM_VIEW, name, "src/View.elm");
-                write_file_plain(includes::ELM_CTAGS, name, ".ctags");
-                render_file(includes::ELM_PACKAGE, name, "elm-package.json", &hash);
             }
 
             "miso" => {

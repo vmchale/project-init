@@ -56,16 +56,6 @@ pub const JULIA_REQUIRE: &str = include_str!("includes/julia-lib/REQUIRE");
 pub const JULIA_TEST: &str = include_str!("includes/julia-lib/test/test.jl");
 pub const JULIA_SRC: &str = include_str!("includes/julia-lib/src/{{ Project }}.jl");
 
-// Elm includes
-pub const ELM_PACKAGE: &str = include_str!("includes/elm/elm-package.json");
-pub const ELM_MAIN: &str = include_str!("includes/elm/src/main.elm");
-pub const ELM_STATE: &str = include_str!("includes/elm/src/State.elm");
-pub const ELM_UPDATE: &str = include_str!("includes/elm/src/Update.elm");
-pub const ELM_VIEW: &str = include_str!("includes/elm/src/View.elm");
-pub const ELM_GITIGNORE: &str = include_str!("includes/elm/.gitignore");
-pub const ELM_TEMPLATE: &str = include_str!("includes/elm/template.toml");
-pub const ELM_CTAGS: &str = include_str!("includes/elm/.ctags");
-
 // Miso includes
 pub const MISO_SETUP_HS: &str = include_str!("includes/miso/Setup.hs");
 pub const MISO_MAIN: &str = include_str!("includes/miso/app/Main.hs");
