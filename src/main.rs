@@ -1,4 +1,5 @@
 //! Source file for the binary.
+#![feature(tool_lints)]
 #[macro_use]
 extern crate clap;
 #[macro_use]
@@ -48,8 +49,8 @@ fn mk_executable<P: AsRef<Path>>(_: P) -> () {
     ()
 }
 
-#[allow(cyclomatic_complexity)]
-#[allow(print_literal)]
+#[allow(clippy::cyclomatic_complexity)]
+#[allow(clippy::print_literal)]
 fn main() {
     // command-line parser
     let yaml = load_yaml!("options-en.yml");
