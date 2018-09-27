@@ -128,18 +128,22 @@ fn main() {
         println!("{}", "\nUser Templates:".cyan());
         let iter = std::fs::read_dir(&p);
         match iter {
-            Ok(x) => for dir in x {
-                if let Ok(x) = dir {
-                    if x.path().is_dir()
-                        && x.file_name().to_str().map(|c| c.chars().nth(0).unwrap()) != Some('.')
-                        && x.file_name().to_str().map(|c| c.chars().nth(0).unwrap()) != Some('_')
-                    {
-                        println!("  - {}", x.file_name().to_string_lossy());
+            Ok(x) => {
+                for dir in x {
+                    if let Ok(x) = dir {
+                        if x.path().is_dir()
+                            && x.file_name().to_str().map(|c| c.chars().nth(0).unwrap())
+                                != Some('.')
+                            && x.file_name().to_str().map(|c| c.chars().nth(0).unwrap())
+                                != Some('_')
+                        {
+                            println!("  - {}", x.file_name().to_string_lossy());
+                        }
+                    } else {
+                        ()
                     }
-                } else {
-                    ()
                 }
-            },
+            }
             _ => eprintln!("{}: Could not access {}", "Warning".yellow(), p.display()),
         }
     } else if let Some(matches_init) = matches.subcommand_matches("git") {
@@ -272,7 +276,7 @@ fn main() {
             };
 
         // set version
-        let version = if let Some(config) = parsed_config.clone() {
+        let version = if let Some(config) = parsed_config {
             if let Some(v) = config.version {
                 v
             } else {
