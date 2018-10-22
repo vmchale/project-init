@@ -1,5 +1,4 @@
 //! Source file for the binary.
-#![feature(tool_lints)]
 #[macro_use]
 extern crate clap;
 #[macro_use]

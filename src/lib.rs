@@ -1,7 +1,6 @@
 //! This library provides the functions/structs/methods used by the main
 //! binary. They are included
 //! here in the hopes that they can be illuminating to users.
-#![feature(tool_lints)]
 #![feature(type_ascription)]
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::cyclomatic_complexity)]

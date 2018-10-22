@@ -15,7 +15,7 @@ test:
     @yamllint appveyor.yml
     rm -rf project/
     cargo run -- git vmchale/haskell-ats project
-    cd project && cabal new-build -w ghc-8.4.3
+    cd project && cabal new-build -w ghc-8.4.4
     rm -rf project/
     cargo run -- new miso project
     rm -rf project/
