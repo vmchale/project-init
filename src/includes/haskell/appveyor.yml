@@ -3,21 +3,15 @@
 build: off
 
 before_test:
-  - set PATH=C:\Program Files\Git\mingw64\bin;%PATH%
-
-  - curl -sS -ostack.zip -L --insecure http://www.stackage.org/stack/windows-i386
-  - 7z x stack.zip stack.exe
-
-clone_folder: "c:\\stack"
-environment:
-  global:
-    STACK_ROOT: "c:\\sr"
+  - choco install ghc
+  - choco install cabal
 
 test_script:
-  - stack setup > nul
-  - echo "" | stack --no-terminal install
-  - ps: Get-ChildItem . -name -recurse {{ project }}.exe
-  - ps: Copy-Item c:\\stack\\.stack-work\\install\\afd8a623\\bin\\{{ project }}.exe {{ project }}-x86_64-pc-windows.exe
+  - refreshenv
+  - cabal new-update
+  - cabal new-build all
+  - ps: $directory = Get-ChildItem . -name -recurse {{ project }}.exe
+  - ps: Copy-Item $directory {{ project }}-x86_64-pc-windows.exe
   - ps: Push-AppveyorArtifact {{ project }}-x86_64-pc-windows.exe
 
 deploy:
@@ -26,10 +20,9 @@ deploy:
   on:
     appveyor_repo_tag: true
   auth_token:
-    secure: 0qzMr6xmEwRoj/9TJOgDuW/LXWfGVM/4A7kvAXGe0BAwWCF13AWE2SARrYkyc3ji
+    secure: # put yours here
 
 branches:
   only:
-    # Release tags
     - master
     - /\d+\.\d+\.\d+\.\d+.*$/
