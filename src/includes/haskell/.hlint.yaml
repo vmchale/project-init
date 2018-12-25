@@ -30,3 +30,6 @@
 - fixity: infixr 3 ***
 - fixity: infixr 3 &&&
 - fixity: infixr 1 <=<
+- fixity: infixl 1 <&>
+- fixity: infixl 4 <$
+- fixity: infixl 4 $>
