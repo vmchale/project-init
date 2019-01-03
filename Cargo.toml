@@ -19,7 +19,7 @@ lto = true
 
 [dependencies]
 heck = "0.3"
-case = "0.1"
+case = "1.0"
 toml = "0.4"
 colored = "1.6"
 clap = {version = "2.29", features = ["yaml"]}
@@ -28,7 +28,7 @@ rustache-lists = "0.1.0"
 serde_derive = "1.0"
 serde = "1.0"
 text_io = "<= 0.1.6"
-git2 = "0.7"
+git2 = "0.8"
 tempdir = "0.3"
 dirs = "1.0"
 
