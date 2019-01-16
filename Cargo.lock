@@ -374,7 +374,7 @@ dependencies = [
 
 [[package]]
 name = "project_init"
-version = "3.1.19"
+version = "3.1.20"
 dependencies = [
  "case 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "clap 2.32.0 (registry+https://github.com/rust-lang/crates.io-index)",
