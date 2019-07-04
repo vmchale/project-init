@@ -1,7 +1,7 @@
 //! This library provides the functions/structs/methods used by the main
 //! binary. They are included
 //! here in the hopes that they can be illuminating to users.
-#![feature(type_ascription)]
+// #![feature(type_ascription)]
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::cyclomatic_complexity)]
 
@@ -63,11 +63,15 @@ pub fn read_toml_dir(template_path: &str, home: PathBuf) -> (types::Project, boo
     (read_toml_str(&template, template_path), is_global_template)
 }
 
+fn toml_to_string(s: &str) -> Result<String, de::Error> {
+    toml::from_str(s)
+}
+
 /// Read a string containing a toml file
 pub fn read_toml_str(template: &str, template_path: &str) -> types::Project {
     if let Ok(t) = toml::from_str(template) {
         t
-    } else if let Err(e) = toml::from_str(template): Result<String, de::Error> {
+    } else if let Err(e) = toml_to_string(template) {
         println!("Error parsing {:?}: {}", template_path, e);
         std::process::exit(0x0f00);
     } else {
@@ -92,7 +96,7 @@ pub fn read_toml_config(config_path: &std::path::PathBuf) -> types::Config {
     if maybe_file.is_some() && maybe_file.unwrap().is_ok() {
         if let Ok(t) = toml::from_str(&toml_str) {
             t
-        } else if let Err(e) = toml::from_str(&toml_str): Result<String, de::Error> {
+        } else if let Err(e) = toml_to_string(&toml_str){
             println!("Error parsing {:?}: {}", config_path, e);
             std::process::exit(0x0f00);
         } else {
