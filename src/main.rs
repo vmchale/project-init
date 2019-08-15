@@ -35,7 +35,7 @@ use time::strftime;
 use std::os::unix::fs::PermissionsExt;
 
 #[cfg(not(target_os = "windows"))]
-fn mk_executable<P: AsRef<Path>>(p: P) -> () {
+fn mk_executable<P: AsRef<Path>>(p: P) {
     let f = File::open(&p).unwrap();
     let metadata = f.metadata().unwrap();
     let mut permissions = metadata.permissions();
@@ -48,7 +48,7 @@ fn mk_executable<P: AsRef<Path>>(_: P) -> () {
     ()
 }
 
-#[allow(clippy::cyclomatic_complexity)]
+#[allow(clippy::cognitive_complexity)]
 #[allow(clippy::print_literal)]
 fn main() {
     // command-line parser
@@ -76,8 +76,8 @@ fn main() {
         println!("Enter your email");
         let ema: String = read!("{}");
         Author {
-            name:            nam,
-            email:           ema,
+            name: nam,
+            email: ema,
             github_username: None,
         }
     };
@@ -139,7 +139,6 @@ fn main() {
                             println!("  - {}", x.file_name().to_string_lossy());
                         }
                     } else {
-                        ()
                     }
                 }
             }

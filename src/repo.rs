@@ -2,7 +2,7 @@ use colored::*;
 use std;
 use std::process::Command;
 
-pub fn git_init(name: &str) -> () {
+pub fn git_init(name: &str) {
     let mut cmd = "cd ".to_string();
     cmd.push_str(name);
     cmd.push_str("&&");
@@ -23,7 +23,7 @@ pub fn git_init(name: &str) -> () {
     }
 }
 
-pub fn pijul_init(name: &str) -> () {
+pub fn pijul_init(name: &str) {
     let mut cmd = "cd ".to_string();
     cmd.push_str(name);
     cmd.push_str("&&");
@@ -44,7 +44,7 @@ pub fn pijul_init(name: &str) -> () {
     }
 }
 
-pub fn darcs_init(name: &str) -> () {
+pub fn darcs_init(name: &str) {
     let mut cmd = "cd ".to_string();
     cmd.push_str(name);
     cmd.push_str("&&");
@@ -65,7 +65,7 @@ pub fn darcs_init(name: &str) -> () {
     }
 }
 
-pub fn hg_init(name: &str) -> () {
+pub fn hg_init(name: &str) {
     let mut cmd = "cd ".to_string();
     cmd.push_str(name);
     cmd.push_str("&&");

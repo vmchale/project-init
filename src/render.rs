@@ -66,8 +66,8 @@ pub fn render_files<'a>(files_pre: Vec<String>, hash: &HashBuilder, name: &str) 
 
 /// Create directories given a Vec<String> of directory names
 impl<T: ToString> Create for Vec<T> {
-    fn create_dirs(&self, name: &str) -> () {
-        self.into_iter()
+    fn create_dirs(&self, name: &str) {
+        self.iter()
             .map(|dir| {
                 let mut subdir = name.to_string();
                 subdir.push('/');
@@ -86,7 +86,7 @@ pub fn render_templates(
     hash: &HashBuilder,
     templates_pre: Option<Vec<String>>,
     executable: bool,
-) -> () {
+) {
     if let Some(t) = templates_pre {
         // create Vec<T> of paths to templates
         let templates: Vec<String> = t
@@ -177,7 +177,7 @@ pub fn render_templates(
     hash: &HashBuilder,
     templates_pre: Option<Vec<String>>,
     executable: bool,
-) -> () {
+) {
     if let Some(t) = templates_pre {
         // create Vec<T> of paths to templates
         let templates: Vec<String> = t
@@ -266,7 +266,7 @@ pub fn render_templates(
 }
 
 /// Function to write a file from a static string
-pub fn create_file(static_contents: &'static str, name: &str, filename: &str) -> () {
+pub fn create_file(static_contents: &'static str, name: &str, filename: &str) {
     let mut p = name.to_string();
     p.push('/');
     p.push_str(filename);
@@ -275,7 +275,7 @@ pub fn create_file(static_contents: &'static str, name: &str, filename: &str) ->
 }
 
 /// Write a file from a static string
-pub fn write_file_plain(static_contents: &'static str, name: &str, filename: &str) -> () {
+pub fn write_file_plain(static_contents: &'static str, name: &str, filename: &str) {
     // write the file
     let mut p = name.to_string();
     p.push('/');
@@ -287,12 +287,7 @@ pub fn write_file_plain(static_contents: &'static str, name: &str, filename: &st
 }
 
 /// Render a static string and write it to file
-pub fn render_file(
-    static_template: &'static str,
-    name: &str,
-    filename: &str,
-    hash: &HashBuilder,
-) -> () {
+pub fn render_file(static_template: &'static str, name: &str, filename: &str, hash: &HashBuilder) {
     // render the template
     let mut o = Cursor::new(Vec::new());
     hash.render(static_template, &mut o).unwrap();

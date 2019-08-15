@@ -3,7 +3,7 @@
 //! here in the hopes that they can be illuminating to users.
 // #![feature(type_ascription)]
 #![allow(clippy::too_many_arguments)]
-#![allow(clippy::cyclomatic_complexity)]
+#![allow(clippy::cognitive_complexity)]
 
 extern crate case;
 extern crate clap;
@@ -96,7 +96,7 @@ pub fn read_toml_config(config_path: &std::path::PathBuf) -> types::Config {
     if maybe_file.is_some() && maybe_file.unwrap().is_ok() {
         if let Ok(t) = toml::from_str(&toml_str) {
             t
-        } else if let Err(e) = toml_to_string(&toml_str){
+        } else if let Err(e) = toml_to_string(&toml_str) {
             println!("Error parsing {:?}: {}", config_path, e);
             std::process::exit(0x0f00);
         } else {
@@ -109,9 +109,9 @@ pub fn read_toml_config(config_path: &std::path::PathBuf) -> types::Config {
         );
         types::Config {
             version_control: None,
-            author:          None,
-            license:         None,
-            user:            None,
+            author: None,
+            license: None,
+            user: None,
         }
     }
 }
@@ -127,7 +127,7 @@ pub fn init_helper(
     force: bool,
     parsed_toml: types::Project,
     is_global_project: bool,
-) -> () {
+) {
     let project = if is_global_project {
         let mut p = home;
         p.push(".pi_templates/");
