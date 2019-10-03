@@ -1,6 +1,7 @@
 --langdef=ATS
 --langmap=ATS:.dats
 --langmap=ATS:+.sats
+--regex-ATS=/^val *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
 --regex-ATS=/^fun *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
 --regex-ATS=/^fn *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
 --regex-ATS=/^castfn *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
@@ -9,9 +10,11 @@
 --regex-ATS=/^fnx *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
 --regex-ATS=/^and *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/f,function/
 --regex-ATS=/^praxi *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/p,proof/
+--regex-ATS=/^prval *([[:lower:]][[:alnum:]_]+)[[:blank:]]*[\(\[\{)]/\1/p,proof/
 --regex-ATS=/^typedef *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^datatype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^sortdef *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
+--regex-ATS=/^datasort *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^propdef *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^viewtypedef *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^vtypedef *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
