@@ -61,19 +61,12 @@ pub fn read_toml_dir(template_path: &str, home: PathBuf) -> (types::Project, boo
     (read_toml_str(&template, template_path), is_global_template)
 }
 
-fn toml_to_string(s: &str) -> Result<String, de::Error> {
-    toml::from_str(s)
-}
-
 /// Read a string containing a toml file
 pub fn read_toml_str(template: &str, template_path: &str) -> types::Project {
     let extract = toml::from_str(template);
     if let Ok(t) = extract {
         t
-<<<<<<< HEAD
     } else if let Err(e) = extract {
-=======
-    } else if let Err(e) = toml_to_string(template) {
         println!("Error parsing {:?}: {}", template_path, e);
         std::process::exit(0x0f00);
     } else {
@@ -99,10 +92,7 @@ pub fn read_toml_config(config_path: &std::path::PathBuf) -> types::Config {
     if maybe_file.is_some() && maybe_file.unwrap().is_ok() {
         if let Ok(t) = extract {
             t
-<<<<<<< HEAD
         } else if let Err(e) = extract {
-=======
-        } else if let Err(e) = toml_to_string(&toml_str) {
             println!("Error parsing {:?}: {}", config_path, e);
             std::process::exit(0x0f00);
         } else {
