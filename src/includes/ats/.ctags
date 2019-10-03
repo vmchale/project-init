@@ -20,6 +20,7 @@
 --regex-ATS=/^vtypedef *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^dataviewtype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^datavtype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
+--regex-ATS=/^dataview *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^absvtype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^abstype *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,type/
 --regex-ATS=/^dataprop *([[:lower:]][[:alnum:]_]+)[[:blank:]]*=/\1/t,proof/

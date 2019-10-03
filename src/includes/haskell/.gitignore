@@ -17,3 +17,5 @@ cabal.sandbox.config
 *.eventlog
 .stack-work/
 .HTF/
+.ghc.environment.*
+.hspec-failures

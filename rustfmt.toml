@@ -1,5 +1,1 @@
-comment_width = 80
-normalize_comments = true
 reorder_imports = true
-struct_field_align_threshold = 30
-wrap_comments = true
