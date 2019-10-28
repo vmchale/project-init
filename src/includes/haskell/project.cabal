@@ -48,6 +48,8 @@ executable {{ project }}
     ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -Widentities
   if impl(ghc >= 8.4)
     ghc-options:       -Wmissing-export-lists
+  if impl(ghc >= 8.2)
+    ghc-options: -Wcpp-undef
   ghc-options:         -Wall
 
 test-suite {{ project }}-test
@@ -63,6 +65,8 @@ test-suite {{ project }}-test
     ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -Widentities
   if impl(ghc >= 8.4)
     ghc-options:       -Wmissing-export-lists
+  if impl(ghc >= 8.2)
+    ghc-options: -Wcpp-undef
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall
   default-language:    Haskell2010
 
@@ -79,6 +83,8 @@ benchmark {{ project }}-bench
     ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -Widentities
   if impl(ghc >= 8.4)
     ghc-options:       -Wmissing-export-lists
+  if impl(ghc >= 8.2)
+    ghc-options: -Wcpp-undef
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O3 -Wall
   default-language:    Haskell2010
 
