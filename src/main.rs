@@ -441,6 +441,7 @@ fn main() {
                 src_path.push_str(".dats");
                 render_file(includes::ATS_SRC, name, &src_path, &hash);
                 write_file_plain(includes::ATS_FORMAT, name, ".atsfmt.toml");
+                write_file_plain(includes::ATS_TRAVIS, name, ".clang-format");
                 render_file(includes::ATS_PKG, name, "atspkg.dhall", &hash);
                 render_file(includes::ATS_LIB, name, "pkg.dhall", &hash);
                 render_file(includes::ATS_TRAVIS, name, ".travis.yml", &hash);

@@ -22,6 +22,7 @@ pub const ATS_TEMPLATE: &str = include_str!("includes/ats/template.toml");
 pub const ATS_FORMAT: &str = include_str!("includes/ats/.atsfmt.toml");
 pub const ATS_TRAVIS: &str = include_str!("includes/ats/.travis.yml");
 pub const ATS_GITIGNORE: &str = include_str!("includes/ats/.gitignore");
+pub const ATS_CLANG_FORMAT: &str = include_str!("includes/ats/.clang-format");
 
 // Madlang
 pub const MADLANG_TEMPLATE: &str = include_str!("includes/madlang/template.toml");
