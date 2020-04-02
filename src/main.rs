@@ -131,9 +131,9 @@ fn main() {
                 for dir in x {
                     if let Ok(x) = dir {
                         if x.path().is_dir()
-                            && x.file_name().to_str().map(|c| c.chars().nth(0).unwrap())
+                            && x.file_name().to_str().map(|c| c.chars().next().unwrap())
                                 != Some('.')
-                            && x.file_name().to_str().map(|c| c.chars().nth(0).unwrap())
+                            && x.file_name().to_str().map(|c| c.chars().next().unwrap())
                                 != Some('_')
                         {
                             println!("  - {}", x.file_name().to_string_lossy());
