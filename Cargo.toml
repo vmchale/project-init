@@ -21,16 +21,16 @@ lto = true
 heck = "0.3"
 case = "1.0"
 toml = "0.5"
-colored = "1.6"
+colored = "2.0"
 clap = {version = "2.29", features = ["yaml"]}
 time = "0.1"
 rustache-lists = "0.1.0"
 serde_derive = "1.0"
 serde = "1.0"
 text_io = "<= 0.1.6"
-git2 = "0.10"
+git2 = "0.13"
 tempdir = "0.3"
-dirs = "2.0"
+dirs = "3.0"
 
 [[bin]]
 name = "pi"
