@@ -4,33 +4,35 @@ version = "3.1.23"
 authors = ["Vanessa McHale <vamchale@gmail.com>"]
 description = "Quickly initialize projects from a template."
 license-file = "LICENSE"
-exclude = [ "./.gitignore" ]
+exclude = ["./.gitignore"]
 readme = "README.md"
 repository = "https://github.com/vmchale/project-init"
 documentation = "https://github.com/vmchale/project-init#README"
 homepage = "https://github.com/vmchale/project-init"
 build = "build.rs"
+edition = "2021"
 
 [build-dependencies]
-cli-setup = "0.2"
+cli-setup = "0.2.7"
 
 [profile.release]
 lto = true
 
 [dependencies]
-heck = "0.3"
-case = "1.0"
-toml = "0.5"
-colored = "2.0"
-clap = {version = "2.29", features = ["yaml"]}
-time = "0.1"
-rustache-lists = "0.1.0"
-serde_derive = "1.0"
-serde = "1.0"
-text_io = "<= 0.1.6"
-git2 = "0.13"
-tempdir = "0.3"
-dirs = "3.0"
+cargo_toml = "0.11.3"
+case = "1.0.0"
+chrono = "0.4.19"
+clap = { version = "3.0.13", features = ["yaml"] }
+colored = "2.0.0"
+dirs = "4.0.0"
+git2 = "0.13.25"
+heck = "0.4.0"
+rustache-lists = "0.1.2"
+serde = "1.0.136"
+serde_derive = "1.0.136"
+tempdir = "0.3.7"
+text_io = "0.1.9"
+toml = "0.5.8"
 
 [[bin]]
 name = "pi"

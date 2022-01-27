@@ -1,30 +1,18 @@
 //! This library provides the functions/structs/methods used by the main
 //! binary. They are included
 //! here in the hopes that they can be illuminating to users.
-#![allow(clippy::too_many_arguments)]
-#![allow(clippy::cognitive_complexity)]
+// #![allow(clippy::cognitive_complexity)]
 
-extern crate case;
-extern crate clap;
-extern crate colored;
-extern crate git2;
-extern crate heck;
-extern crate rustache;
-#[macro_use]
-extern crate serde_derive;
-extern crate tempdir;
-extern crate time;
-extern crate toml;
-
-use case::*;
-use colored::*;
-use heck::*;
-use rustache::{HashBuilder, VecBuilder};
 use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
 use std::path::PathBuf;
+
+use case::*;
+use colored::*;
+use heck::ToUpperCamelCase;
+use rustache::{HashBuilder, VecBuilder};
 use toml::Value::Table;
 
 pub mod includes;
@@ -75,7 +63,7 @@ pub fn read_toml_str(template: &str, template_path: &str) -> types::Project {
 }
 
 /// Given a `PathBuf`, read the .toml file there as a configuration file.
-pub fn read_toml_config(config_path: &std::path::PathBuf) -> types::Config {
+pub fn read_toml_config(config_path: &Path) -> types::Config {
     let file = if let Ok(f) = File::open(&config_path) {
         Some(f)
     } else {
@@ -112,6 +100,7 @@ pub fn read_toml_config(config_path: &std::path::PathBuf) -> types::Config {
     }
 }
 
+#[allow(clippy::too_many_arguments)]
 pub fn init_helper(
     home: PathBuf,
     project_dir: &str,
@@ -232,7 +221,7 @@ pub fn init_helper(
     hash = hash
         .insert("project", name)
         .insert("Project", name.to_capitalized())
-        .insert("ProjectCamelCase", name.to_camel_case())
+        .insert("ProjectCamelCase", name.to_upper_camel_case())
         .insert("year", year)
         .insert("name", author.name)
         .insert("version", version)

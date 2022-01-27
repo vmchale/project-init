@@ -1,5 +1,6 @@
 //! This module contains the structs for the configuration files.
 
+use serde_derive::Deserialize;
 use toml::value::Value;
 
 /// Struct for the author. This is read from the global

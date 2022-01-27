@@ -1,20 +1,18 @@
 //! Source file for the binary.
-#[macro_use]
-extern crate clap;
-#[macro_use]
-extern crate text_io;
 
-extern crate case;
-extern crate colored;
-extern crate dirs;
-extern crate git2;
-extern crate project_init;
-extern crate rustache;
-extern crate tempdir;
-extern crate time;
-extern crate toml;
+use std::fs;
+#[cfg(not(target_os = "windows"))]
+use std::fs::set_permissions;
+#[cfg(not(target_os = "windows"))]
+use std::fs::File;
+use std::path::{Path, PathBuf};
+use std::process::Command;
 
+use cargo_toml::Manifest;
 use case::*;
+use chrono::Datelike;
+use chrono::Utc;
+use clap::load_yaml;
 use clap::{App, AppSettings};
 use colored::*;
 use git2::Repository;
@@ -22,14 +20,8 @@ use project_init::render::*;
 use project_init::types::*;
 use project_init::*;
 use rustache::*;
-use std::fs;
-use std::fs::set_permissions;
-use std::fs::File;
-use std::path::Path;
-use std::path::PathBuf;
-use std::process::Command;
 use tempdir::TempDir;
-use time::strftime;
+use text_io::read;
 
 #[cfg(not(target_os = "windows"))]
 use std::os::unix::fs::PermissionsExt;
@@ -44,18 +36,25 @@ fn mk_executable<P: AsRef<Path>>(p: P) {
 }
 
 #[cfg(target_os = "windows")]
-fn mk_executable<P: AsRef<Path>>(_: P) -> () {
-    ()
-}
+fn mk_executable<P: AsRef<Path>>(_: P) {}
 
 #[allow(clippy::cognitive_complexity)]
 #[allow(clippy::print_literal)]
 fn main() {
+    let cargo_toml = include_str!("../cargo.toml");
+
+    let cargo_manifest = Manifest::from_str(&cargo_toml).unwrap();
+
+    let version = match cargo_manifest.package {
+        Some(package) => package.version,
+        None => "unknown".to_string(),
+    };
+
     // command-line parser
     let yaml = load_yaml!("options-en.yml");
     let matches = App::from_yaml(yaml)
-        .version(crate_version!())
-        .set_term_width(80)
+        .version(&*version)
+        .term_width(80)
         .setting(AppSettings::SubcommandRequired)
         .get_matches();
 
@@ -83,14 +82,19 @@ fn main() {
     };
 
     // get year
-    let now = time::now();
-    let year = now.tm_year + 1900;
-    let current_date = strftime("%m-%d-%Y", &now).unwrap();
+    let now = Utc::now();
+    let year = now.year();
+    let current_date = format!(
+        "{month}-{day}-{year}",
+        month = now.month0(),
+        day = now.day0(),
+        year = year
+    );
 
     if let Some(x) = matches.subcommand_matches("update") {
         let force = x.is_present("force");
 
-        println!("current version: {}", crate_version!());
+        println!("current version: {}", version);
 
         let s = if force {
             "curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git vmchale/project-init --force"
