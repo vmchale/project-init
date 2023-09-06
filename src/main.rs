@@ -28,7 +28,6 @@ use std::path::Path;
 use std::path::PathBuf;
 use std::process::Command;
 use tempdir::TempDir;
-use time::strftime;
 
 #[cfg(not(target_os = "windows"))]
 use std::os::unix::fs::PermissionsExt;
@@ -82,9 +81,8 @@ fn main() {
     };
 
     // get year
-    let now = time::now();
-    let year = now.tm_year + 1900;
-    let current_date = strftime("%m-%d-%Y", &now).unwrap();
+    let now = time::OffsetDateTime::now_utc();
+    let current_date = format!("{:02}-{:02}-{:04}", now.month() as u8, now.day(), now.year());
 
     if let Some(x) = matches.subcommand_matches("update") {
         let force = x.is_present("force");
@@ -198,7 +196,7 @@ fn main() {
             decoded,
             author,
             name,
-            year,
+            now.year(),
             &current_date,
             force,
             parsed_toml,
@@ -304,7 +302,7 @@ fn main() {
         let hash = HashBuilder::new()
             .insert("project", name)
             .insert("Project", name.to_capitalized())
-            .insert("year", year)
+            .insert("year", now.year())
             .insert("name", author.name)
             .insert("version", version)
             .insert("email", author.email)
@@ -523,7 +521,7 @@ fn main() {
             decoded,
             author,
             name,
-            year,
+            now.year(),
             &current_date,
             force,
             parsed_toml,

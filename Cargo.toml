@@ -18,20 +18,20 @@ cli-setup = "0.2"
 lto = true
 
 [dependencies]
-heck = "0.3"
+heck = "0.4"
 case = "1.0"
-toml = "0.5"
+toml = "0.7"
 colored = "2.0"
 clap = {version = "2.29", features = ["yaml"]}
-time = "0.1"
+time = "0.3"
 rustache-lists = "0.1.0"
 serde_derive = "1.0"
 serde = "1.0"
-text_io = "<= 0.1.6"
+text_io = "<0.2"
 git2 = "0.18"
 auth-git2 = "0.5.0"
 tempdir = "0.3"
-dirs = "3.0"
+dirs = "5.0"
 
 [[bin]]
 name = "pi"

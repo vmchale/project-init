@@ -232,7 +232,7 @@ pub fn init_helper(
     hash = hash
         .insert("project", name)
         .insert("Project", name.to_capitalized())
-        .insert("ProjectCamelCase", name.to_camel_case())
+        .insert("ProjectCamelCase", name.to_upper_camel_case())
         .insert("year", year)
         .insert("name", author.name)
         .insert("version", version)
