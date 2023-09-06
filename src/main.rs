@@ -17,7 +17,6 @@ extern crate toml;
 use case::*;
 use clap::{App, AppSettings};
 use colored::*;
-use git2::Repository;
 use project_init::render::*;
 use project_init::types::*;
 use project_init::*;
@@ -175,7 +174,9 @@ fn main() {
 
         // clone into the temporary directory
         let file_path = file.path();
-        match Repository::clone(&url, file_path) {
+
+        let git_auth = auth_git2::GitAuthenticator::default();
+        match git_auth.clone_repo(&url, file_path) {
             Ok(_) => (),
             Err(_) => {
                 eprintln!("{}: failed to clone repo at {}", "Error".red(), url);
