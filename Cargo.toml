@@ -22,7 +22,7 @@ heck = "0.4"
 case = "1.0"
 toml = "0.7"
 colored = "2.0"
-clap = {version = "2.29", features = ["yaml"]}
+clap = { version = "4", features = ["derive"]}
 time = "0.3"
 rustache-lists = "0.1.0"
 serde_derive = "1.0"

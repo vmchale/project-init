@@ -1,7 +1,5 @@
 //! Source file for the binary.
 #[macro_use]
-extern crate clap;
-#[macro_use]
 extern crate text_io;
 
 extern crate case;
@@ -14,8 +12,7 @@ extern crate tempdir;
 extern crate time;
 extern crate toml;
 
-use case::*;
-use clap::{App, AppSettings};
+use case::CaseExt;
 use colored::*;
 use project_init::render::*;
 use project_init::types::*;
@@ -28,6 +25,95 @@ use std::path::Path;
 use std::path::PathBuf;
 use std::process::Command;
 use tempdir::TempDir;
+
+#[derive(clap::Parser)]
+#[clap(name = "Project Init (pi)")]
+#[clap(author = "Vanessa McHale <vamchale@gmail.com>")]
+#[clap(about = "Initialize projects from a template.")]
+#[clap(after_help = "See 'man pi' for more information")]
+struct App {
+    #[clap(subcommand)]
+    command: Subcommand,
+}
+
+#[derive(clap::Subcommand)]
+enum Subcommand {
+    /// Fetch a template from github.
+    #[clap(visible_alias = "g")]
+    Git(GitCommand),
+
+    /// List available templates.
+    ///
+    /// User templates can be added by placing them in `~/.pi_templates`.
+    #[clap(visible_alias = "l")]
+    List,
+
+    /// Update pi (only works on UNIX).
+    #[clap(visible_alias = "u")]
+    Update(UpdateCommand),
+
+    /// Use a template from a folder.
+    #[clap(visible_alias = "i")]
+    Init(InitCommand),
+
+    /// Use a built-in template.
+    #[clap(visible_alias = "n")]
+    New(NewCommand),
+}
+
+#[derive(clap::Parser)]
+struct GitCommand {
+    /// User and repository name where the template is located.
+    #[clap(value_name = "USER/REPO")]
+    repo: String,
+
+    /// Project name to be used for project directory.
+    #[clap(value_name = "NAME")]
+    name: String,
+
+    /// Initialize project even if directory already exists.
+    #[clap(long, short)]
+    force: bool,
+}
+
+#[derive(clap::Parser)]
+struct UpdateCommand {
+    /// Force installation even when binary already exists.
+    #[clap(long, short)]
+    force: bool,
+}
+
+#[derive(clap::Parser)]
+struct InitCommand {
+    /// Directory containing your template, either in the current directory or in `$HOME/.pi_templates/`.
+    #[clap(value_name = "TEMPLATE_DIR")]
+    directory: PathBuf,
+
+    /// Project name to be used for project directory.
+    #[clap(value_name = "NAME")]
+    name: String,
+
+    /// Initialize project even if directory already exists.
+    #[clap(long, short)]
+    force: bool,
+}
+
+#[derive(clap::Parser)]
+struct NewCommand {
+    /// Template to be used
+    ///
+    /// Currently supported are Rust, Haskell, Idris, Elm, Python, Vimscript, Miso, and Julia.
+    #[clap(value_name = "TEMPLATE_DIR")]
+    template: String,
+
+    /// Project name to be used for project directory.
+    #[clap(value_name = "NAME")]
+    name: String,
+
+    /// Initialize project even if directory already exists.
+    #[clap(long, short)]
+    force: bool,
+}
 
 #[cfg(not(target_os = "windows"))]
 use std::os::unix::fs::PermissionsExt;
@@ -50,12 +136,7 @@ fn mk_executable<P: AsRef<Path>>(_: P) -> () {
 #[allow(clippy::print_literal)]
 fn main() {
     // command-line parser
-    let yaml = load_yaml!("options-en.yml");
-    let matches = App::from_yaml(yaml)
-        .version(crate_version!())
-        .set_term_width(80)
-        .setting(AppSettings::SubcommandRequired)
-        .get_matches();
+    let args: App = clap::Parser::parse();
 
     // set path to .pi.toml
     let home = dirs::home_dir().expect("Couldn't determine home directory.");
@@ -84,146 +165,120 @@ fn main() {
     let now = time::OffsetDateTime::now_utc();
     let current_date = format!("{:02}-{:02}-{:04}", now.month() as u8, now.day(), now.year());
 
-    if let Some(x) = matches.subcommand_matches("update") {
-        let force = x.is_present("force");
+    match args.command {
+        Subcommand::Update(args) => {
+            println!("current version: {}", env!("CARGO_PKG_VERSION"));
 
-        println!("current version: {}", crate_version!());
+            let s = if args.force {
+                "curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git vmchale/project-init --force"
+            } else {
+                "curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git vmchale/project-init"
+            };
 
-        let s = if force {
-            "curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git vmchale/project-init --force"
-        } else {
-            "curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git vmchale/project-init"
-        };
+            let script = Command::new("bash")
+                .arg("-c")
+                .arg(s)
+                .output()
+                .expect("failed to execute update script.");
 
-        let script = Command::new("bash")
-            .arg("-c")
-            .arg(s)
-            .output()
-            .expect("failed to execute update script.");
+            let script_string = String::from_utf8(script.stderr).unwrap();
 
-        let script_string = String::from_utf8(script.stderr).unwrap();
+            println!("{}", script_string);
+        },
 
-        println!("{}", script_string);
-    } else if matches.subcommand_matches("list").is_some() {
-        let remote = vec!["vmchale/haskell-ats", "vmchale/madlang-miso"];
-        let builtin = vec![
-            "rust", "vim", "python", "haskell", "idris", "julia", "elm", "miso", "plain", "kmett",
-            "madlang",
-        ];
-        println!("{}", "Remote Templates:".cyan());
-        for b in remote {
-            println!("  - {}", b);
-        }
-        println!();
-        println!("{}", "Builtin Templates:".cyan());
-        for b in builtin {
-            println!("  - {}", b);
-        }
-        let mut p = home;
-        p.push(".pi_templates");
-        println!("{}", "\nUser Templates:".cyan());
-        let iter = std::fs::read_dir(&p);
-        match iter {
-            Ok(x) => {
-                for dir in x {
-                    if let Ok(x) = dir {
-                        if x.path().is_dir()
-                            && x.file_name().to_str().map(|c| c.chars().next().unwrap())
-                                != Some('.')
-                            && x.file_name().to_str().map(|c| c.chars().next().unwrap())
-                                != Some('_')
-                        {
-                            println!("  - {}", x.file_name().to_string_lossy());
+        Subcommand::List => {
+            let remote = vec!["vmchale/haskell-ats", "vmchale/madlang-miso"];
+            let builtin = vec![
+                "rust", "vim", "python", "haskell", "idris", "julia", "elm", "miso", "plain", "kmett",
+                "madlang",
+            ];
+            println!("{}", "Remote Templates:".cyan());
+            for b in remote {
+                println!("  - {}", b);
+            }
+            println!();
+            println!("{}", "Builtin Templates:".cyan());
+            for b in builtin {
+                println!("  - {}", b);
+            }
+            let mut p = home;
+            p.push(".pi_templates");
+            println!("{}", "\nUser Templates:".cyan());
+            let iter = std::fs::read_dir(&p);
+            match iter {
+                Ok(x) => {
+                    for dir in x {
+                        if let Ok(x) = dir {
+                            if x.path().is_dir()
+                                && x.file_name().to_str().map(|c| c.chars().next().unwrap())
+                                    != Some('.')
+                                && x.file_name().to_str().map(|c| c.chars().next().unwrap())
+                                    != Some('_')
+                            {
+                                println!("  - {}", x.file_name().to_string_lossy());
+                            }
+                        } else {
                         }
-                    } else {
                     }
                 }
+                _ => eprintln!("{}: Could not access {}", "Warning".yellow(), p.display()),
             }
-            _ => eprintln!("{}: Could not access {}", "Warning".yellow(), p.display()),
-        }
-    } else if let Some(matches_init) = matches.subcommand_matches("git") {
-        // whether to overwrite
-        let force = matches_init.is_present("force");
+        },
 
-        // get repository name
-        let repo = matches_init
-            .value_of("repo")
-            .expect("Clap failed to supply repository name");
+        Subcommand::Git(args) => {
+            // form the URL
+            let url = format!("https://github.com/{}", args.repo);
 
-        // get project name
-        let name = matches_init
-            .value_of("name")
-            .expect("Clap failed to supply project name");
+            // create a temporary directory to hold the template
+            let dir_name = args.repo.replace("/", "-");
+            let tmp_dir = TempDir::new(&dir_name);
+            let file = match tmp_dir {
+                Ok(t) => t,
+                Err(_) => {
+                    eprintln!("{}: failed to create temporary directory", "Error".red());
+                    std::process::exit(1)
+                }
+            };
 
-        // form the URL
-        let mut url = "https://github.com/".to_string();
-        url.push_str(repo);
+            // clone into the temporary directory
+            let file_path = file.path();
 
-        // create a temporary directory to hold the template
-        let dir_name = repo.replace("/", "-");
-        let tmp_dir = TempDir::new(&dir_name);
-        let file = match tmp_dir {
-            Ok(t) => t,
-            Err(_) => {
-                eprintln!("{}: failed to create temporary directory", "Error".red());
-                std::process::exit(1)
-            }
-        };
+            let git_auth = auth_git2::GitAuthenticator::default();
+            match git_auth.clone_repo(&url, file_path) {
+                Ok(_) => (),
+                Err(_) => {
+                    eprintln!("{}: failed to clone repo at {}", "Error".red(), url);
+                    std::process::exit(1)
+                }
+            };
 
-        // clone into the temporary directory
-        let file_path = file.path();
+            let string_dir = file_path.to_string_lossy().to_string();
+            let mut toml_string = string_dir.clone();
+            toml_string.push_str("/template.toml");
 
-        let git_auth = auth_git2::GitAuthenticator::default();
-        match git_auth.clone_repo(&url, file_path) {
-            Ok(_) => (),
-            Err(_) => {
-                eprintln!("{}: failed to clone repo at {}", "Error".red(), url);
-                std::process::exit(1)
-            }
-        };
+            // get the parsed TOML file from the repo.
+            let (parsed_toml, _) = read_toml_dir(&toml_string, PathBuf::from("."));
 
-        let string_dir = file_path.to_string_lossy().to_string();
-        let mut toml_string = string_dir.clone();
-        toml_string.push_str("/template.toml");
+            // initialize the project
+            init_helper(
+                home,
+                &string_dir,
+                decoded,
+                author,
+                &args.name,
+                now.year(),
+                &current_date,
+                args.force,
+                parsed_toml,
+                false,
+            )
+        },
+        Subcommand::New(args) => {
 
-        // get the parsed TOML file from the repo.
-        let (parsed_toml, _) = read_toml_dir(&toml_string, PathBuf::from("."));
-
-        // initialize the project
-        init_helper(
-            home,
-            &string_dir,
-            decoded,
-            author,
-            name,
-            now.year(),
-            &current_date,
-            force,
-            parsed_toml,
-            false,
-        )
-    } else if let Some(matches_init) = matches.subcommand_matches("new") {
-        let force: bool = matches_init.occurrences_of("force") == 1;
-
-        // get project name
-        let name = matches_init
-            .value_of("name")
-            .expect("Clap failed to supply project name");
-
-        // get project template type
-        let template_str_lower: String = matches_init
-            .value_of("template")
-            .expect("Clap failed to supply project directory")
-            .to_string()
-            .chars()
-            .map(|c| c.to_lowercase().to_string())
-            .collect::<Vec<String>>()
-            .join("");
-
-        let template_str = template_str_lower.as_str();
+        let template_str_lower = args.template.to_lowercase();
 
         // read template.toml
-        let toml_file = match template_str {
+        let toml_file = match template_str_lower.as_str() {
             "rust" => includes::RUST_TEMPLATE,
             "vim" | "vimscript" => includes::VIM_TEMPLATE,
             "python" => includes::PY_TEMPLATE,
@@ -300,8 +355,8 @@ fn main() {
 
         // Make a hash for inserting stuff into templates.
         let hash = HashBuilder::new()
-            .insert("project", name)
-            .insert("Project", name.to_capitalized())
+            .insert("project", args.name.as_str())
+            .insert("Project", args.name.to_capitalized())
             .insert("year", now.year())
             .insert("name", author.name)
             .insert("version", version)
@@ -311,168 +366,154 @@ fn main() {
             .insert("date", current_date);
 
         // check if the directory exists and exit, if we haven't forced an overwrite.
-        if Path::new(name).exists() && !force {
+        if Path::new(&args.name).exists() && !args.force {
             println!(
                 "Path '{}' already exists. Rerun with -f or --force to overwrite.",
-                name
+                args.name
             );
             std::process::exit(0x0f00);
         };
 
         // create directories
-        let _ = fs::create_dir(name);
+        let _ = fs::create_dir(&args.name);
         if let Some(dirs_pre) = parsed_dirs.directories {
-            render_dirs(dirs_pre, &hash, name);
+            render_dirs(dirs_pre, &hash, &args.name);
         }
 
         // Create files.
         let files = if let Some(files_pre) = parsed_dirs.files {
-            render_files(files_pre, &hash, name)
+            render_files(files_pre, &hash, &args.name)
         } else {
             VecBuilder::new()
         };
 
         // create license if it was asked for
         if let Some(lic) = license_contents {
-            render_file(lic, name, "LICENSE", &hash);
+            render_file(lic, &args.name, "LICENSE", &hash);
         }
 
         // render readme if requested
         if let Some(readme) = parsed_toml.with_readme {
             if readme {
-                render_file(includes::README, name, "README.md", &hash);
+                render_file(includes::README, &args.name, "README.md", &hash);
             }
         }
 
         let hash_with_files = HashBuilder::new().insert("files", files);
 
         // render appropriate stuff by name.
-        match template_str {
+        match template_str_lower.as_str() {
             "plain" => (),
 
             "rust" => {
                 let mut bench_path = "benches/".to_string();
-                bench_path.push_str(name);
+                bench_path.push_str(&args.name);
                 bench_path.push_str(".rs");
-                write_file_plain(includes::RUST_LIB, name, "src/lib.rs");
-                write_file_plain(includes::RUST_MAIN, name, "src/main.rs");
-                write_file_plain(includes::RUST_TRAVIS_CI, name, ".travis.yml");
-                write_file_plain(includes::RUST_GITIGNORE, name, ".gitignore");
-                write_file_plain(includes::RUST_BENCHMARKS, name, &bench_path);
-                render_file(includes::CARGO_TOML, name, "Cargo.toml", &hash)
+                write_file_plain(includes::RUST_LIB, &args.name, "src/lib.rs");
+                write_file_plain(includes::RUST_MAIN, &args.name, "src/main.rs");
+                write_file_plain(includes::RUST_TRAVIS_CI, &args.name, ".travis.yml");
+                write_file_plain(includes::RUST_GITIGNORE, &args.name, ".gitignore");
+                write_file_plain(includes::RUST_BENCHMARKS, &args.name, &bench_path);
+                render_file(includes::CARGO_TOML, &args.name, "Cargo.toml", &hash)
             }
 
             "vim" | "vimscript" => {
-                write_file_plain(includes::VIM_GITIGNORE, name, ".gitignore");
-                render_file(includes::VIM_TRAVIS, name, ".travis.yml", &hash_with_files);
-                render_file(includes::VIMBALL, name, "vimball.txt", &hash_with_files)
+                write_file_plain(includes::VIM_GITIGNORE, &args.name, ".gitignore");
+                render_file(includes::VIM_TRAVIS, &args.name, ".travis.yml", &hash_with_files);
+                render_file(includes::VIMBALL, &args.name, "vimball.txt", &hash_with_files)
             }
 
             "python" => {
-                render_file(includes::PY_SETUP, name, "setup.py", &hash);
-                write_file_plain(includes::PY_CFG, name, "setup.cfg");
-                write_file_plain(includes::PY_GITIGNORE, name, ".gitignore");
+                render_file(includes::PY_SETUP, &args.name, "setup.py", &hash);
+                write_file_plain(includes::PY_CFG, &args.name, "setup.cfg");
+                write_file_plain(includes::PY_GITIGNORE, &args.name, ".gitignore");
                 let mut bin_path = "bin/".to_string();
-                bin_path.push_str(name);
-                render_file(includes::PY_BIN, name, &bin_path, &hash);
+                bin_path.push_str(&args.name);
+                render_file(includes::PY_BIN, &args.name, &bin_path, &hash);
             }
 
             "miso" => {
-                write_file_plain(includes::MISO_SETUP_HS, name, "Setup.hs");
-                write_file_plain(includes::MISO_MAIN, name, "app/Main.hs");
-                write_file_plain(includes::MISO_LIB, name, "src/Lib.hs");
-                let mut cabal_path = name.to_string();
-                cabal_path.push_str(".cabal");
-                render_file(includes::MISO_CABAL, name, &cabal_path, &hash);
-                write_file_plain(includes::MISO_GITIGNORE, name, ".gitignore");
-                render_file(includes::MISO_STACK, name, "stack.yaml", &hash);
-                write_file_plain(includes::HLINT_TEMPLATE, name, ".hlint.yaml");
-                write_file_plain(includes::SHAKE_STACK, name, "stack-shake.yaml");
-                write_file_plain(includes::MISO_TRAVIS, name, ".travis.yml");
-                render_file(includes::MISO_SHAKE, name, "shake.hs", &hash);
-                render_file(includes::MISO_HTML, name, "web-src/index.html", &hash);
-                write_file_plain(includes::HASKELL_TRAVIS_CI, name, ".travis.yml");
-                write_file_plain(includes::STYLISH_HASKELL, name, ".stylish-haskell.yaml");
-                let mut shake_path = name.to_string();
-                shake_path.push_str("/shake.hs");
+                write_file_plain(includes::MISO_SETUP_HS, &args.name, "Setup.hs");
+                write_file_plain(includes::MISO_MAIN, &args.name, "app/Main.hs");
+                write_file_plain(includes::MISO_LIB, &args.name, "src/Lib.hs");
+                let cabal_path = format!("{}.cabal", args.name);
+                render_file(includes::MISO_CABAL, &args.name, &cabal_path, &hash);
+                write_file_plain(includes::MISO_GITIGNORE, &args.name, ".gitignore");
+                render_file(includes::MISO_STACK, &args.name, "stack.yaml", &hash);
+                write_file_plain(includes::HLINT_TEMPLATE, &args.name, ".hlint.yaml");
+                write_file_plain(includes::SHAKE_STACK, &args.name, "stack-shake.yaml");
+                write_file_plain(includes::MISO_TRAVIS, &args.name, ".travis.yml");
+                render_file(includes::MISO_SHAKE, &args.name, "shake.hs", &hash);
+                render_file(includes::MISO_HTML, &args.name, "web-src/index.html", &hash);
+                write_file_plain(includes::HASKELL_TRAVIS_CI, &args.name, ".travis.yml");
+                write_file_plain(includes::STYLISH_HASKELL, &args.name, ".stylish-haskell.yaml");
+                let shake_path = format!("{}/shake.hs", args.name);
                 mk_executable(shake_path);
             }
 
             "madlang" | "mad" => {
-                let mut src_path = "src/".to_string();
-                src_path.push_str(name);
-                src_path.push_str(".mad");
-                render_file(includes::MADLANG_SRC, name, &src_path, &hash);
+                let src_path = format!("src/{}.mad", args.name);
+                render_file(includes::MADLANG_SRC, &args.name, &src_path, &hash);
             }
 
             "idris" => {
-                let mut pkg_path = name.to_string();
-                pkg_path.push_str(".ipkg");
-                write_file_plain(includes::IDRIS_GITIGNORE, name, ".gitignore");
-                write_file_plain(includes::IDRIS_CTAGS, name, ".ctags");
-                let mut main_path = name.to_capitalized();
-                main_path.push_str(".idr");
-                render_file(includes::IPKG, name, &pkg_path, &hash);
-                render_file(includes::IPKG_TEST, name, "test.ipkg", &hash);
-                // render_file(includes::IDRIS_EXE, name, &main_path, &hash);
-                render_file(includes::IDRIS_TEST, name, "src/Test/Spec.idr", &hash);
-                let mut lib_path = "src/".to_string();
-                lib_path.push_str(&name.to_capitalized());
-                lib_path.push('/');
-                lib_path.push_str("Lib.idr");
-                render_file(includes::IDRIS_LIB, name, &lib_path, &hash);
+                let pkg_path = format!("{}.ipkg", args.name);
+                write_file_plain(includes::IDRIS_GITIGNORE, &args.name, ".gitignore");
+                write_file_plain(includes::IDRIS_CTAGS, &args.name, ".ctags");
+                render_file(includes::IPKG, &args.name, &pkg_path, &hash);
+                render_file(includes::IPKG_TEST, &args.name, "test.ipkg", &hash);
+                // let main_path = format!("{}.idr", args.name.to_capitalized());
+                // render_file(includes::IDRIS_EXE, args.name, &main_path, &hash);
+                render_file(includes::IDRIS_TEST, &args.name, "src/Test/Spec.idr", &hash);
+                let lib_path = format!("src/{}/Lib.idr", args.name.to_capitalized());
+                render_file(includes::IDRIS_LIB, &args.name, &lib_path, &hash);
             }
 
             "julia" => {
-                write_file_plain(includes::JULIA_REQUIRE, name, "REQUIRE");
-                let mut project_path = "src/".to_string();
-                project_path.push_str(name.to_capitalized().as_str());
-                project_path.push_str(".jl");
-                write_file_plain(includes::JULIA_GITIGNORE, name, ".gitignore");
-                write_file_plain(includes::JULIA_SRC, name, &project_path);
-                write_file_plain(includes::JULIA_TEST, name, "test/test.jl");
+                write_file_plain(includes::JULIA_REQUIRE, &args.name, "REQUIRE");
+                let project_path = format!("src/{}.jl", args.name.to_capitalized());
+                write_file_plain(includes::JULIA_GITIGNORE, &args.name, ".gitignore");
+                write_file_plain(includes::JULIA_SRC, &args.name, &project_path);
+                write_file_plain(includes::JULIA_TEST, &args.name, "test/test.jl");
             }
 
             "ats" => {
-                write_file_plain(includes::ATS_CTAGS, name, ".ctags");
-                let mut src_path = "src/".to_string();
-                src_path.push_str(name);
-                src_path.push_str(".dats");
-                render_file(includes::ATS_SRC, name, &src_path, &hash);
-                write_file_plain(includes::ATS_FORMAT, name, ".atsfmt.toml");
-                write_file_plain(includes::ATS_TRAVIS, name, ".clang-format");
-                render_file(includes::ATS_PKG, name, "atspkg.dhall", &hash);
-                render_file(includes::ATS_LIB, name, "pkg.dhall", &hash);
-                render_file(includes::ATS_TRAVIS, name, ".travis.yml", &hash);
-                render_file(includes::ATS_GITIGNORE, name, ".gitignore", &hash);
+                write_file_plain(includes::ATS_CTAGS, &args.name, ".ctags");
+                let src_path = format!("src/{}.dats", args.name);
+                render_file(includes::ATS_SRC, &args.name, &src_path, &hash);
+                write_file_plain(includes::ATS_FORMAT, &args.name, ".atsfmt.toml");
+                write_file_plain(includes::ATS_TRAVIS, &args.name, ".clang-format");
+                render_file(includes::ATS_PKG, &args.name, "atspkg.dhall", &hash);
+                render_file(includes::ATS_LIB, &args.name, "pkg.dhall", &hash);
+                render_file(includes::ATS_TRAVIS, &args.name, ".travis.yml", &hash);
+                render_file(includes::ATS_GITIGNORE, &args.name, ".gitignore", &hash);
             }
 
             "haskell" | "kmett" => {
-                write_file_plain(includes::SETUP_HS, name, "Setup.hs");
-                write_file_plain(includes::MAIN, name, "app/Main.hs");
-                render_file(includes::LIB, name, "src/Lib.hs", &hash);
-                write_file_plain(includes::BENCH, name, "bench/Bench.hs");
-                write_file_plain(includes::TEST, name, "test/Spec.hs");
-                write_file_plain(includes::HLINT_TEMPLATE, name, ".hlint.yaml");
-                write_file_plain(includes::STYLISH_HASKELL, name, ".stylish-haskell.yaml");
-                render_file(includes::DEFAULT_NIX, name, "default.nix", &hash);
-                render_file(includes::RELEASE_NIX, name, "release.nix", &hash);
-                let mut cabal_path = name.to_string();
-                cabal_path.push_str(".cabal");
-                if template_str == "haskell" {
-                    render_file(includes::CABAL, name, &cabal_path, &hash);
+                write_file_plain(includes::SETUP_HS, &args.name, "Setup.hs");
+                write_file_plain(includes::MAIN, &args.name, "app/Main.hs");
+                render_file(includes::LIB, &args.name, "src/Lib.hs", &hash);
+                write_file_plain(includes::BENCH, &args.name, "bench/Bench.hs");
+                write_file_plain(includes::TEST, &args.name, "test/Spec.hs");
+                write_file_plain(includes::HLINT_TEMPLATE, &args.name, ".hlint.yaml");
+                write_file_plain(includes::STYLISH_HASKELL, &args.name, ".stylish-haskell.yaml");
+                render_file(includes::DEFAULT_NIX, &args.name, "default.nix", &hash);
+                render_file(includes::RELEASE_NIX, &args.name, "release.nix", &hash);
+                let cabal_path = format!("{}.cabal", args.name);
+                if template_str_lower == "haskell" {
+                    render_file(includes::CABAL, &args.name, &cabal_path, &hash);
                 } else {
-                    render_file(includes::KMETT, name, &cabal_path, &hash);
+                    render_file(includes::KMETT, &args.name, &cabal_path, &hash);
                 }
-                write_file_plain(includes::HASKELL_GITIGNORE, name, ".gitignore");
-                write_file_plain(includes::RELEASE_NIX, name, "release.nix");
-                write_file_plain(includes::HSPEC, name, ".hspec");
-                write_file_plain(includes::HS_GITATTRIBUTES, name, ".gitattributes");
-                render_file(includes::STACK_YAML, name, "stack.yaml", &hash);
-                render_file(includes::CABAL_PROJECT, name, "cabal.project.local", &hash);
-                render_file(includes::HASKELL_TRAVIS_CI, name, ".travis.yml", &hash);
-                render_file(includes::HASKELL_APPVEYOR, name, "appveyor.yml", &hash);
-                render_file(includes::HS_CHANGELOG, name, "CHANGELOG.md", &hash);
+                write_file_plain(includes::HASKELL_GITIGNORE, &args.name, ".gitignore");
+                write_file_plain(includes::RELEASE_NIX, &args.name, "release.nix");
+                write_file_plain(includes::HSPEC, &args.name, ".hspec");
+                write_file_plain(includes::HS_GITATTRIBUTES, &args.name, ".gitattributes");
+                render_file(includes::STACK_YAML, &args.name, "stack.yaml", &hash);
+                render_file(includes::CABAL_PROJECT, &args.name, "cabal.project.local", &hash);
+                render_file(includes::HASKELL_TRAVIS_CI, &args.name, ".travis.yml", &hash);
+                render_file(includes::HASKELL_APPVEYOR, &args.name, "appveyor.yml", &hash);
+                render_file(includes::HS_CHANGELOG, &args.name, "CHANGELOG.md", &hash);
             }
 
             _ => std::process::exit(0x0f01),
@@ -481,10 +522,10 @@ fn main() {
         // initialize version control
         if let Some(vc) = decoded.version_control {
             match vc.as_str() {
-                "git" => repo::git_init(name),
-                "hg" | "mercurial" => repo::hg_init(name),
-                "pijul" => repo::pijul_init(name),
-                "darcs" => repo::darcs_init(name),
+                "git" => repo::git_init(&args.name),
+                "hg" | "mercurial" => repo::hg_init(&args.name),
+                "pijul" => repo::pijul_init(&args.name),
+                "darcs" => repo::darcs_init(&args.name),
                 _ => {
                     eprintln!(
                         "{}: version control {} is not yet supported. Supported version control tools are darcs, pijul, mercurial, and git.",
@@ -496,36 +537,26 @@ fn main() {
         }
 
         // Print that we're done
-        println!("Finished initializing project in {}/", name);
-    } else if let Some(matches_init) = matches.subcommand_matches("init") {
-        let force: bool = matches_init.occurrences_of("force") == 1;
-
-        // get project name
-        let name = matches_init
-            .value_of("name")
-            .expect("Failed to supply project name");
-
-        // get project directory
-        let project_dir = matches_init
-            .value_of("directory")
-            .expect("Failed to supply project directory");
-
+        println!("Finished initializing project in {}/", args.name);
+    },
+    Subcommand::Init(args) => {
+        let project_dir = args.directory.to_string_lossy();
         // read template.toml for template
-        let mut template_path = project_dir.to_string();
-        template_path.push_str("/template.toml");
+        let template_path = format!("{}/template.toml", project_dir);
         let (parsed_toml, is_global_project) = read_toml_dir(&template_path, home.clone());
 
         init_helper(
             home,
-            project_dir,
+            &project_dir,
             decoded,
             author,
-            name,
+            &args.name,
             now.year(),
             &current_date,
-            force,
+            args.force,
             parsed_toml,
             is_global_project,
         )
+    },
     }
 }
